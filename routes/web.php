@@ -29,6 +29,11 @@ Route::get('/term', function () {
     return view('components.term_condition');
 });
 
+//contact route
+Route::get('/contact', function () {
+    return view('components.contact-us');
+});
+
 Route::get('/logout', [LogoutController::class, 'logout']);
 
 
