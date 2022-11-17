@@ -107,12 +107,6 @@
         </div>
     </section> --}}
 @include('components.navbar')
-
-    <section class="h-[2014px] bg-[#FFFCF0]">
-        <div class="">
-
-        </div>
-    </section>
 </body>
 
 </html>
