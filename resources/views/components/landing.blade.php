@@ -22,7 +22,7 @@
             <div class="section-serve-content-text w-[430px] text-[#282222] flex flex-col space-y-[64px]">
                 <h1 class="h-[120px] w-[362px] font-semibold text-[40px]">We serve the best of humanity</h1>
 
-                <h2 class="h-[120px] w-[562px] font-medium text-[20px] text-justify">Merry Meals service works virtually throughout the region of the Indonesia archipelago. Our staff and volunteers will prioritize being in areas where there are many vulnerable and disabled people.</h2>
+                <h2 class="h-[120px] w-[562px] font-medium text-[20px] text-justify">Merry Meals service works virtually throughout the region of the Indonesia archipelago. Our staff and volunteers will prioritize being in areas where there are many vulnerable and people with disability.</h2>
 
                 <a href=""><button class="bg-[#FFFCF0] border-2 border-[#A07C00] text-[16px] text-[#A07C00] h-[63px] w-[370px] hover:scale-105 duration-500">Learn more about Merry Meals</button></a>
             </div> <!-- section-serve-content-text -->
