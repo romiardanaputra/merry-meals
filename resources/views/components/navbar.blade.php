@@ -8,7 +8,7 @@
 </head>
 
 <body class="font-poppins">
-  <header class="bg-navbar bg-[#FFFCF0] h-[211px] flex flex-col w-full fixed z-10">
+  <header class="bg-navbar bg-[#FFFCF0] h-[211px] flex flex-col w-full sticky top-0 z-10">
     <div class="navbar-top bg-[#FFFCF0] h-[149px] flex flex-row justify-between py-[25px] px-[147px]">
 
       <div class="logo flex flex-row space-x-[37px] ">
@@ -17,7 +17,7 @@
         </div> <!-- logo-image -->
 
         <div class="flex flex-row items-center">
-          <div class="logo-name flex flex-col text-[#EDB01C] font-semibold h-[73px] w-[340px] space-y-[-15px]">
+          <div class="logo-name flex flex-col text-[#EDB01C] font-semibold h-[73px] w-[500px] space-y-[-15px]">
             <h1 class="text-[36px] tracking-[10px] w-full">MERRY MEAL</h1>
             <h2 class="text-[24px] tracking-[7px] w-full">MEALS ON WHEELS</h2>
           </div> <!-- logo-name -->
