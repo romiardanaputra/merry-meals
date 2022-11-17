@@ -12,8 +12,8 @@
 @include('components.navbar')
 
     <!-- content1 -->
-    <div class="bg-[#FFE383] font-Poppins text-[#282222] h-[490px] flex justify-center">
-        <div class="w-[504px] h-[150px] mx-auto mt-[100px]">
+    <div class="bg-[#FFE383] font-Poppins text-[#282222] h-[490px] flex justify-between pl-[147px]">
+        <div class="w-[504px] h-[150px] mt-[100px]">
             <h1 class="font-Poppins text-[64px] text-[#282222] font-bold">Our Mission</h1>
             <p class="font-Poppins text-[20px] text-[#282222] text-justify">The most vulnerable elderly and individuals with disabilities in Indonesia are presently confronting extreme food insecurity. Merry Meal continues to expand to satisfy the rising need for healthy and inexpensive meals.</p>
         </div>
