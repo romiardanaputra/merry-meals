@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
-    @vite('resources/css/app.css')
+
 </head>
 <body class="font-poppins">
     @include('components.navbar')
@@ -24,7 +24,7 @@
 
                 <h2 class="h-[120px] w-[562px] font-medium text-[20px] text-justify">Merry Meals service works virtually throughout the region of the Indonesia archipelago. Our staff and volunteers will prioritize being in areas where there are many vulnerable and disabled people.</h2>
 
-                <a href=""><button class="bg-[#FFFCF0] border-2 border-[#A07C00] text-[16px] text-[#A07C00] h-[63px] w-[370px]">Learn more about Merry Meals</button></a>
+                <a href=""><button class="bg-[#FFFCF0] border-2 border-[#A07C00] text-[16px] text-[#A07C00] h-[63px] w-[370px] hover:scale-105 duration-500">Learn more about Merry Meals</button></a>
             </div> <!-- section-serve-content-text -->
 
             <div class="section-serve-content-image h-[430px] w-[644px]">
@@ -43,9 +43,9 @@
     <div class="section-charity bg-[#FFFDF6] h-[1037px] w-full py-[222px] px-[147px] flex justify-center items-center">
         <div class="section-charity-content h-[593px] w-[1144px] flex flex-col justify-center items-center space-y-[71px] text-[#282222] text-center">
             <h1 class="h-[120px] w-[358px] font-semibold text-[40px]">Charity is an act of a soft heart</h1>
-            <h2 class="h-[60px] w-[1144px] text-[20px]">Merry Meal is a humanitarian platform that carries the concept of sharing for fellow human beings. <br> Through Merry Meal, you can donate to whom that need the most. Let’s start your action of help!</h2>
+            <h2 class="h-[60px] w-[1144px] text-[20px]">Merry Meal is a humanitarian platform that carries the concept of sharing for fellow human beings. <br> Through Merry Meal, you can donate to whom that need the most. Let’s start your action of help! </h2>
 
-            <a href="" class="font-semibold"><button style="background: linear-gradient(180deg, #FFCE01 0%, #FFA800 100%);" class="h-[271px] w-[271px] text-[40px] text-[#FFFDF6] py-[75px] px-[61px]">Donate Now <i class="fa-solid fa-right-long"></i></button></a>
+            <a href="" class="font-semibold"><button class="h-[271px] w-[271px] text-[40px] text-[#FFFDF6] py-[75px] px-[61px] bg-gradient-to-t from-[#FFA800] to-[#FFCE01] hover:scale-105 duration-500 text-justify">Donate Now <i class="fa fa-solid fa-right-long"></i></button></a>
         </div> <!-- section-charity-content -->
     </div> <!-- section-charity -->
 
