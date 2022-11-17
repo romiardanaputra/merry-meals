@@ -5,8 +5,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   @vite('resources/css/app.css')
-
-
 </head>
 
 <body class="font-poppins">
@@ -27,8 +25,17 @@
       </div> <!-- logo -->
 
       <div class="nav-login-register flex flex-row my-auto space-x-[18.57px] text-[#282222]">
-        <a href=""><button class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">SIGN IN</button></a>
-        <a href=""><button class="bg-[#FFCE01] h-[47px] w-[115.61px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">JOIN</button></a>
+        @auth
+          <a href="#"><button class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">{{ auth()->user()->username }}</button></a>
+          <form action="/logout" method="POST">
+            @csrf
+            <a href="#"><button type="submit" class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">LOGOUT</button></a>
+          </form>
+            @else
+          <a href="/login"><button class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">SIGN IN</button></a>
+          <a href="/register"><button class="bg-[#FFCE01] h-[47px] w-[115.61px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">JOIN</button></a>
+        @endauth
+     
       </div> <!-- nav-login-register -->
 
     </div> <!-- navbar-top -->

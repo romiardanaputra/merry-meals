@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  @vite('resources/css/app.css')
 </head>
+
 <body class="font-poppins">
-    <footer class="bg-footer h-[754px] bg-[#FFDE6C] flex flex-col w-full">
+  <footer class="bg-footer h-[754px] bg-[#FFDE6C] flex flex-col w-full">
 
     <div class="footer px-[90px] py-[334px] bg-[#FFDE6C]">
       <div class="footer-content flex flex-row h-[245px] w-full justify-between items-center">
@@ -16,7 +19,8 @@
             <img src="images/MerryMealLogo-02.png" alt="logo_image" class="h-[64px] w-[64px]">
           </div> <!-- f-c-logo-image -->
 
-          <div class="f-c-logo-name flex flex-col text-[#282222] font-semibold h-[73px] w-[321px] space-y-[10px] py-[15px]">
+          <div
+            class="f-c-logo-name flex flex-col text-[#282222] font-semibold h-[73px] w-[321px] space-y-[10px] py-[15px]">
             <h1 class="text-[36px] tracking-[10px]">MERRY MEAL</h1>
             <h2 class="text-[24px] tracking-[7px]">MEALS ON WHEELS</h2>
           </div> <!-- f-c-logo-name -->
@@ -38,7 +42,8 @@
             </div> <!-- footer-content-register-heading -->
 
             <div class="footer-content-register-button">
-              <a href=""><button class="h-[44px] w-[195px] bg-[#282222] text-[#FFFDF6] text-[16px]">Register</button></a>
+              <a href=""><button
+                  class="h-[44px] w-[195px] bg-[#282222] text-[#FFFDF6] text-[16px]">Register</button></a>
             </div> <!-- footer-content-register-button -->
           </div> <!-- footer-content-register -->
         </div> <!-- footer-content-navigation -->
@@ -46,10 +51,11 @@
       </div> <!-- footer-content -->
     </div> <!-- footer -->
 
-    <div class="footer-copyright w-fit px-[290px] mt-[-70px]">        
+    <div class="footer-copyright w-fit px-[290px] mt-[-70px]">
       <h1>&copy; 2022 All Rights Reserved | Merry Meal</h1>
     </div> <!-- footer-copyright -->
-      
-    </footer> <!-- bg-footer -->
+
+  </footer> <!-- bg-footer -->
 </body>
+
 </html>

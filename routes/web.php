@@ -2,29 +2,38 @@
 
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TermController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\DonationController;
 use App\Http\Controllers\RegisterController;
 
+// admin route
+Route::prefix('/admin')->middleware('auth', 'isAdmin')->group(function(){
+    Route::get('/', [AdminController::class, 'index']);
+});
 
+// dashboard user route
+Route::prefix('/user')->middleware('auth', 'isCaregiver')->group(function(){
+    Route::get('/dashboard', [LandingController::class, 'showDashboard']);
+});
 
 // registration route
-Route::get('/register', [RegisterController::class, 'index']);
-Route::post('/register', [RegisterController::class, 'store_data']);
+Route::prefix('/register')->group(function(){
+    Route::get('/', [RegisterController::class, 'index'])->middleware('guest');
+    Route::post('/', [RegisterController::class, 'store_data']);
+});
+
 
 // login route
-Route::get('/login', [LoginController::class, 'index']);
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::prefix('/login')->group(function(){
+    Route::get('/', [LoginController::class, 'index']);
+    Route::post('/', [LoginController::class, 'authenticate']);
+});
+
 
 // landing route
 Route::get('/', [LandingController::class, 'index']);
 
-// terms and condition route
-Route::get('/term_condition', [TermController::class, 'index']);
-
-//about route
+//term route
 Route::get('/term', function () {
     return view('components.term_condition');
 });
@@ -34,7 +43,8 @@ Route::get('/contact', function () {
     return view('components.contact-us');
 });
 
-Route::get('/logout', [LogoutController::class, 'logout']);
+// logout route
+Route::post('/logout', [LogoutController::class, 'logout']);
 
 
 

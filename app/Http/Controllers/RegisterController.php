@@ -24,6 +24,9 @@ class RegisterController extends Controller
             'username' => 'bail | required | max:100 | min:3 | unique:users',   
             'email_user' => 'bail | required | max:100 | email:dns,rfc | unique:users',
             'password' => 'bail | required | max:100 | min:6',
+            'phone_number' => 'bail | required | min_digits:10 | max_digits:14 | unique:users',
+            'role' => 'bail | required',
+            'address' => 'bail | required'
         ]);
 
         // encrypt password 
