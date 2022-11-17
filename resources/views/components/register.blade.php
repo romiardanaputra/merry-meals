@@ -9,8 +9,8 @@
     <title>Merry Meals | {{ $title }}</title>
 </head>
 
-<body>
-    <section class="font-sans h-screen flex items-center justify-center">
+<body class="font-poppins">
+    {{-- <section class="font-sans h-screen flex items-center justify-center">
         <div class="form-section container mx-auto">
             <div class="max-w-full h-full">
                 <form action="/register" method="POST" class="shadow-lg w-1/2 rounded-lg m-auto">
@@ -104,6 +104,13 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </section> --}}
+@include('components.navbar')
+
+    <section class="h-[2014px] bg-[#FFFCF0]">
+        <div class="">
+
         </div>
     </section>
 </body>
