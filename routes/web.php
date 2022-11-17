@@ -52,5 +52,8 @@ Route::get('/about', function () {
 // logout route
 Route::post('/logout', [LogoutController::class, 'logout']);
 
-
+// donate before login route
+Route::get('/donate_before_login', function () {
+    return view('components.donate_before_login');
+});
 
