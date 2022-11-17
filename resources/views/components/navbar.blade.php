@@ -43,7 +43,7 @@
     <div class="navbar-bottom bg-[#FFCE01] flex flex-row justify-center">
       <div class="nav w-max h-full">
         <a href="/"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">HOME</button></a>
-        <a href=""><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">ABOUT</button></a>
+        <a href="/about"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">ABOUT</button></a>
         <a href="/contact"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">CONTACT</button></a>
         <a href="/term"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">TERMS & CONDITIONS</button></a>
         <a href=""><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">DONATE</button></a>

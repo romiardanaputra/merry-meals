@@ -14,7 +14,7 @@
 
     <div class="flex justify-center w-[1145px] h-[989] bg-[#FFEEB1] m-auto my-[50px]">
         <div class="w-[985px] h-[506px] overflow-y-auto">
-            <h1 class="font-Poppins text-[40px] text-[#282222]">Terms & Conditions</h1>
+            <h1 class="font-Poppins text-[40px] text-[#282222] font-bold">Terms & Conditions</h1>
 
             <p class="font-Poppins text-[16px] text-[#282222] mt-[20px]"> 
                 Welcome to MerryMeal!

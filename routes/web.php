@@ -40,7 +40,12 @@ Route::get('/term', function () {
 
 //contact route
 Route::get('/contact', function () {
-    return view('components.contact-us');
+    return view('components.contactUs');
+});
+
+//about route
+Route::get('/about', function () {
+    return view('components.about');
 });
 
 // logout route
