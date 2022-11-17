@@ -46,7 +46,7 @@
         <a href="/about"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">ABOUT</button></a>
         <a href="/contact"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">CONTACT</button></a>
         <a href="/term"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">TERMS & CONDITIONS</button></a>
-        <a href=""><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">DONATE</button></a>
+        <a href="/donate_before_login"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">DONATE</button></a>
       </div> <!-- nav -->
     </div> <!-- navbar-bottom -->
   </header> <!-- bg-navbar -->
