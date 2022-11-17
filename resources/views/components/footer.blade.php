@@ -20,7 +20,7 @@
           </div> <!-- f-c-logo-image -->
 
           <div
-            class="f-c-logo-name flex flex-col text-[#282222] font-semibold h-[73px] w-[321px] space-y-[10px] py-[15px]">
+            class="f-c-logo-name flex flex-col text-[#282222] font-semibold h-[73px] w-[340px] space-y-[10px] py-[15px]">
             <h1 class="text-[36px] tracking-[10px] w-full">MERRY MEAL</h1>
             <h2 class="text-[24px] tracking-[7px] w-full">MEALS ON WHEELS</h2>
           </div> <!-- f-c-logo-name -->
