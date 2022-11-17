@@ -29,9 +29,9 @@
         <div class="footer-content-navigation flex flex-row p-[57px] space-x-[57px] items-center">
           <div class="footer-content-company flex flex-col text-[#282222] text-[16px] space-y-[17px]">
             <h1 class="font-bold">Company</h1>
-            <a href="">About Us</a>
-            <a href="">Contact Us</a>
-            <a href="">Terms & Conditions</a>
+            <a href="" class="hover:scale-105 duration-500">About Us</a>
+            <a href="" class="hover:scale-105 duration-500">Contact Us</a>
+            <a href="" class="hover:scale-105 duration-500">Terms & Conditions</a>
           </div> <!-- footer-content-company -->
 
           <div class="vertical-line border-[1px] h-[245px] border-[#282222]"></div>
@@ -43,7 +43,7 @@
 
             <div class="footer-content-register-button">
               <a href=""><button
-                  class="h-[44px] w-[195px] bg-[#282222] text-[#FFFDF6] text-[16px]">Register</button></a>
+                  class="h-[44px] w-[195px] bg-[#282222] text-[#FFFDF6] text-[16px] hover:scale-105 duration-500">Register</button></a>
             </div> <!-- footer-content-register-button -->
           </div> <!-- footer-content-register -->
         </div> <!-- footer-content-navigation -->
