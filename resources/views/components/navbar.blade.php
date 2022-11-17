@@ -8,7 +8,7 @@
 </head>
 
 <body class="font-poppins">
-  <header class="bg-navbar bg-[#FFFCF0] h-[211px] flex flex-col w-full fixed z-10 container">
+  <header class="bg-navbar bg-[#FFFCF0] h-[211px] flex flex-col w-full fixed z-10">
     <div class="navbar-top bg-[#FFFCF0] h-[149px] flex flex-row justify-between py-[25px] px-[147px]">
 
       <div class="logo flex flex-row space-x-[37px] ">
