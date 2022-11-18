@@ -12,7 +12,7 @@ class LoginController extends Controller
     {
         return view('components.login', [
             "name_content" => "Sign In",
-            "title" => "Sign In"
+            "title" => "Sign In",
         ]);
     }
 

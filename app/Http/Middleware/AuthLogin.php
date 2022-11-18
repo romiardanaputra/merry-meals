@@ -23,26 +23,21 @@ class AuthLogin
                 case 'admin':
                     $role = 'admin';
                     return $next($request);
-
                     break;
                 case 'caregiver':
                     $role = 'caregiver';
                     return $next($request);
-
                     break;
                 case 'volunteer':
                     $role = 'volunteer';
                     return $next($request);
-
                     break;
                 case 'member':
                     $role = 'member';
                     return $next($request);
-
                     break;
                 default:
-                    return $next($request);
-
+                    return redirect()->route('/login')->with('access_denied', 'access denied!');
                     break;
             }
         }
