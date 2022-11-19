@@ -19,7 +19,7 @@
                 <h1 class="font-semibold text-[40px]">Welcome</h1>
                 <p class="text-[16px] w-full text-justify break-words tracking-tighter">Create your account to be a
                     member, volunteer, and caregiver</p>
-                <a href=""><button
+                <a href="{{ route('login') }}"><button
                         class="w-full h-[37.53px] bg-[#A07C00] text-[#FFFCF0] text-[16px] hover:scale-105 duration-500">Login</button></a>
             </div> <!-- form-register-text -->
 

@@ -42,11 +42,11 @@
 
     <div class="navbar-bottom bg-[#FFCE01] flex flex-row justify-center">
       <div class="nav w-max h-full">
-        <a href="{{ route('landing.page') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">HOME</button></a>
-        <a href="{{ route('about') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">ABOUT</button></a>
-        <a href="{{ route('contact') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">CONTACT</button></a>
-        <a href="{{ route('term') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">TERMS & CONDITIONS</button></a>
-        <a href="{{ route('donation') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">DONATE</button></a>
+        <a href="{{ route('landing.page') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">HOME</button></a>
+        <a href="{{ route('about') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('about') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">ABOUT</button></a>
+        <a href="{{ route('contact') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('contact') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">CONTACT</button></a>
+        <a href="{{ route('term') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('term') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">TERMS & CONDITIONS</button></a> 
+        <a href="{{ route('donation') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate_before_login') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
       </div> <!-- nav -->
     </div> <!-- navbar-bottom -->
   </header> <!-- bg-navbar -->

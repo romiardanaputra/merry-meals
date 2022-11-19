@@ -48,7 +48,7 @@
     <div class="bg-constribution bg-[#FFFCF0] w-full h-fit py-[216px] px-[147px]">
         <div class="constribution text-[#282222] text-center flex flex-col space-y-[84px] w-full">
             <div class="constribution-text">                
-                <h1 class="font-semibold text-[40px]">Our contributions on communities</h1>
+                <h1 class="font-semibold qtext-[40px]">Our contributions on communities</h1>
             </div>
 
             <div class="constribution-icons w-full h-fit flex flex-row justify-between">
