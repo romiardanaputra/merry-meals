@@ -24,14 +24,14 @@
             </div> <!-- form-register-text -->
 
             <div class="form-register-fields w-full">
-                <form action="{{ route('registration.store') }}" class="flex flex-col space-y-[24px]">
+                <form action="{{ route('registration.store') }}" class="flex flex-col space-y-[24px]" method="POST">
                     @csrf
                     <div class="flex flex-row space-x-[45px]">
                         <div class="text-gray-500 w-1/2">
                             <label for="full-name">Full Name*</label>
                             <input type="text"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('full_name')@enderror"
-                                name="full_name">
+                                name="full_name" required>
 
                             @error('full_name')
                             <p class="text-red-500">{{ $message }}</p>
@@ -42,7 +42,7 @@
                             <label for="username">Username*</label>
                             <input type="text"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('usernmae')@enderror"
-                                name="username">
+                                name="username" required>
 
                             @error('username')
                             <p class="text-red-500">{{ $message }}</p>
@@ -55,7 +55,7 @@
                             <label for="email">Email*</label>
                             <input type="email"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('email')@enderror"
-                                name="email">
+                                name="email" required>
 
                             @error('email')
                             <p class="text-red-500">{{ $message }}</p>
@@ -66,7 +66,7 @@
                             <label for="phone-number">Phone Number*</label>
                             <input type="text"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('phone_number')@enderror"
-                                name="phone_number">
+                                name="phone_number" required>
 
                             @error('phone_number')
                             <p class="text-red-500">{{ $message }}</p>
@@ -79,7 +79,7 @@
                             <label for="age">Age (yr)*</label>
                             <input type="number"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('age')@enderror"
-                                name="age">
+                                name="age" required>
 
                             @error('age')
                             <p class="text-red-500">{{ $message }}</p>
@@ -90,7 +90,7 @@
                             <label for="role">Register as*</label>
                             <select
                                 class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('role')@enderror"
-                                id="role" name="role">
+                                id="role" name="role" required>
                                 <option class="block">Please select your role</option>
                                 <option>Member</option>
                                 <option>Volunteer</option>
@@ -108,7 +108,7 @@
                             <label for="address">Address*</label>
                             <input type="text"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('address')@enderror"
-                                name="address">
+                                name="address" required>
 
                             @error('address')
                             <p class="text-red-500">{{ $message }}</p>
@@ -121,7 +121,7 @@
                             <label for="password">Password*</label>
                             <input type="password"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('password')@enderror"
-                                name="password">
+                                name="password" required>
 
                             @error('password')
                             <p class="text-red-500">{{ $message }}</p>
@@ -132,7 +132,7 @@
                             <label for="confirm-password">Confirm Password*</label>
                             <input type="password"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('confirm_password')@enderror"
-                                name='confirm_password'>
+                                name='confirm_password' required>
 
                             @error('confirm_password')
                             <p class="text-red-500">{{ $message }}</p>

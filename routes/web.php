@@ -37,17 +37,17 @@ Route::get('/', [LandingController::class, 'index'])->name('landing.page');
 //term route
 Route::get('/term', function () {
     return view('components.term_condition');
-});
+})->name('term');
 
 //contact route
 Route::get('/contact', function () {
     return view('components.contactUs');
-});
+})->name('contact');
 
 //about route
 Route::get('/about', function () {
     return view('components.about');
-});
+})->name('about');
 
 // logout route
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
@@ -55,4 +55,4 @@ Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 // donate before login route
 Route::get('/donate_before_login', function () {
     return view('components.donate_before_login');
-});
+})->name('donation');

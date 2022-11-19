@@ -27,13 +27,13 @@
       <div class="nav-login-register flex flex-row my-auto space-x-[18.57px] text-[#282222]">
         @auth
           <a href="#"><button class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">{{ auth()->user()->username }}</button></a>
-          <form action="/logout" method="POST">
+          <form action="{{ route('logout') }}" method="POST">
             @csrf
             <a href="#"><button type="submit" class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">LOGOUT</button></a>
           </form>
             @else
-          <a href="/login"><button class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">SIGN IN</button></a>
-          <a href="/register"><button class="bg-[#FFCE01] h-[47px] w-[115.61px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">JOIN</button></a>
+          <a href="{{ route('login') }}"><button class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">SIGN IN</button></a>
+          <a href="{{ route('registration.landing') }}"><button class="bg-[#FFCE01] h-[47px] w-[115.61px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">JOIN</button></a>
         @endauth
      
       </div> <!-- nav-login-register -->
@@ -42,11 +42,11 @@
 
     <div class="navbar-bottom bg-[#FFCE01] flex flex-row justify-center">
       <div class="nav w-max h-full">
-        <a href="/"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">HOME</button></a>
-        <a href="/about"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">ABOUT</button></a>
-        <a href="/contact"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">CONTACT</button></a>
-        <a href="/term"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">TERMS & CONDITIONS</button></a>
-        <a href="/donate_before_login"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">DONATE</button></a>
+        <a href="{{ route('landing.page') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">HOME</button></a>
+        <a href="{{ route('about') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">ABOUT</button></a>
+        <a href="{{ route('contact') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">CONTACT</button></a>
+        <a href="{{ route('term') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">TERMS & CONDITIONS</button></a>
+        <a href="{{ route('donation') }}"><button class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500">DONATE</button></a>
       </div> <!-- nav -->
     </div> <!-- navbar-bottom -->
   </header> <!-- bg-navbar -->

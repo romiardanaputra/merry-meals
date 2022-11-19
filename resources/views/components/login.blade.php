@@ -22,7 +22,7 @@
             </div> <!-- form-login-text -->
 
             <div class="form-login-fields h-fit w-full">
-                <form action="{{ route('login.authenticate') }}">
+                <form action="{{ route('login.authenticate') }}" method="POST">
                     @csrf
                     {{--authentication allert success --}}
                     @if (session()->has('success'))
@@ -56,7 +56,7 @@
                             <label for="email">Email*</label>
                             <input type="email"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('email')@enderror"
-                                name="email">
+                                name="email" required>
 
                             @error('email')
                             <p class="text-red-500">{{ $message }}</p>
@@ -67,7 +67,7 @@
                             <label for="password">Password*</label>
                             <input type="password"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('email')@enderror"
-                                name="password">
+                                name="password" required>
 
                             @error('password')
                             <p class="text-red-500">{{ $message }}</p>
