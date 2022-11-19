@@ -12,7 +12,7 @@
 @include('components.navbar')
 
     <!-- content1 -->
-    <div class="bg-[#FFE383] font-Poppins text-[#282222] h-[490px] flex justify-between pl-[147px]">
+    <div class="bg-[#FFE383] font-Poppins text-[#282222] h-[490px] flex justify-between pl-[147px] leading-relaxed">
         <div class="w-[504px] h-[150px] mt-[100px]">
             <h1 class="font-Poppins text-[64px] text-[#282222] font-bold">Our Mission</h1>
             <p class="font-Poppins text-[20px] text-[#282222] text-justify">The most vulnerable elderly and individuals with disabilities in Indonesia are presently confronting extreme food insecurity. Merry Meal continues to expand to satisfy the rising need for healthy and inexpensive meals.</p>
@@ -24,7 +24,7 @@
     </div>
 
     <!-- content2 -->
-    <div class="bg-[#FFFCF0] w-full h-fit flex flex-col justify-center font-Poppins text-[#282222] px-[147px] pt-[163px]">
+    <div class="bg-[#FFFCF0] w-full h-fit flex flex-col justify-center font-Poppins text-[#282222] px-[147px] pt-[163px] leading-relaxed">
         <div class="w-full flex flex-col justify-center">
             <h1 class="text-[40px] font-bold mb-[30px]">
                 What is Merry Meal
@@ -45,7 +45,7 @@
     </div>
 
     <!-- content3 -->
-    <div class="bg-constribution bg-[#FFFCF0] w-full h-fit py-[216px] px-[147px]">
+    <div class="bg-constribution bg-[#FFFCF0] w-full h-fit py-[216px] px-[147px] leading-relaxed">
         <div class="constribution text-[#282222] text-center flex flex-col space-y-[84px] w-full">
             <div class="constribution-text">                
                 <h1 class="font-semibold qtext-[40px]">Our contributions on communities</h1>

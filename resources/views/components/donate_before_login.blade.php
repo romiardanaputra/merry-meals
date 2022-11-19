@@ -9,7 +9,7 @@
 <body class="font-poppins">
 @include('components.navbar')
 
-    <div class="bg-donate-before-login h-fit w-full">
+    <div class="bg-donate-before-login h-fit w-full leading-relaxed">
         <div style="background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('images/donateBackground2.jpg'); background-size: 120%;" class="donate-section-one h-[937px] w-full pl-[147px] bg-no-repeat flex items-center">
             <div class="donate-section-one-content bg-[#FFFCF0] h-[352px] w-[680px] py-[89px] px-[48px] text-[#282222] flex flex-col space-y-[24px]">
                 <h1 class="text-[40px] font-medium">We need your help</h1>

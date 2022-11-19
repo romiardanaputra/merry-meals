@@ -20,7 +20,7 @@
     
     <!-- Content -->
     <div>
-        <div class="w-[1145px] h-[581px] bg-[#FFEEB1] m-auto my-[100px]">
+        <div class="w-[1145px] h-[581px] bg-[#FFEEB1] m-auto my-[100px] leading-relaxed">
             <div class="font-Poppins text-[#282222] px-[30px] py-[50px]">
             
                 <h3 class="text-[40px] font-bold">COMPANY SUPPORT</h3>
