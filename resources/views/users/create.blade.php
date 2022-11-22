@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
-    <title>Merry Meals | {{ $title }}</title>
-</head>
-
-<body class="font-poppins">
+@extends('layout.main')
+@section('component_content')
+<main class="font-poppins">
     @include('components.navbar')
     <div class="bg-register h-fit w-full bg-[#FFFCF0] py-[138px] px-[147px]">
         <div style="box-shadow: 0px 8px 50px rgba(174, 168, 135, 0.5);"
@@ -24,16 +15,16 @@
             </div> <!-- form-register-text -->
 
             <div class="form-register-fields w-full">
-                <form action="{{ route('registration.store') }}" class="flex flex-col space-y-[24px]" method="POST">
+                <form action="{{ route('user.store') }}" class="flex flex-col space-y-[24px]" method="POST">
                     @csrf
                     <div class="flex flex-row space-x-[45px]">
                         <div class="text-gray-500 w-1/2">
-                            <label for="full-name">Full Name*</label>
+                            <label for="fullName">Full Name*</label>
                             <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('full_name')@enderror"
-                                name="full_name" required>
+                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('fullName')@enderror"
+                                name="fullName" required>
 
-                            @error('full_name')
+                            @error('fullName')
                             <p class="text-red-500">{{ $message }}</p>
                             @enderror
                         </div> <!-- text -->
@@ -63,12 +54,12 @@
                         </div> <!-- text -->
 
                         <div class="text-gray-500 w-1/2">
-                            <label for="phone-number">Phone Number*</label>
+                            <label for="phoneNumber">Phone Number*</label>
                             <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('phone_number')@enderror"
-                                name="phone_number" required>
+                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('phoneNumber')@enderror"
+                                name="phoneNumber" required>
 
-                            @error('phone_number')
+                            @error('phoneNumber')
                             <p class="text-red-500">{{ $message }}</p>
                             @enderror
                         </div> <!-- text -->
@@ -129,12 +120,12 @@
                         </div> <!-- text -->
 
                         <div class="text-gray-500 w-1/2">
-                            <label for="confirm-password">Confirm Password*</label>
+                            <label for="confirmPassword">Confirm Password*</label>
                             <input type="password"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('confirm_password')@enderror"
-                                name='confirm_password' required>
+                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('confirmPassword')@enderror"
+                                name='confirmPassword' required>
 
-                            @error('confirm_password')
+                            @error('confirmPassword')
                             <p class="text-red-500">{{ $message }}</p>
                             @enderror
                         </div> <!-- text -->
@@ -150,6 +141,5 @@
         </div> <!-- bg-form-register -->
     </div> <!-- bg-register -->
     @include('components.footer')
-</body>
-
-</html>
+</main>
+@endsection

@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  @vite('resources/css/app.css')
-</head>
-
-<body class="font-poppins">
+<section class="font-poppins">
   <footer class="bg-footer h-[754px] bg-[#FFDE6C] flex flex-col w-full">
 
     <div class="footer px-[90px] py-[334px] bg-[#FFDE6C]">
@@ -16,7 +6,7 @@
 
         <div class="footer-content-logo flex flex-row space-x-[20px] items-center p-[57px]">
           <div class="f-c-logo-image h-[125px] w-[125px] bg-[#FFFDF6] flex items-center justify-center rounded-[50%]">
-            <img src="images/MerryMealLogo-02.png" alt="logo_image" class="h-[64px] w-[64px]">
+            <img src="/images/MerryMealLogo-02.png" alt="logo_image" class="h-[64px] w-[64px]">
           </div> <!-- f-c-logo-image -->
 
           <div
@@ -42,7 +32,7 @@
             </div> <!-- footer-content-register-heading -->
 
             <div class="footer-content-register-button">
-              <a href="{{ route('registration.landing') }}"><button
+              <a href="{{ route('user.create') }}"><button
                   class="h-[44px] w-[195px] bg-[#282222] text-[#FFFDF6] text-[16px] hover:scale-105 duration-500">Register</button></a>
             </div> <!-- footer-content-register-button -->
           </div> <!-- footer-content-register -->
@@ -56,6 +46,4 @@
     </div> <!-- footer-copyright -->
 
   </footer> <!-- bg-footer -->
-</body>
-
-</html>
+</section>

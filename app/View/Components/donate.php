@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class register extends Component
+class donate extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class register extends Component
      */
     public function render()
     {
-        return view('components.register');
+        return view('components.donate');
     }
 }

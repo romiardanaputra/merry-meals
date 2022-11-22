@@ -14,18 +14,24 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
             $table->id();
-            $table->string('first_name'); 
-            $table->string('last_name');
+            $table->string('fullName'); 
             $table->string('username');
-            $table->string('email_user')->unique();
-            $table->string('phone_number')->unique();
-            $table->string('role')->unique();
-            $table->string('address')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('email')->unique();
+            $table->string('phoneNumber')->unique();
+            $table->string('address');
             $table->string('password');
-            $table->rememberToken();
+            $table->string('role');
+            $table->bigInteger('age');
             $table->timestamps();
+            // $table->foreignId('role_id')
+            // ->constrained('roles')
+            // ->onUpdate('cascade')
+            // ->onDelete('cascade')
+            // ->comment('foreign key taking reference from id table user');
         });
     }
 

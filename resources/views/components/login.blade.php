@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
-    <title>Merry Meals | {{ $title }}</title>
-
-</head>
-
-<body class="font-poppins">
+@extends('layout.main')
+@section('component_content')
+<main class="font-poppins">
     @include('components.navbar')
     <div class="bg-login h-fit w-full bg-[#FFFCF0] py-[138px] px-[147px]">
         <div style="box-shadow: 0px 8px 50px rgba(174, 168, 135, 0.5);"
@@ -90,6 +80,5 @@
         </div> <!-- bg-form-login -->
     </div> <!-- bg-login -->
     @include('components.footer')
-</body>
-
-</html>
+</main>
+@endsection
