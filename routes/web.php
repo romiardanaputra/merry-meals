@@ -51,7 +51,7 @@ Route::get('/user/dashboard', function(){
 })->middleware(['auth', 'isUser'])->name('user.dashboard');
 
 // MealsController
-Route::resource('meal', MealsController::class);
+Route::resource('meal', MealsController::class)->middleware(['auth', 'isAdmin']);
 
 // UsersController
 Route::resource('user', UsersController::class);

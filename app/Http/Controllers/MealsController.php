@@ -12,14 +12,17 @@ class MealsController extends Controller
     public function index()
     {
         $meal_detail = Meal::all();
-        return view('meal.index',[
+        return view('meal.index', [
             'meals' => $meal_detail,
+            'title_page' => 'Create Meal'
         ]);
     }
 
     public function create()
     {
-        return view('meal.create');
+        return view('meal.create', [
+            'title_page' => 'Create Meal'
+        ]);
     }
 
     public function store(Request $request)
@@ -27,7 +30,7 @@ class MealsController extends Controller
         $this->validate($request, [
             'name' => ['required', 'max:100'],
             'ingredient' => ['required', 'max:200'],
-            'path' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048']
+            'path' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000']
         ]);
 
         $meal = new Meal();
@@ -36,10 +39,10 @@ class MealsController extends Controller
 
         if ($request->hasFile('path')) {
             $new_file = $request->file('path');
-            $file_path = $new_file->store('public/images');
+            $file_path = $new_file->store('meal-images');
             $meal->path = $file_path;
             $meal->save();
-            return redirect('meal.show');
+            return redirect()->route('meal.index');
         }
         return redirect()->back();
     }
@@ -61,7 +64,7 @@ class MealsController extends Controller
         $this->validate($request, [
             'name' => ['required', 'max:100'],
             'ingredient' => ['required', 'max:200'],
-            'path' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048']
+            'path' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'max:1000']
         ]);
 
         $meal = Meal::find($meal->id);
@@ -70,13 +73,12 @@ class MealsController extends Controller
 
         if ($request->hasFile('path')) {
             $new_file = $request->file('path');
-            $file_path = $new_file->store('public/images');
+            $file_path = $new_file->store('meal-images');
             $meal->path = $file_path;
             $meal->save();
             return redirect('meal.show');
         }
         return redirect()->back();
-
     }
 
 
