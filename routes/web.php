@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LandingController;
 use App\Http\Controllers\MealsController;
 use App\Http\Controllers\UsersController;
 
@@ -43,23 +40,23 @@ Route::get('/donate', function () {
     ]);
 })->name('donation');
 
+// admin route
+Route::get('/admin/dashboard', function(){
+    return view('components.admin');
+})->middleware(['auth', 'isAdmin'])->name('admin.dashboard');
+
+// dashboard user route
+Route::get('/user/dashboard', function(){
+    return view('components.dashboard_user');
+})->middleware(['auth', 'isUser'])->name('user.dashboard');
+
 // MealsController
 Route::resource('meal', MealsController::class);
 
 // UsersController
 Route::resource('user', UsersController::class);
 
-// admin route
-Route::prefix('/admin')->middleware('auth', 'AuthLogin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.landing');
-});
-
-// dashboard user route
-Route::prefix('/user')->middleware('auth', 'AuthLogin')->group(function () {
-    Route::get('/dashboard', [LandingController::class, 'showDashboard'])->name('user.landing');
-});
-
 // authentication route
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate');

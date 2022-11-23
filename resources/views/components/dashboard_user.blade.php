@@ -7,8 +7,9 @@
     <title>dashboard user</title>
 </head>
 <body>
-    <h1>welcome {{ auth()->user()->username }}</h1>
-    <h3>loggin as {{ auth()->user()->role }}</h3>
+    {{-- <h1>welcome {{ auth()->user()->username }}</h1> --}}
+    {{-- <h3>loggin as {{ auth()->user()->role }}</h3> --}}
+    <h1>welcomepp</h1>
     <form action="{{ route('logout') }}" method="POST">
         @csrf
         <a href="#"><button type="submit" class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">LOGOUT</button></a>

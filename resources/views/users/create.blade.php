@@ -22,7 +22,7 @@
                             <label for="fullName">Full Name*</label>
                             <input type="text"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('fullName')@enderror"
-                                name="fullName" required>
+                                name="fullName" required value="{{ old('fullName ') }}">
 
                             @error('fullName')
                             <p class="text-red-500">{{ $message }}</p>
