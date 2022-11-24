@@ -35,7 +35,7 @@ class AuthController extends Controller
                 return redirect()->intended(RouteServiceProvider::USER_DASHBOARD);
             }
         } else {
-            return back()->with('login_error', 'login failed, make sure your data is correct!');
+            return back();
         }
     }
 
