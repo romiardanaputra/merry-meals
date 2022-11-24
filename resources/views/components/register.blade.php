@@ -15,7 +15,7 @@
             </div> <!-- form-register-text -->
 
             <div class="form-register-fields w-full">
-                <form action="{{ route('user.store') }}" class="flex flex-col space-y-[24px]" method="POST">
+                <form action="{{ route('register.store') }}" class="flex flex-col space-y-[24px]" method="POST">
                     @csrf
                     <div class="flex flex-row space-x-[45px]">
                         <div class="text-gray-500 w-1/2">

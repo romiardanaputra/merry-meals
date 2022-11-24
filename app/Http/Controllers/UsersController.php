@@ -9,23 +9,32 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-   
+    // public function __construct()
+    // {
+    //     // Middleware only applied to these methods
+    //     $this->middleware('roles:Admin', [
+    //         'only' => [
+    //             'update', 'index', 'store', 'show', 'edit', 'update', 'destroy' // Could add bunch of more methods too
+    //         ]   
+    //     ]);
+    // }
+
     public function index()
     {
-        return view('users.index',[
+        return view('users.index', [
             'users' => User::all(),
         ]);
     }
 
-  
+
     public function create()
     {
-        return view('users.create',[
+        return view('users.create', [
             'title_page' => 'Sign Up'
         ]);
     }
 
-   
+
     public function store(Request $request)
     {
 
@@ -51,26 +60,25 @@ class UsersController extends Controller
         $user->role = $request->role;
 
         $user->save();
-        return redirect('/login');
+        return redirect()->route('user.index');
     }
 
-   
+
     public function show()
     {
-   
     }
-    
-   
+
+
     public function edit(User $user)
     {
         $userID = User::find($user->id);
-        return view('users.edit',[
+        return view('users.edit', [
             'title' => 'Edit User',
             'user' => $userID,
         ]);
     }
 
-   
+
     public function update(Request $request, User $user)
     {
         $this->validate($request, [
@@ -98,7 +106,7 @@ class UsersController extends Controller
         return redirect()->route('user.index');
     }
 
-    
+
     public function destroy(User $user)
     {
         $user = User::find($user->id);

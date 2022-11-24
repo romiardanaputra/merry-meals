@@ -24,7 +24,7 @@
           </form>
             @else
           <a href="{{ route('login') }}"><button class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">SIGN IN</button></a>
-          <a href="{{ route('user.create') }}"><button class="bg-[#FFCE01] h-[47px] w-[115.61px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">JOIN</button></a>
+          <a href="{{ route('register.index') }}"><button class="bg-[#FFCE01] h-[47px] w-[115.61px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">JOIN</button></a>
         @endauth
      
       </div> <!-- nav-login-register -->

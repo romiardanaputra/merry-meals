@@ -32,7 +32,7 @@
             </div> <!-- footer-content-register-heading -->
 
             <div class="footer-content-register-button">
-              <a href="{{ route('user.create') }}"><button
+              <a href="{{ route('register.index') }}"><button
                   class="h-[44px] w-[195px] bg-[#282222] text-[#FFFDF6] text-[16px] hover:scale-105 duration-500">Register</button></a>
             </div> <!-- footer-content-register-button -->
           </div> <!-- footer-content-register -->
