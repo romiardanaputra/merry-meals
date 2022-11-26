@@ -39,11 +39,11 @@
                             @enderror
                         </div> <!-- text -->
 
-                        <div class="text-gray-500 w-1/2 hidden">
+                        <div class="text-gray-500 w-1/2">
                             <label for="username">Username*</label>
                             <input type="text"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('username')@enderror"
-                                name="username" required value="{{ old('username') ?? $user->username }}">
+                                name="username" required value="{{ old('username') ?? $user->username }}" readonly>
 
                             @error('username')
                             <p class="text-red-500">{{ $message }}</p>
@@ -52,11 +52,11 @@
                     </div> <!-- form-register-flex -->
 
                     <div class="flex flex-row space-x-[45px]">
-                        <div class="text-gray-500 w-1/2 hidden">
+                        <div class="text-gray-500 w-1/2">
                             <label for="email">Email*</label>
                             <input type="email"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('email')@enderror"
-                                name="email" required value="{{ old('email') ?? $user->email }}">
+                                name="email" required value="{{ old('email') ?? $user->email }}" readonly>
 
                             @error('email')
                             <p class="text-red-500">{{ $message }}</p>
@@ -67,7 +67,7 @@
                             <label for="phoneNumber">Phone Number*</label>
                             <input type="text"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('phoneNumber')@enderror"
-                                name="phoneNumber" required value="{{ old('phoneNumber') ?? $user->phoneNumber }}">
+                                name="phoneNumber" required value="{{ old('phoneNumber') ?? $user->phoneNumber }}" readonly>
 
                             @error('phoneNumber')
                             <p class="text-red-500">{{ $message }}</p>
@@ -87,16 +87,11 @@
                             @enderror
                         </div> <!-- text -->
 
-                        <div class="text-gray-500 w-1/2 hidden">
-                            <label for="role">Register as*</label>
-                            <select
-                                class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('role')@enderror"
-                                id="role" name="role" required >
-                                <option class="block">Please select your role</option>
-                                <option>Member</option>
-                                <option>Volunteer</option>
-                                <option>Caregiver</option>
-                            </select>
+                        <div class="text-gray-500 w-1/2">
+                            <label for="role">role</label>
+                            <input type="text"
+                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('role')@enderror"
+                                name="role" required value="{{ old('role') ?? $user->role }}" readonly>
 
                             @error('role')
                             <p class="text-red-500">{{ $message }}</p>
@@ -118,7 +113,7 @@
                     </div> <!-- form-register-flex -->
 
                     <div class="flex flex-row space-x-[45px]">
-                        <div class="text-gray-500 w-1/2">
+                        <div class="text-gray-500 w-1/2 hidden">
                             <label for="password">Password*</label>
                             <input type="password"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('password')@enderror"
@@ -129,7 +124,7 @@
                             @enderror
                         </div> <!-- text -->
 
-                        <div class="text-gray-500 w-1/2">
+                        <div class="text-gray-500 w-1/2 hidden">
                             <label for="confirm_password">Confirm Password*</label>
                             <input type="password"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('confirm_password')@enderror"

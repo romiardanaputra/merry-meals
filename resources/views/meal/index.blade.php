@@ -7,7 +7,12 @@
         <h2 class="card-title">{{$meal->name }}</h2>
         <p>{{ $meal->ingredient }}</p>
         <div class="card-actions justify-end">
-            <button class="btn btn-primary">Order Now</button>
+            <a href="{{ route('meal.edit', $meal->id)}}" class="btn btn-primary">Edit</a>
+            <form action="{{ route('meal.destroy', $meal->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-secondary" type="submit">Delete</button>
+            </form>
         </div>
     </div>
 </div>

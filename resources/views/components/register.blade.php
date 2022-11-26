@@ -3,6 +3,13 @@
 <main class="font-poppins">
     @include('components.navbar')
     <div class="bg-register h-fit w-full bg-[#FFFCF0] py-[138px] px-[147px]">
+        @if (session()->has('success_register'))
+        <script>
+            setTimeout(function() {
+                window.location.href = "/login"
+            }, 10000); 
+        </script>
+        @endif
         <div style="box-shadow: 0px 8px 50px rgba(174, 168, 135, 0.5);"
             class="bg-form-register h-[789px] w-full bg-[#FFFCF0] p-[103px] flex flex-row justify-center items-center space-x-[108px]">
 
