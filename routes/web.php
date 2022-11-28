@@ -23,6 +23,7 @@ Route::controller(PublicPageController::class)->group(function () {
     Route::get('/contact', 'contactIndex')->name('contact');
     Route::get('/term', 'termIndex')->name('term');
     Route::get('/donate', 'donationIndex')->name('donation');
+    Route::get('/menu_detail', 'mealDetailIndex')->name('menuDetail');
 });
 
 // MealsController

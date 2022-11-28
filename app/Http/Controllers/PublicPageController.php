@@ -33,4 +33,9 @@ class PublicPageController extends Controller
             'title_page' => 'Donation',
         ]);
     }
+    public function mealDetailIndex(){
+        return view('components.menu_detail', [
+            'title_page' => 'meal detail',
+        ]);
+    }
 }
