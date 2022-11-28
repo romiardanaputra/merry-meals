@@ -9,15 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    // public function __construct()
-    // {
-    //     // Middleware only applied to these methods
-    //     $this->middleware('roles:Admin', [
-    //         'only' => [
-    //             'update', 'index', 'store', 'show', 'edit', 'update', 'destroy' // Could add bunch of more methods too
-    //         ]   
-    //     ]);
-    // }
 
     public function index()
     {
