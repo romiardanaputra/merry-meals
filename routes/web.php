@@ -13,7 +13,9 @@ Route::get('/user/dashboard', function () {
 
 // admin route
 Route::get('/admin/dashboard', function () {
-    return view('components.admin');
+    return view('components.admin',[
+        'title_page' => 'Admin Dashboard'
+    ]);
 })->middleware('roles:Admin')->name('admin.dashboard');
 
 // public page controller
