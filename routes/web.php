@@ -6,10 +6,10 @@ use App\Http\Controllers\MealsController;
 use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\UsersController;
 
-// // dashboard user route
-// Route::get('/user/dashboard', function () {
-//     return view('components.dashboard_user');
-// })->middleware('roles:Member,Caregiver,Volunteer')->name('user.dashboard');
+// dashboard user route
+Route::get('/user/dashboard', function () {
+    return view('components.dashboard_user');
+})->middleware('roles:Member,Caregiver,Volunteer')->name('user.dashboard');
 
 // admin route
 Route::get('/admin/dashboard', function () {
