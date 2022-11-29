@@ -31,7 +31,12 @@ class UserRequest extends FormRequest
             'age' => ['required', 'numeric'],
             'address' => ['required'],
             'password' => ['required', 'min:6'],
+<<<<<<< Updated upstream
             'role' => ['required']
+=======
+            'role' => ['required'],
+            'ip' => ['required'],
+>>>>>>> Stashed changes
         ];
     }
 }

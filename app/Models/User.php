@@ -16,7 +16,9 @@ class User extends Authenticatable
         'age',
         'address',
         'password',
-        'role'
+        'role',
+        'user_lat',
+        'user_long',
     ];
 
     protected $guarded = ['id'];

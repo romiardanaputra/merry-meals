@@ -13,7 +13,12 @@ class MealsController extends Controller
     {
         return view('meal.index', [
             'meals' => Meal::all(),
+<<<<<<< Updated upstream
             'title_page' => 'Create Meal'
+=======
+            'dashboard_info' => 'Meal Lists',
+            'title_page' => 'Meal lists',
+>>>>>>> Stashed changes
         ]);
     }
 
