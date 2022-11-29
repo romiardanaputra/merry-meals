@@ -20,16 +20,11 @@ Route::get('/user/dashboard', function () {
 
 // admin route
 Route::get('/admin/dashboard', function () {
-<<<<<<< Updated upstream
-    return view('components.admin');
-})->middleware('roles:Admin')->name('admin.dashboard');
-=======
     return view('components.admin',[
         'title_page' => 'Admin Dashboard',
         'dashboard_info' => 'Admin Pannel',
     ]);
 })->middleware('roles:admin')->name('admin.dashboard');
->>>>>>> Stashed changes
 
 // public page controller
 Route::controller(PublicPageController::class)->group(function () {
@@ -66,12 +61,8 @@ Route::controller(AuthController::class)->group(function () {
         Route::post('/', 'store_register')->name('register.store');
     });
     Route::post('/logout', 'logout')->name('logout');
-<<<<<<< Updated upstream
-});
-=======
 });
 
 // getting location 
 Route::get('ip_details', [GeolocationController::class,'ip_details'])->name('detail_geolocation');
 Route::post('ip_details/store', [GeolocationController::class,'store'])->name('store_geolocation');
->>>>>>> Stashed changes

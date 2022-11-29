@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\UserRequest;
-<<<<<<< Updated upstream
-=======
 use App\Models\Geolocation;
->>>>>>> Stashed changes
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
@@ -29,11 +26,7 @@ class AuthController extends Controller
     {
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
-<<<<<<< Updated upstream
-            $response = (!$request->user()->role == 'Admin') 
-=======
             $response = (!$request->user()->role == 'admin') 
->>>>>>> Stashed changes
             ? redirect()->intended(RouteServiceProvider::USER_DASHBOARD) 
             : redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
             return $response;
@@ -61,10 +54,7 @@ class AuthController extends Controller
         $users_data = $request->validated();
         $users_data['password'] = Hash::make($users_data['password']);
         User::create($users_data);
-<<<<<<< Updated upstream
-=======
         GeolocationController::store($request);
->>>>>>> Stashed changes
         return to_route('login')->with('success_register', 'successfully registration please login!');
     }
 }
