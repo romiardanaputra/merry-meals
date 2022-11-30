@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
             'address' => ['required'],
             'password' => ['required', 'min:6'],
             'role' => ['required'],
-            'ip' => ['required'],
+            // 'ip' => ['required'],
         ];
     }
 }

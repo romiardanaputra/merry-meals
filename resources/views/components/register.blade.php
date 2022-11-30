@@ -136,11 +136,11 @@
                             <p class="text-red-500">{{ $message }}</p>
                             @enderror
                         </div> <!-- text -->
-                        <div class="text-gray-500 w-1/2">
+                        <div class="text-gray-500 w-1/2 hidden">
                             <label for="ip">Ip Address*</label>
                             <input type="text"
                                 class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('ip')@enderror"
-                                name='ip' required value="{{ old('ip ') }}">
+                                name='ip' required value="{{$data->ip}}" hidden>
 
                             @error('ip')
                             <p class="text-red-500">{{ $message }}</p>

@@ -26,11 +26,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('role');
             $table->bigInteger('age');
-            $table->foreignId('ip_id')
-            ->nullable()
-            ->constrained('geolocations')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+           
             $table->timestamps();
         });
     }

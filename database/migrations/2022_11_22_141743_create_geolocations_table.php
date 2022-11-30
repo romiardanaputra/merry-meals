@@ -19,14 +19,18 @@ return new class extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->id();
             $table->string('ip');
-            $table->string('countryName');
-            $table->string('countryCode');
-            $table->string('regionCode');
-            $table->string('regionName');
-            $table->string('cityName');
-            $table->string('zipCode');
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->string('countryName')->nullable();
+            $table->string('countryCode')->nullable();
+            $table->string('regionCode')->nullable();
+            $table->string('regionName')->nullable();
+            $table->string('cityName')->nullable();
+            $table->string('zipCode')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->foreignId('user_id')->nullable()
+            ->constrained('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }
