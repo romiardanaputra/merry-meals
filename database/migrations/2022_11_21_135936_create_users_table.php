@@ -20,18 +20,18 @@ return new class extends Migration
             $table->id();
             $table->string('fullName'); 
             $table->string('username');
-            $table->string('email')->unique();
-            $table->string('phoneNumber')->unique();
+            $table->string('email');
+            $table->string('phoneNumber');
             $table->string('address');
             $table->string('password');
             $table->string('role');
             $table->bigInteger('age');
+            $table->foreignId('ip_id')
+            ->nullable()
+            ->constrained('geolocations')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
-            // $table->foreignId('role_id')
-            // ->constrained('roles')
-            // ->onUpdate('cascade')
-            // ->onDelete('cascade')
-            // ->comment('foreign key taking reference from id table user');
         });
     }
 

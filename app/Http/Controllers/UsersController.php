@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,7 +19,6 @@ class UsersController extends Controller
         ]);
     }
 
-
     public function create()
     {
         return view('users.create', [
@@ -25,40 +26,13 @@ class UsersController extends Controller
         ]);
     }
 
-
-    public function store(Request $request)
+    public function store(UserRequest  $request)
     {
-
-        $this->validate($request, [
-            'fullName' => ['required', 'max:50'],
-            'username' => ['required', 'max:10', 'min:3'],
-            'email' => ['required', 'unique:users', 'email:dns,rfc'],
-            'phoneNumber' => ['required', 'unique:users', 'numeric'],
-            'age' => ['required', 'numeric'],
-            'address' => ['required'],
-            'password' => ['required', 'min:6'],
-            'role' => ['required']
-        ]);
-
-        $user = new User();
-        $user->fullName = $request->fullName;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->phoneNumber = $request->phoneNumber;
-        $user->age = $request->age;
-        $user->address = $request->address;
-        $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-
-        $user->save();
-        return redirect()->route('user.index');
+        $validated_data = $request->validated();
+        $validated_data['password'] = Hash::make($validated_data['password']);
+        User::create($validated_data);
+        return to_route('user.index');
     }
-
-
-    public function show()
-    {
-    }
-
 
     public function edit(User $user)
     {
@@ -69,34 +43,12 @@ class UsersController extends Controller
         ]);
     }
 
-
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $this->validate($request, [
-            'fullName' => ['required', 'max:50'],
-            'username' => ['required', 'max:10', 'min:3'],
-            'email' => ['required', 'unique:users', 'email:dns,rfc'],
-            'phoneNumber' => ['required', 'unique:users', 'numeric'],
-            'age' => ['required', 'numeric'],
-            'address' => ['required'],
-            'password' => ['required', 'min:6'],
-            'role' => ['required']
-        ]);
-
-        $user = User::find($user->id);
-
-        $user->fullName = $request->fullName;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->phoneNumber = $request->phoneNumber;
-        $user->age = $request->age;
-        $user->address = $request->address;
-        $user->password = $request->password;
-        $user->role = $request->role;
-        $user->save();
-        return redirect()->route('user.index');
+        $users_data = $request->validated();
+        User::where('id', $user->id)->update($users_data);
+        return to_route('user.index');
     }
-
 
     public function destroy(User $user)
     {

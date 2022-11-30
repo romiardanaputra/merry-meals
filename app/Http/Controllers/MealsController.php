@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Meal;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\ImageRequest;
 
 class MealsController extends Controller
 {
 
     public function index()
     {
-        $meal_detail = Meal::all();
         return view('meal.index', [
-            'meals' => $meal_detail,
+            'meals' => Meal::all(),
+<<<<<<< Updated upstream
             'title_page' => 'Create Meal'
+=======
+            'dashboard_info' => 'Meal Lists',
+            'title_page' => 'Meal lists',
+>>>>>>> Stashed changes
         ]);
     }
 
@@ -25,60 +29,43 @@ class MealsController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(ImageRequest $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'ingredient' => ['required', 'max:200'],
-            'path' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000']
-        ]);
-
         $meal = new Meal();
         $meal->name = $request->name;
         $meal->ingredient = $request->ingredient;
-
-        if ($request->hasFile('path')) {
-            $new_file = $request->file('path');
-            $file_path = $new_file->store('meal-images');
-            $meal->path = $file_path;
-            $meal->save();
-            return redirect()->route('meal.index');
-        }
-        return redirect()->back();
+        ($request->hasFile('path'))
+            ? $meal->path = $request->file('path')->store('meal-images')
+            : back();
+        $meal->save();  
+        return to_route('meal.index');
     }
 
     public function show(Meal $meal)
     {
-        $meal = Meal::find($meal->id);
-        return view('meal.show');
+        return view('meal.show',[
+            'meal' => Meal::find($meal->id),
+        ]);
     }
 
     public function edit(Meal $meal)
     {
-        $meal = Meal::find($meal->id);
-        return view('meal.edit');
+        return view('meal.edit',[
+            'meal' => Meal::find($meal->id),
+            'title_page' => 'Meal Edit',
+        ]);
     }
 
-    public function update(Request $request, Meal $meal)
+    public function update(ImageRequest $request, Meal $meal)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'ingredient' => ['required', 'max:200'],
-            'path' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'max:1000']
-        ]);
-
         $meal = Meal::find($meal->id);
         $meal->name = $request->name;
         $meal->ingredient = $request->ingredient;
-
-        if ($request->hasFile('path')) {
-            $new_file = $request->file('path');
-            $file_path = $new_file->store('meal-images');
-            $meal->path = $file_path;
-            $meal->save();
-            return redirect('meal.show');
-        }
-        return redirect()->back();
+        ($request->hasFile('path'))
+            ? $meal->path = $request->file('path')->store('meal-images')
+            : back();
+        $meal->save();  
+        return to_route('meal.index');
     }
 
 
@@ -86,6 +73,6 @@ class MealsController extends Controller
     {
         $meal = Meal::find($meal->id);
         $meal->delete();
-        return redirect()->back();
+        return back();
     }
 }

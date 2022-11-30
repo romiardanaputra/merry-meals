@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRequest;
+use App\Http\Requests\UserRequest;
+use App\Models\Geolocation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
@@ -19,24 +22,16 @@ class AuthController extends Controller
         ]);
     }
 
-    public function authenticate(Request $request)
+    public function authenticate(AuthRequest $request)
     {
-        $credential = $request->validate([
-            'email' => ['required', 'email:dns,rfc'],
-            'password' => ['required', 'min:6'],
-        ]);
-
-        if (Auth::attempt($credential)) {
+        if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
-            $user = $request->user();
-            if ($user->role == 'Admin') {
-                return redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
-            } else {
-                return redirect()->intended(RouteServiceProvider::USER_DASHBOARD);
-            }
-        } else {
-            return back();
+            $response = (!$request->user()->role == 'admin') 
+            ? redirect()->intended(RouteServiceProvider::USER_DASHBOARD) 
+            : redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
+            return $response;
         }
+        return back();
     }
 
     public function logout(Request $request)
@@ -44,39 +39,22 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('landing.index');
+        return to_route('landing.index');
     }
 
-    public function register_index(){
-        return view('components.register',[
+    public function register_index()
+    {
+        return view('components.register', [
             'title_page' => 'Sign Up',
         ]);
     }
 
-    public function store_register(Request $request)
+    public function store_register(UserRequest $request)
     {
-        $this->validate($request, [
-            'fullName' => ['required', 'max:50'],
-            'username' => ['required', 'max:10', 'min:3'],
-            'email' => ['required', 'unique:users', 'email:dns,rfc'],
-            'phoneNumber' => ['required', 'unique:users', 'numeric'],
-            'age' => ['required', 'numeric'],
-            'address' => ['required'],
-            'password' => ['required', 'min:6'],
-            'role' => ['required']
-        ]);
-
-        $user = new User();
-        $user->fullName = $request->fullName;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->phoneNumber = $request->phoneNumber;
-        $user->age = $request->age;
-        $user->address = $request->address;
-        $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-
-        $user->save();
-        return redirect('/login');
+        $users_data = $request->validated();
+        $users_data['password'] = Hash::make($users_data['password']);
+        User::create($users_data);
+        GeolocationController::store($request);
+        return to_route('login')->with('success_register', 'successfully registration please login!');
     }
 }

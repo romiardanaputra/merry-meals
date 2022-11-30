@@ -11,6 +11,9 @@ class Roles
 
   public function handle(Request $request, Closure $next, ...$roles)
   {
+    if (!Auth::check()) {
+      abort(403);
+    }
     return collect($roles)->contains(auth()->user()->role) ? $next($request) : back();
   }
 }
