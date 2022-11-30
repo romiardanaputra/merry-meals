@@ -40,8 +40,8 @@
     <div class="navbar-bottom bg-[#FFCE01] flex flex-row justify-center">
       <div class="nav w-max h-full">
         @auth
-        <a href="{{ route('member.index') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('menu') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">MENU</button></a>
+        <a href="{{ route('user.dashboard') }}"><button
+            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('user/menu') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">MENU</button></a>
         <a href="{{ route('about') }}"><button
             class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('about') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">ABOUT</button></a>
         <a href="{{ route('contact') }}"><button

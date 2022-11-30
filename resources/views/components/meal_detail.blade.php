@@ -15,7 +15,7 @@
         <img class="w-[562px] h-[316px]" src="{{ asset('storage/'. $meal->path) }}" alt="image-meal-detail">
 
         <div class="flex flex-row justify-between">
-            <a href="{{ route('member.index') }}">
+            <a href="{{ route('user.dashboard') }}">
                 <button class="bg-[#FFFCF0] border-2 border-[#A07C00] text-[16px] text-[#A07C00] h-[64px] w-[271px] hover:scale-105 duration-500">
                 BACK
                 </button>
