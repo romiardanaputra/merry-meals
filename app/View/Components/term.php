@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\admin;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class create extends Component
+class term extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class create extends Component
      */
     public function render()
     {
-        return view('components.admin.create');
+        return view('components.term');
     }
 }

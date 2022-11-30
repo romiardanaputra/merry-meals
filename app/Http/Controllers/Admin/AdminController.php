@@ -1,53 +1,53 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UpdateUserRequest;
 
-class UsersController extends Controller
+class AdminController extends Controller
 {
-
     public function index()
     {
-        return view('users.index', [
-            'users' => User::all(),
+        return view('admin.list_user', [
+            'data_users' => User::all(),
+            'title_page' => 'User List',
+            'dashboard_info' => 'Users Data',
         ]);
     }
 
     public function create()
     {
-        return view('users.create', [
+        return view('admin.create_user', [
             'title_page' => 'Sign Up'
         ]);
     }
 
-    public function store(UserRequest  $request)
+    public function store(UserRequest $req)
     {
-        $validated_data = $request->validated();
+        $validated_data = $req->validated();
         $validated_data['password'] = Hash::make($validated_data['password']);
         User::create($validated_data);
-        return to_route('user.index');
+        return to_route('admin.index');
     }
 
     public function edit(User $user)
     {
         $userID = User::find($user->id);
-        return view('users.edit', [
+        return view('admin.edit_user', [
             'title' => 'Edit User',
             'user' => $userID,
         ]);
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $req, User $user)
     {
-        $users_data = $request->validated();
+        $users_data = $req->validated();
         User::where('id', $user->id)->update($users_data);
-        return to_route('user.index');
+        return to_route('admin.index');
     }
 
     public function destroy(User $user)

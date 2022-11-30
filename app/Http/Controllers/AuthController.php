@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
     //view for login page
     public function index()
-    {
+    {   
         return view('components.login', [
             "title_page" => "Sign In",
         ]);
@@ -58,7 +58,7 @@ class AuthController extends Controller
         // User::create($users_data);
         $create_user = User::create($users_data);
         $data = Location::get('https://' . $request->ip());  //dynamic ip address
-        $u_location = new Geolocation();
+        $u_location = new Geolocation;
         $u_location->ip = $data->ip;
         $u_location->countryName = $data->countryName;
         $u_location->countryCode = $data->countryCode;

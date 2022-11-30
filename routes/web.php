@@ -1,54 +1,34 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MealsController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\PublicPageController;
-use App\Http\Controllers\GeolocationController;
+use App\Http\Controllers\Admin\AdminPageController;
 
 // dashboard user route
-
 Route::get('/user/dashboard', function () {
-    return view('components.dashboard_user',[
+    return view('components.dashboard_user', [
         'title_page' => 'User Dashboard',
         'dashboard_info' => 'User Panel',
     ]);
 })->middleware('roles:member,caregiver,volunteer')->name('user.dashboard');
 
-// admin route
-Route::get('/admin/dashboard', function () {
-    return view('components.admin',[
-        'title_page' => 'Admin Dashboard',
-        'dashboard_info' => 'Admin Pannel',
-    ]);
-})->middleware('roles:admin')->name('admin.dashboard');
-
-// public page controller
-Route::controller(PublicPageController::class)->group(function () {
-    Route::get('/', 'index')->name('landing.index');
-    Route::get('/about', 'aboutIndex')->name('about');
-    Route::get('/contact', 'contactIndex')->name('contact');
-    Route::get('/term', 'termIndex')->name('term');
-    Route::get('/donate', 'donationIndex')->name('donation');
-});
-
 // MealsController
 Route::resource('meal', MealsController::class)->middleware('roles:admin');
-
-// UsersController
-Route::controller(MemberController::class)->middleware('roles:member')->group(function(){
-    Route::get('/menu', 'index')->name('member.index');
-    Route::get('/menu/{id}/detail', 'show')->name('member.show');
-});
 
 // partner controller
 Route::resource('partner', PartnersController::class)->middleware('roles:partner');
 
 // admin controller
 Route::resource('admin', AdminController::class)->middleware('roles:admin');
+Route::controller(AdminPageController::class)->middleware('roles:admin')->group(function () {
+    Route::get('/list/user', 'show_list_user')->name('admin.list.user');
+    Route::get('/list/user/location', 'show_list_location')->name('admin.list.location');
+});
 
 // authentication route
 Route::controller(AuthController::class)->group(function () {
@@ -63,6 +43,17 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout')->name('logout');
 });
 
-// getting location 
-Route::get('ip_details', [GeolocationController::class,'ip_details'])->name('detail_geolocation');
-Route::post('ip_details/store', [GeolocationController::class,'store'])->name('store_geolocation');
+// UsersController
+Route::controller(MemberController::class)->middleware('roles:member')->group(function () {
+    Route::get('/menu', 'index')->name('member.index');
+    Route::get('/menu/{id}/detail', 'show')->name('member.show');
+});
+
+// public page controller
+Route::controller(PublicPageController::class)->group(function () {
+    Route::get('/', 'index')->name('landing.index');
+    Route::get('/about', 'aboutIndex')->name('about');
+    Route::get('/contact', 'contactIndex')->name('contact');
+    Route::get('/term', 'termIndex')->name('term');
+    Route::get('/donate', 'donationIndex')->name('donation');
+});

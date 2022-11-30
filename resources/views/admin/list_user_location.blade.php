@@ -1,14 +1,14 @@
-@extends('components.admin')
-@section('admin_content')
+@extends('admin.dashboard')
+@section('dashboard_layout')
 <table class="table-fixed w-full text-center text-[#282222] font-semibold border-2 border-[#282222] border-collapse">
     <thead class="text-[12px] bg-[#282222] text-[#FFFDF6] h-[45px]">
         <tr>
-            <th>Fullname</th>
-            <th>Username</th>
-            <th>E-mail</th>
-            <th>Phone Number</th>
-            <th>Age</th>
-            <th>Role</th>
+            <th>Full Name</th>
+            <th>Country Name</th>
+            <th>Country Code</th>
+            <th>Region Code</th>
+            <th>Region Name</th>
+            <th>CityName</th>
             <th>Action</th>
         </tr>
     </thead>

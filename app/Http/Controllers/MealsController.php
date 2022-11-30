@@ -11,9 +11,8 @@ class MealsController extends Controller
 
     public function index()
     {
-        return view('meal.index', [
+        return view('meal.list_meal', [
             'meals' => Meal::all(),
-            'title_page' => 'Create Meal',
             'dashboard_info' => 'Meal Lists',
             'title_page' => 'Meal lists',
         ]);
@@ -21,18 +20,18 @@ class MealsController extends Controller
 
     public function create()
     {
-        return view('meal.create', [
+        return view('meal.create_meal', [
             'title_page' => 'Create Meal'
         ]);
     }
 
-    public function store(ImageRequest $request)
+    public function store(ImageRequest $req)
     {
-        $meal = new Meal();
-        $meal->name = $request->name;
-        $meal->ingredient = $request->ingredient;
-        ($request->hasFile('path'))
-            ? $meal->path = $request->file('path')->store('meal-images')
+        $meal = new Meal;
+        $meal->name = $req->name;
+        $meal->ingredient = $req->ingredient;
+        ($req->hasFile('path'))
+            ? $meal->path = $req->file('path')->store('meal-images')
             : back();
         $meal->save();  
         return to_route('meal.index');
@@ -40,26 +39,26 @@ class MealsController extends Controller
 
     public function show(Meal $meal)
     {
-        return view('meal.show',[
+        return view('meal.show_detail_meal',[
             'meal' => Meal::find($meal->id),
         ]);
     }
 
     public function edit(Meal $meal)
     {
-        return view('meal.edit',[
+        return view('meal.edit_meal',[
             'meal' => Meal::find($meal->id),
             'title_page' => 'Meal Edit',
         ]);
     }
 
-    public function update(ImageRequest $request, Meal $meal)
+    public function update(ImageRequest $req, Meal $meal)
     {
         $meal = Meal::find($meal->id);
-        $meal->name = $request->name;
-        $meal->ingredient = $request->ingredient;
-        ($request->hasFile('path'))
-            ? $meal->path = $request->file('path')->store('meal-images')
+        $meal->name = $req->name;
+        $meal->ingredient = $req->ingredient;
+        ($req->hasFile('path'))
+            ? $meal->path = $req->file('path')->store('meal-images')
             : back();
         $meal->save();  
         return to_route('meal.index');
