@@ -32,7 +32,7 @@ class AuthController extends Controller
                 : redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
             return $response;
         }
-        return back();
+        return to_route('landing.index');
     }
 
     public function logout(Request $request)
