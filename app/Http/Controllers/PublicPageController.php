@@ -14,12 +14,12 @@ class PublicPageController extends Controller
     }
 
     public function contactIndex(){
-        return view('components.contactUs', [
+        return view('components.contact', [
             'title_page' => 'Contact'
         ]);
     }
     public function termIndex(){
-        return view('components.term_condition', [
+        return view('components.term', [
             'title_page' => 'Term',
         ]);
     }

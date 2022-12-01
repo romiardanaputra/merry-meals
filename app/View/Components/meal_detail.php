@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\admin;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class edit extends Component
+class meal_detail extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class edit extends Component
      */
     public function render()
     {
-        return view('components.admin.edit');
+        return view('components.meal_detail');
     }
 }
