@@ -7,7 +7,6 @@ use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateUserRequest;
-use GuzzleHttp\Psr7\Request;
 
 class AdminController extends Controller
 {
@@ -17,7 +16,6 @@ class AdminController extends Controller
             'data_users' => User::all(),
             'title_page' => 'User List',
             'dashboard_info' => 'Users Data',
-      
         ]);
     }
 
@@ -26,7 +24,6 @@ class AdminController extends Controller
         return view('admin.create_user', [
             'title_page' => 'Sign Up',
             'dashboard_info' => 'Create a New User',
-
         ]);
     }
 
@@ -47,10 +44,10 @@ class AdminController extends Controller
         ]);
     }
 
-    public function update(UpdateUserRequest $req, User $user)
+    public function update(UpdateUserRequest $req, $id)
     {
         $users_data = $req->validated();
-        User::where('id', $user->id)->update($users_data);
+        User::where('id', $id)->update($users_data);
         return to_route('admin.index');
     }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminPageController;
+use App\Http\Controllers\Admin\PartnerHandlerController;
 use App\Http\Controllers\Member\MemberPageController;
 
 
@@ -18,6 +19,7 @@ Route::resource('partner', PartnersController::class)->middleware('roles:partner
 
 // admin controller
 Route::resource('admin', AdminController::class)->middleware('roles:admin');
+Route::resource('partner_handler', PartnerHandlerController::class)->middleware('roles:admin');
 
 // admin page controller
 Route::controller(AdminPageController::class)->middleware('roles:admin')->group(function () {

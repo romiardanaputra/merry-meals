@@ -15,8 +15,6 @@ class MealsController extends Controller
             'meals' => Meal::all(),
             'dashboard_info' => 'Meal Lists',
             'title_page' => 'Meal lists',
-         
-
         ]);
     }
 

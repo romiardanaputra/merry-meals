@@ -11,7 +11,7 @@
                     <label for="name">Meal Name*</label>
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('name')@enderror" name="name"
-                        required value="{{ old('name ') ?? $meal->name }}">
+                        required value="{{ old('name') ?? $meal->name }}">
 
                     @error('name')
                     <p class="text-red-500">{{ $message }}</p>
@@ -32,7 +32,7 @@
                 <div class="text-gray-500 w-1/2">
                     <label for="path">image*</label>
                     <input type="file"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('path')@enderror" name="path"
+                        class="bg-[#FFFCF0] border border-gray-400 w-full file-input file-input-bordered @error('path')@enderror" name="path"
                         required value="{{ old('path') }}">
 
                     @error('path')

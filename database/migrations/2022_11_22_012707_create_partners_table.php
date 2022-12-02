@@ -18,10 +18,13 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->id();
-            $table->string('partner_name');
-            $table->string('partner_long');
-            $table->string('partner_lat');
-            $table->string('partner_location');
+            $table->string('owner_name');
+            $table->string('restaurant_name');
+            $table->string('restaurant_contact');
+            $table->string('restaurant_address');
+            $table->string('restaurant_image');
+            $table->string('food_type');
+            $table->string('role')->default('partner');
             $table->timestamps();
         });
     }
