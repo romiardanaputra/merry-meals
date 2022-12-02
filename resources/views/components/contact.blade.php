@@ -4,7 +4,7 @@
     @include('components.navbar')
     <!-- header -->
     <div class="w-auto h-[145px] bg-[#FFCE01] flex justify-center">
-        <h1 class="font-Poppins text-[64px] text-[#282222] font-bold">
+        <h1 class="font-Poppins text-[58px] text-[#282222] font-bold pt-[1rem]">
             CONTACT US
         </h1>
     </div>

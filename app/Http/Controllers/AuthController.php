@@ -27,12 +27,17 @@ class AuthController extends Controller
     {
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
-            $response = (!$request->user()->role == 'admin')
-                ? redirect()->intended(RouteServiceProvider::USER_DASHBOARD)
-                : redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
-            return $response;
+            if($request->user()->role == 'admin'){
+                return redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
+            } elseif($request->user()->role == 'member'){
+                return redirect()->intended(RouteServiceProvider::MEMBER_DASHBOARD);
+            } elseif($request->user()->role == 'caregiver'){
+                return redirect()->intended(RouteServiceProvider::CAREGIVER_DASHBOARD);
+            } elseif($request->user()->role == 'volunteer'){
+                return redirect()->intended(RouteServiceProvider::VOLUNTEER_DASHBOARD);
+            }
         }
-        return to_route('landing.index');
+        return back();
     }
 
     public function logout(Request $request)

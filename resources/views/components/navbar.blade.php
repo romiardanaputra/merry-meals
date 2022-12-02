@@ -17,9 +17,18 @@
 
       <div class="nav-login-register flex flex-row my-auto space-x-[18.57px] text-[#282222]">
         @auth
-        <a href="#"><button
-            class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">{{
-            auth()->user()->username }}</button></a>
+        @if (auth()->user()->role == 'member')
+        <a href="{{ route('member.dashboard') }}"><button
+          class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 {{ Request::is('member/dashboard') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">{{
+          auth()->user()->username }}</button></a>
+        @endif
+
+        @if (auth()->user()->role == 'admin')
+        <a href="{{ route('admin.index') }}"><button
+          class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 {{ Request::is('admin') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">{{
+          auth()->user()->username }}</button></a>
+        @endif
+
         <form action="{{ route('logout') }}" method="POST">
           @csrf
           <a href="#"><button type="submit"
@@ -39,14 +48,6 @@
 
     <div class="navbar-bottom bg-[#FFCE01] flex flex-row justify-center">
       <div class="nav w-max h-full">
-        @auth
-        <a href="{{ route('user.dashboard') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('user/menu') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">MENU</button></a>
-        <a href="{{ route('about') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('about') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">ABOUT</button></a>
-        <a href="{{ route('contact') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('contact') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">CONTACT</button></a>
-        @else
         <a href="{{ route('landing.index') }}"><button
             class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">HOME</button></a>
         <a href="{{ route('about') }}"><button
@@ -58,7 +59,6 @@
             & CONDITIONS</button></a>
         <a href="{{ route('donation') }}"><button
             class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
-        @endauth
       </div> <!-- nav -->
     </div> <!-- navbar-bottom -->
   </header> <!-- bg-navbar -->

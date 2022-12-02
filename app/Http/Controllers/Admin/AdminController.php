@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateUserRequest;
+use GuzzleHttp\Psr7\Request;
 
 class AdminController extends Controller
 {
@@ -16,13 +17,16 @@ class AdminController extends Controller
             'data_users' => User::all(),
             'title_page' => 'User List',
             'dashboard_info' => 'Users Data',
+      
         ]);
     }
 
     public function create()
     {
         return view('admin.create_user', [
-            'title_page' => 'Sign Up'
+            'title_page' => 'Sign Up',
+            'dashboard_info' => 'Create a New User',
+
         ]);
     }
 
@@ -34,12 +38,12 @@ class AdminController extends Controller
         return to_route('admin.index');
     }
 
-    public function edit(User $user)
+    public function edit($id)
     {
-        $userID = User::find($user->id);
         return view('admin.edit_user', [
-            'title' => 'Edit User',
-            'user' => $userID,
+            'title_page' => 'Edit User',
+            'user' => User::find($id),
+            'dashboard_info' => 'Edit User'
         ]);
     }
 
@@ -50,9 +54,9 @@ class AdminController extends Controller
         return to_route('admin.index');
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user = User::find($user->id);
+        $user = User::find($id);
         $user->delete();
         return redirect()->back();
     }

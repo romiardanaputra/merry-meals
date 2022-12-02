@@ -27,8 +27,9 @@ Route::controller(AdminPageController::class)->middleware('roles:admin')->group(
 
 // dashboard user route
 Route::controller(MemberPageController::class)->middleware('roles:member')->group(function () {
-    Route::get('user/menu', 'index')->name('user.dashboard');
-    Route::get('menu/{id}/detail', 'show')->name('member.show');
+    Route::get('member/dashboard', 'index')->name('member.dashboard');
+    // Route::get('user/menu', 'show_menu')->name('meal.menu');
+    Route::get('menu/{id}/detail', 'show_menu_detail')->name('member.show');
 });
 
 // public page controller

@@ -15,13 +15,16 @@ class MealsController extends Controller
             'meals' => Meal::all(),
             'dashboard_info' => 'Meal Lists',
             'title_page' => 'Meal lists',
+         
+
         ]);
     }
 
     public function create()
     {
         return view('meal.create_meal', [
-            'title_page' => 'Create Meal'
+            'title_page' => 'Create Meal',
+            'dashboard_info' => 'Create Meal'
         ]);
     }
 
@@ -49,6 +52,7 @@ class MealsController extends Controller
         return view('meal.edit_meal',[
             'meal' => Meal::find($meal->id),
             'title_page' => 'Meal Edit',
+            'dashboard_info' => 'Meal Edit'
         ]);
     }
 
