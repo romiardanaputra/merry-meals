@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Merry Meal | {{ $title_page }}</title>
     @vite('resources/css/app.css')
+    <link rel="icon" href="{!! asset('/favicon.ico') !!}"/>
 </head>
 <body>
     @yield('component_content')
