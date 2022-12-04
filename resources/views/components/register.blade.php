@@ -7,7 +7,7 @@
         <script>
             setTimeout(function() {
                 window.location.href = "/login"
-            }, 10000); 
+            }, 10000);
         </script>
         @endif
         <div style="box-shadow: 0px 8px 50px rgba(174, 168, 135, 0.5);"

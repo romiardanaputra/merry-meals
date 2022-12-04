@@ -1,13 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MealsController;
+<<<<<<< Updated upstream
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\GeolocationController;
+=======
+use App\Http\Controllers\Member\MemberPageController;
+use App\Http\Controllers\PartnersController;
+use App\Http\Controllers\PublicPageController;
+use App\Http\Controllers\StripeController;
+use Illuminate\Support\Facades\Route;
+>>>>>>> Stashed changes
 
 // dashboard user route
 
@@ -63,6 +72,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout')->name('logout');
 });
 
+<<<<<<< Updated upstream
 // getting location 
 Route::get('ip_details', [GeolocationController::class,'ip_details'])->name('detail_geolocation');
 Route::post('ip_details/store', [GeolocationController::class,'store'])->name('store_geolocation');
+=======
+//stripe
+Route::get('stripe', [StripeController::class, 'stripe']);
+Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
+>>>>>>> Stashed changes
