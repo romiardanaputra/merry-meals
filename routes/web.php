@@ -7,6 +7,7 @@ use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminPageController;
+use App\Http\Controllers\Admin\PartnerHandlerController;
 use App\Http\Controllers\Member\MemberPageController;
 
 
@@ -18,6 +19,7 @@ Route::resource('partner', PartnersController::class)->middleware('roles:partner
 
 // admin controller
 Route::resource('admin', AdminController::class)->middleware('roles:admin');
+Route::resource('partner_handler', PartnerHandlerController::class)->middleware('roles:admin');
 
 // admin page controller
 Route::controller(AdminPageController::class)->middleware('roles:admin')->group(function () {
@@ -27,8 +29,9 @@ Route::controller(AdminPageController::class)->middleware('roles:admin')->group(
 
 // dashboard user route
 Route::controller(MemberPageController::class)->middleware('roles:member')->group(function () {
-    Route::get('user/menu', 'index')->name('user.dashboard');
-    Route::get('menu/{id}/detail', 'show')->name('member.show');
+    Route::get('member/dashboard', 'index')->name('member.dashboard');
+    // Route::get('user/menu', 'show_menu')->name('meal.menu');
+    Route::get('menu/{id}/detail', 'show_menu_detail')->name('member.show');
 });
 
 // public page controller

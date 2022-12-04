@@ -1,151 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('admin.dashboard')
+@section('dashboard_admin')
+<div class="form-register-fields w-full pr-[5rem] mx-[10px]">
+    <form action="{{ route('admin.update', $user->id) }}" class="flex flex-col space-y-[24px]" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="flex flex-row space-x-[45px]">
+            <div class="text-gray-500 w-1/2">
+                <label for="fullName">Full Name*</label>
+                <input type="text"
+                    class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('fullName')@enderror"
+                    name="fullName" required value="{{ old('fullName') ?? $user->fullName }}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
-    <title>Merry Meals | {{ $title }}</title>
-</head>
+                @error('fullName')
+                <p class="text-red-500">{{ $message }}</p>
+                @enderror
+            </div> <!-- text -->
 
-<body class="font-poppins">
-    @include('components.navbar')
-    <div class="bg-register h-fit w-full bg-[#FFFCF0] py-[138px] px-[147px]">
-        <div style="box-shadow: 0px 8px 50px rgba(174, 168, 135, 0.5);"
-            class="bg-form-register h-[789px] w-full bg-[#FFFCF0] p-[103px] flex flex-row justify-center items-center space-x-[108px]">
+            <div class="text-gray-500 w-1/2">
+                <label for="username">Username*</label>
+                <input type="text"
+                    class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('username')@enderror"
+                    name="username" required value="{{ old('username') ?? $user->username }}" readonly>
 
-            <div class="form-register-text flex flex-col text-[#282222] w-[198px] space-y-[26px]">
-                <h1 class="font-semibold text-[40px]">Welcome</h1>
-                <p class="text-[16px] w-full text-justify break-words tracking-tighter">Create your account to be a
-                    member, volunteer, and caregiver</p>
-                <a href="{{ route('login') }}"><button
-                        class="w-full h-[37.53px] bg-[#A07C00] text-[#FFFCF0] text-[16px] hover:scale-105 duration-500">Login</button></a>
-            </div> <!-- form-register-text -->
+                @error('username')
+                <p class="text-red-500">{{ $message }}</p>
+                @enderror
+            </div> <!-- text -->
+        </div> <!-- form-register-flex -->
 
-            <div class="form-register-fields w-full">
-                <form action="{{ route('admin.update', $user->id) }}" class="flex flex-col space-y-[24px]" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="flex flex-row space-x-[45px]">
-                        <div class="text-gray-500 w-1/2">
-                            <label for="fullName">Full Name*</label>
-                            <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('fullName')@enderror"
-                                name="fullName" required value="{{ old('fullName') ?? $user->fullName }}">
+        <div class="flex flex-row space-x-[45px]">
+            <div class="text-gray-500 w-1/2">
+                <label for="email">Email*</label>
+                <input type="email"
+                    class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('email')@enderror" name="email"
+                    required value="{{ old('email') ?? $user->email }}" readonly>
 
-                            @error('fullName')
-                            <p class="text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> <!-- text -->
+                @error('email')
+                <p class="text-red-500">{{ $message }}</p>
+                @enderror
+            </div> <!-- text -->
 
-                        <div class="text-gray-500 w-1/2">
-                            <label for="username">Username*</label>
-                            <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('username')@enderror"
-                                name="username" required value="{{ old('username') ?? $user->username }}" readonly>
+            <div class="text-gray-500 w-1/2">
+                <label for="phoneNumber">Phone Number*</label>
+                <input type="text"
+                    class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('phoneNumber')@enderror"
+                    name="phoneNumber" required value="{{ old('phoneNumber') ?? $user->phoneNumber }}" readonly>
 
-                            @error('username')
-                            <p class="text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> <!-- text -->
-                    </div> <!-- form-register-flex -->
+                @error('phoneNumber')
+                <p class="text-red-500">{{ $message }}</p>
+                @enderror
+            </div> <!-- text -->
+        </div> <!-- form-register-flex -->
 
-                    <div class="flex flex-row space-x-[45px]">
-                        <div class="text-gray-500 w-1/2">
-                            <label for="email">Email*</label>
-                            <input type="email"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('email')@enderror"
-                                name="email" required value="{{ old('email') ?? $user->email }}" readonly>
+        <div class="flex flex-row space-x-[45px]">
+            <div class="text-gray-500 w-1/2">
+                <label for="age">Age (yr)*</label>
+                <input type="number" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('age')@enderror"
+                    name="age" required value="{{ old('age') ?? $user->age }}">
 
-                            @error('email')
-                            <p class="text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> <!-- text -->
+                @error('age')
+                <p class="text-red-500">{{ $message }}</p>
+                @enderror
+            </div> <!-- text -->
 
-                        <div class="text-gray-500 w-1/2">
-                            <label for="phoneNumber">Phone Number*</label>
-                            <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('phoneNumber')@enderror"
-                                name="phoneNumber" required value="{{ old('phoneNumber') ?? $user->phoneNumber }}" readonly>
+            <div class="text-gray-500 w-1/2">
+                <label for="role">role</label>
+                <input type="text" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('role')@enderror"
+                    name="role" required value="{{ old('role') ?? $user->role }}" readonly>
 
-                            @error('phoneNumber')
-                            <p class="text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> <!-- text -->
-                    </div> <!-- form-register-flex -->
+                @error('role')
+                <p class="text-red-500">{{ $message }}</p>
+                @enderror
+            </div> <!-- text -->
+        </div> <!-- form-register-flex -->
 
-                    <div class="flex flex-row space-x-[45px]">
-                        <div class="text-gray-500 w-1/2">
-                            <label for="age">Age (yr)*</label>
-                            <input type="number"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('age')@enderror"
-                                name="age" required value="{{ old('age') ?? $user->age }}">
+        <div class="flex flex-row space-x-[45px]">
+            <div class="text-gray-500 w-full">
+                <label for="address">Address*</label>
+                <input type="text"
+                    class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('address')@enderror"
+                    name="address" required value="{{ old('address') ?? $user->address }}">
 
-                            @error('age')
-                            <p class="text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> <!-- text -->
+                @error('address')
+                <p class="text-red-500">{{ $message }}</p>
+                @enderror
+            </div> <!-- text -->
+        </div> <!-- form-register-flex -->
 
-                        <div class="text-gray-500 w-1/2">
-                            <label for="role">role</label>
-                            <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('role')@enderror"
-                                name="role" required value="{{ old('role') ?? $user->role }}" readonly>
+        <div class="flex flex-row space-x-[45px]">
+            <div class="text-gray-500 w-1/2 hidden">
+                <label for="password">Password*</label>
+                <input type="password"
+                    class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('password')@enderror"
+                    name="password" required value="{{ old('password') ?? $user->password }}">
 
-                            @error('role')
-                            <p class="text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> <!-- text -->
-                    </div> <!-- form-register-flex -->
+                @error('password')
+                <p class="text-red-500">{{ $message }}</p>
+                @enderror
+            </div> <!-- text -->
 
-                    <div class="flex flex-row space-x-[45px]">
-                        <div class="text-gray-500 w-full">
-                            <label for="address">Address*</label>
-                            <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('address')@enderror"
-                                name="address" required value="{{ old('address') ?? $user->address }}">
+            <div class="text-gray-500 w-1/2 hidden">
+                <label for="confirm_password">Confirm Password*</label>
+                <input type="password"
+                    class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('confirm_password')@enderror"
+                    name='confirm_password' required value="{{ old('password') ?? $user->password }}">
 
-                            @error('address')
-                            <p class="text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> <!-- text -->
-                    </div> <!-- form-register-flex -->
+                @error('confirm_password')
+                <p class="text-red-500">{{ $message }}</p>
+                @enderror
+            </div> <!-- text -->
+        </div> <!-- form-register-flex -->
 
-                    <div class="flex flex-row space-x-[45px]">
-                        <div class="text-gray-500 w-1/2 hidden">
-                            <label for="password">Password*</label>
-                            <input type="password"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('password')@enderror"
-                                name="password" required value="{{ old('password') ?? $user->password }}">
-
-                            @error('password')
-                            <p class="text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> <!-- text -->
-
-                        <div class="text-gray-500 w-1/2 hidden">
-                            <label for="confirm_password">Confirm Password*</label>
-                            <input type="password"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('confirm_password')@enderror"
-                                name='confirm_password' required value="{{ old('password') ?? $user->password }}">
-
-                            @error('confirm_password')
-                            <p class="text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> <!-- text -->
-                    </div> <!-- form-register-flex -->
-
-                    <div class="flex justify-end">
-                        <button type="submit"
-                            class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Register</button>
-                    </div> <!-- button-flex -->
-                </form>
-            </div> <!-- form-register-fields -->
-
-        </div> <!-- bg-form-register -->
-    </div> <!-- bg-register -->
-    @include('components.footer')
-</body>
-
-</html>
+        <div class="flex justify-end">
+            <a role="button" href="{{ route('admin.index') }}"
+                    class="mt-[30px] mr-5 h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500 flex justify-center items-center">
+                    Cancel
+                </a>
+            <button type="submit"
+                class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Save</button>
+        </div> <!-- button-flex -->
+    </form>
+</div> <!-- form-register-fields -->
+@endsection

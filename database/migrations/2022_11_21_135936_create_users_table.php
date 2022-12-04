@@ -25,8 +25,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('password');
             $table->string('role');
-            $table->bigInteger('age');
-           
+            $table->bigInteger('age');   
             $table->timestamps();
         });
     }

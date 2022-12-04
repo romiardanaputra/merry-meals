@@ -22,7 +22,8 @@ class AdminController extends Controller
     public function create()
     {
         return view('admin.create_user', [
-            'title_page' => 'Sign Up'
+            'title_page' => 'Sign Up',
+            'dashboard_info' => 'Create a New User',
         ]);
     }
 
@@ -34,25 +35,25 @@ class AdminController extends Controller
         return to_route('admin.index');
     }
 
-    public function edit(User $user)
+    public function edit($id)
     {
-        $userID = User::find($user->id);
         return view('admin.edit_user', [
-            'title' => 'Edit User',
-            'user' => $userID,
+            'title_page' => 'Edit User',
+            'user' => User::find($id),
+            'dashboard_info' => 'Edit User'
         ]);
     }
 
-    public function update(UpdateUserRequest $req, User $user)
+    public function update(UpdateUserRequest $req, $id)
     {
         $users_data = $req->validated();
-        User::where('id', $user->id)->update($users_data);
+        User::where('id', $id)->update($users_data);
         return to_route('admin.index');
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user = User::find($user->id);
+        $user = User::find($id);
         $user->delete();
         return redirect()->back();
     }
