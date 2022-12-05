@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <script src="https://js.stripe.com/v3/"></script>
+
     <div class="container">
         <h1>Donation</h1>
         <div class="row">
@@ -49,10 +49,24 @@
                             class="require-validation" data-cc-on-file="false"
                             data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
                             @csrf
+                            <label for="donatorName">Full Name</label><input type="text" name="donatorName" required> <br>
+                            <label for="donatorAddress">Address</label><input type="text" name="donatorAddress" required> <br>
+                            <label for="donatorPhone">Phone Number</label><input type="number" name="donatorPhone" required> <br>
+                            <label for="donatorEmail">Email</label><input type="email" name="donatorEmail" required>
+                            <div class="form-row row">
+                                <div class='col-xs-12 form-group required'>
+                                    <label class='control-label'>Donation Amount</label> <input class='form-control' type='number' name="amount">
+                                </div>
+                            </div>
                             <div class='form-row row'>
                                 <div class='col-xs-12 form-group required'>
                                     <label class='control-label'>Name on Card</label> <input class='form-control'
                                         size='4' type='text'>
+                                </div>
+                            </div>
+                            <div class="form-row row">
+                                <div class='col-xs-12 form-group required'>
+                                    <label class='control-label'>Donation Description</label> <input class='form-control h-24' type='text' name="description">
                                 </div>
                             </div>
                             <div class='form-row row'>
@@ -77,8 +91,8 @@
                                         class='form-control card-expiry-year' placeholder='YYYY' size='4'
                                         type='text'>
                                 </div>
-                            {{-- </div>
-                            <div class='form-row row'>
+                            </div>
+                            {{-- <div class='form-row row'>
                                 <div class='col-md-12 error form-group hide'>
                                     <div class='alert-danger alert'>Please correct the errors and try
                                         again.</div>
@@ -86,8 +100,7 @@
                             </div> --}}
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now
-                                        ($100)</button>
+                                    <button class="btn btn-primary btn-lg btn-block" type="submit">Donate</button>
                                 </div>
                             </div>
                         </form>
@@ -96,6 +109,7 @@
             </div>
         </div>
     </div>
+    <script src="https://js.stripe.com/v3/"></script>
 </body>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">

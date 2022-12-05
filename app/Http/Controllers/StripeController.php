@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use Session;
 use Stripe;
@@ -15,7 +16,7 @@ class StripeController extends Controller
      */
     public function stripe()
     {
-        return view('components.stripe');
+        return view('components.stripe' , ['title_page' => 'Donation Form']);
     }
 
     /**
@@ -26,13 +27,31 @@ class StripeController extends Controller
     public function stripePost(Request $request)
     {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $customer = Stripe\Customer::create(array(
+            "email" => $request->donatorEmail,
+            "name" => $request->donatorName,
+            "source" => $request->stripeToken
+        ));
+
         Stripe\Charge::create ([
 
-                "amount" => 100 * 100,
+                "amount" => $request->amount * 100,
                 "currency" => "usd",
-                "source" => $request->stripeToken,
-                "description" => "Test payment from tutsmake.com."
+                // "source" => $request->stripeToken,
+                "customer" => $customer->id,
+                "description" => $request->description
         ]);
+
+
+
+        Donation::create([
+            'donatorName' => $request->donatorName,
+            'donatorAddress' => $request->donatorAddress,
+            'donatorEmail' => $request->donatorEmail,
+            'donatorPhone' => $request->donatorPhone,
+            'donationAmount' =>$request->amount
+        ]);
+
 
         Session::flash('success', 'Payment successful!');
 
