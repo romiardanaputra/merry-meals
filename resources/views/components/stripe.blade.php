@@ -27,6 +27,7 @@
 </head>
 
 <body>
+    <script src="https://js.stripe.com/v3/"></script>
     <div class="container">
         <h1>Donation</h1>
         <div class="row">

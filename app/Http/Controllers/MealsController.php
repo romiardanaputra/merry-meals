@@ -13,12 +13,8 @@ class MealsController extends Controller
     {
         return view('meal.index', [
             'meals' => Meal::all(),
-<<<<<<< Updated upstream
-            'title_page' => 'Create Meal'
-=======
             'dashboard_info' => 'Meal Lists',
             'title_page' => 'Meal lists',
->>>>>>> Stashed changes
         ]);
     }
 
@@ -37,7 +33,7 @@ class MealsController extends Controller
         ($request->hasFile('path'))
             ? $meal->path = $request->file('path')->store('meal-images')
             : back();
-        $meal->save();  
+        $meal->save();
         return to_route('meal.index');
     }
 
@@ -64,7 +60,7 @@ class MealsController extends Controller
         ($request->hasFile('path'))
             ? $meal->path = $request->file('path')->store('meal-images')
             : back();
-        $meal->save();  
+        $meal->save();
         return to_route('meal.index');
     }
 
