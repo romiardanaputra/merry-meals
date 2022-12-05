@@ -3,14 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     public function index(){
-        return view('components.menu_detail');
+        $member_data = User::where('id', Auth::id())->get();
+        // $partner_data = Partner::where('id', Partner::get()->id);
+        $lat_partner = DB::table('geolocations')->where('partner_id', 2)->value('latitude');
+        $lon_partner = DB::table('geolocations')->where('partner_id', 2)->value('longitude');
+        $lon_member = DB::table('geolocations')->where('user_id', 2)->value('longitude');
+        $lat_member = DB::table('geolocations')->where('user_id', 2)->value('latitude');
+        $distance = self::vincentyGreatCircleDistance($lat_partner, $lon_partner, $lat_member, $lon_member);
+        dd(floor($distance));
+        return view('components.test',[
+
+        ]);
     }
 
     public function vincentyGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000) {
@@ -29,7 +39,7 @@ class OrderController extends Controller
         return ($angle * $earthRadius) / 1000;
     }
 
-    public function orderDetail($id){
-        $user_data = User::where('user_id', Auth::id())->first();;
+    public function orderDetail(){
+        
     }
 }

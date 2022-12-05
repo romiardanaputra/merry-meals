@@ -2,7 +2,8 @@
 @section('dashboard_admin')
 <main class="font-poppins">
     <div class="form-register-fields w-full pr-[5rem] mx-[10px]">
-        <form action="{{ route('partner_handler.store') }}" class="flex flex-col space-y-[24px]" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('partner_handler.store') }}" class="flex flex-col space-y-[24px]" method="POST"
+            enctype="multipart/form-data">
             @csrf
             <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
@@ -10,7 +11,6 @@
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('owner_name')@enderror"
                         name="owner_name" required value="{{ old('owner_name') }}">
-
                     @error('owner_name')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
@@ -21,7 +21,6 @@
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurant_name')@enderror"
                         name="restaurant_name" required value="{{ old('restaurant_name') }}">
-
                     @error('restaurant_name')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
@@ -30,12 +29,11 @@
 
             <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
-                    <label for="restaurant_contact">Restaurant Contact*</label>
+                    <label for="restaurant_contact">Restaurant restaurant_contact*</label>
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurant_contact')@enderror"
                         name="restaurant_contact" required value="{{ old('restaurant_contact') }}">
-
-                    @error('restaurant_contact')
+                    @error('contact')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div> <!-- text -->
@@ -45,7 +43,6 @@
                     <input type="file"
                         class="bg-[#FFFCF0] border border-gray-400 w-full file-input @error('restaurant_image')@enderror"
                         name="restaurant_image" required value="{{ old('restaurant_image') }}">
-
                     @error('restaurant_image')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
@@ -56,10 +53,41 @@
                 <div class="text-gray-500 w-1/2">
                     <label for="restaurant_address">Restaurant Address*</label>
                     <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurant_address')@enderror" name="restaurant_address"
-                        required value="{{ old('restaurant_address') }}">
-
+                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurant_address')@enderror"
+                        name="restaurant_address" required value="{{ old('restaurant_address') }}">
                     @error('restaurant_address')
+                    <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+                </div> <!-- text -->
+                <div class="text-gray-500 w-1/2">
+                    <label for="email">Restaurant Email*</label>
+                    <input type="email"
+                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('email')@enderror"
+                        name="email" required value="{{ old('email') }}">
+                    @error('email')
+                    <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+                </div> <!-- text -->
+            </div>
+
+            <div class="flex flex-row space-x-[45px]">
+                <div class="text-gray-500 w-1/2">
+                    <label for="password">Restaurant Password*</label>
+                    <input type="password"
+                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('password')@enderror"
+                        name="password" required value="{{ old('password') }}">
+                    @error('restaurant_password')
+                    <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+                </div> <!-- text -->
+
+                <div class="text-gray-500 w-1/2">
+                    <label for="restaurant_confirm_pass">Restaurant Confirm Password*</label>
+                    <input type="password"
+                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurant_confirm_pass')@enderror"
+                        name="restaurant_confirm_pass" required value="{{ old('restaurant_confirm_pass') }}">
+
+                    @error('restaurant_confirm_pass')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div> <!-- text -->
@@ -68,7 +96,7 @@
                     <label for="food_type">Food Type*</label>
                     <select
                         class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 input pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('food_type')@enderror"
-                        id="food_type" name="food_type" required value="{{ old('food_type') }}" >
+                        id="food_type" name="food_type" required value="{{ old('food_type') }}">
                         <option>vegan friendly</option>
                         <option>non vegan friendly</option>
                     </select>
@@ -77,9 +105,8 @@
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div> <!-- text -->
-                <input type="text"
-                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('ip')@enderror"
-                name='ip' required value="{{$location->ip}}" hidden>
+                <input type="text" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('ip')@enderror"
+                    name='ip' required value="{{$location->ip}}" hidden>
             </div> <!-- form-register-flex -->
             <div class="flex justify-end">
                 <a role="button" href="{{ route('partner_handler.index') }}"
@@ -87,7 +114,8 @@
                     Back
                 </a>
                 <button type="submit"
-                    class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create Partner</button>
+                    class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create
+                    Partner</button>
             </div> <!-- button-flex -->
         </form>
     </div> <!-- form-register-fields -->

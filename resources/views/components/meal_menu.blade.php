@@ -1,4 +1,5 @@
-@extends('member.dashboard')
+@extends('layout.main')
+@section('component_content')
 <main class="bg-[#FFFCF0] w-full min-h-screen max-h-fit">
 
     <div class="bg-content px-[147px] py-[110px]">
@@ -39,3 +40,4 @@
         </div> <!-- container-2 -->
     </div> <!-- bg-content -->
 </main> <!-- container -->
+@endsection

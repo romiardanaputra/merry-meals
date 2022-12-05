@@ -19,14 +19,14 @@
         @auth
         @if (auth()->user()->role == 'member')
         <a href="{{ route('member.dashboard') }}"><button
-          class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 {{ Request::is('member/dashboard') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">{{
-          auth()->user()->username }}</button></a>
+            class="bg-[#FFCE01] {{ Request::is('member/dashboard') ? 'bg-[#282222] text-[#FFCE01]' : '' }} h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
+            auth()->user()->username }}</button></a>
         @endif
 
         @if (auth()->user()->role == 'admin')
         <a href="{{ route('admin.index') }}"><button
-          class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 {{ Request::is('admin') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">{{
-          auth()->user()->username }}</button></a>
+            class="{{ Request::is('admin') ? 'bg-[#282222] text-[#fffcf0]' : '' }} h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
+            auth()->user()->username }}</button></a>
         @endif
 
         <form action="{{ route('logout') }}" method="POST">
@@ -47,9 +47,21 @@
     </div> <!-- navbar-top -->
 
     <div class="navbar-bottom bg-[#FFCE01] flex flex-row justify-center">
+      @auth
+      @if (Auth::user()->role == 'member')
+      <a href="{{ route('meal.menu') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('member/menu') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">MENU</button></a>
+      <a href="{{ route('donation') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
+      <a href="{{ route('contact') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('contact') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">CONTACT</button></a>
+      @endif
+      @endauth
+
       <div class="nav w-max h-full">
+        @guest
         <a href="{{ route('landing.index') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">HOME</button></a>
+            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }} ">HOME</button></a>
         <a href="{{ route('about') }}"><button
             class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('about') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">ABOUT</button></a>
         <a href="{{ route('contact') }}"><button
@@ -59,6 +71,7 @@
             & CONDITIONS</button></a>
         <a href="{{ route('donation') }}"><button
             class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
+        @endguest 
       </div> <!-- nav -->
     </div> <!-- navbar-bottom -->
   </header> <!-- bg-navbar -->

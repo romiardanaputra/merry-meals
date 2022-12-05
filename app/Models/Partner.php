@@ -12,10 +12,12 @@ class Partner extends Model
     protected $fillable = [
         'owner_name',
         'restaurant_name',
-        'food_type',
+        'email',
+        'password',
         'restaurant_address',
-        'restaurant_contact',
+        'contact',
         'restaurant_image',
+        'food_type',
     ];
 
     protected $guarded = [

@@ -8,7 +8,10 @@
             <th>Restaurant Contact</th>
             <th>Restaurant Address</th>
             <th>Restaurant Image</th>
+            <th>Restaurant Email</th>
             <th>Food Type</th>
+            {{-- <th>Restaurant Lat</th>
+            <th>Restaurant Long</th> --}}
             <th>Action</th>
         </tr>
     </thead>
@@ -24,7 +27,10 @@
                         alt="partner-restaurant-image">
                 </td>
             </div>
+            <td>{{ $partner->email }}</td>
             <td>{{ $partner->food_type }}</td>
+            {{-- <td>{{ DB::table('geolocations')->where('partner_id', $partner->id)->value('latitude') }}</td>
+            <td>{{ DB::table('geolocations')->where('partner_id', $partner->id)->value('longitude') }}</td> --}}
             <td>
                 <div class="flex flex-col space-y-[10px] my-[10px]">
                     <a href="{{ route('partner_handler.edit', $partner->id) }}"><button

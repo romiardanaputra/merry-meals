@@ -9,10 +9,10 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\PartnerHandlerController;
 use App\Http\Controllers\Member\MemberPageController;
-
+use App\Http\Controllers\OrderController;
 
 // MealsController
-Route::resource('meal', MealsController::class)->middleware('roles:admin');
+Route::resource('meal', MealsController::class)->middleware('roles:admin,partner');
 
 // partner controller
 Route::resource('partner', PartnersController::class)->middleware('roles:partner');
@@ -27,19 +27,20 @@ Route::controller(AdminPageController::class)->middleware('roles:admin')->group(
     Route::get('list/user/location', 'show_list_location')->name('admin.list.location');
 });
 
-// dashboard user route
-Route::controller(MemberPageController::class)->middleware('roles:member')->group(function () {
-    Route::get('member/dashboard', 'index')->name('member.dashboard');
-    // Route::get('user/menu', 'show_menu')->name('meal.menu');
+// dashboard member route
+Route::controller(MemberPageController::class)->middleware('roles:member')->prefix('member')->group(function () {
+    Route::get('dashboard', 'index')->name('member.dashboard');
+    Route::get('menu/package', 'package_food')->name('member.menu.package');
+    Route::get('menu', 'show_menu')->name('meal.menu');
     Route::get('menu/{id}/detail', 'show_menu_detail')->name('member.show');
 });
 
 // public page controller
 Route::controller(PublicPageController::class)->group(function () {
-    Route::get('/', 'index')->name('landing.index');
-    Route::get('about', 'aboutIndex')->name('about');
+    Route::get('/', 'index')->name('landing.index')->middleware('guest');
+    Route::get('about', 'aboutIndex')->name('about')->middleware('guest');
     Route::get('contact', 'contactIndex')->name('contact');
-    Route::get('term', 'termIndex')->name('term');
+    Route::get('term', 'termIndex')->name('term')->middleware('guest');
     Route::get('donate', 'donationIndex')->name('donation');
 });
 
@@ -52,3 +53,5 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout')->name('logout');
 });
 
+//order controller
+Route::get('/test', [OrderController::class, 'index'])->middleware('roles:member');
