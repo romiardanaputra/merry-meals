@@ -10,7 +10,7 @@
                 <div class="text-gray-500 w-1/2">
                     <label for="owner_name">Owner Name*</label>
                     <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('owner_name')@enderror"
+                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input  @error('owner_name')@enderror"
                         name="owner_name" required value="{{ old('owner_name ') ?? $partners->owner_name}}">
 
                     @error('owner_name')

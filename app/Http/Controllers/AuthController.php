@@ -37,7 +37,7 @@ class AuthController extends Controller
                 return redirect()->intended(RouteServiceProvider::VOLUNTEER_DASHBOARD);
             }
         }
-        return back();
+        return to_route('login');
     }
 
     public function logout(Request $request)
@@ -60,8 +60,12 @@ class AuthController extends Controller
     {
         $users_data = $request->validated();
         $users_data['password'] = Hash::make($users_data['password']);
-        // User::create($users_data);
         $create_user = User::create($users_data);
+        self::create_location_based_user($create_user, $request);
+        return to_route('login')->with('success_register', 'successfully registration please login!');
+    }
+
+    public function create_location_based_user($create_user, $request){
         $data = Location::get('https://' . $request->ip());  //dynamic ip address
         $u_location = new Geolocation;
         $u_location->ip = $data->ip;
@@ -75,6 +79,5 @@ class AuthController extends Controller
         $u_location->longitude = $data->longitude;
         $u_location->user_id = $create_user->id;
         $u_location->save();
-        return to_route('login')->with('success_register', 'successfully registration please login!');
     }
 }

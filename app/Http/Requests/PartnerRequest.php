@@ -29,7 +29,10 @@ class PartnerRequest extends FormRequest
             'food_type' => ['required'],
             'restaurant_image' => ['required','image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
             'restaurant_address' => ['required'],
-            'restaurant_contact' => ['required'],
+            'restaurant_contact' => ['required', 'unique:partners'],
+            'email' => ['required', 'unique:partners', 'email:dns,rfc'],
+            'password' => ['required', 'min:6'],
+
         ];
     }
 }

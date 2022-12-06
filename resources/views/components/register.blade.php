@@ -28,8 +28,8 @@
                         <div class="text-gray-500 w-1/2">
                             <label for="fullName">Full Name*</label>
                             <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('fullName')@enderror"
-                                name="fullName" required value="{{ old('fullName ') }}">
+                                class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('fullName')@enderror"
+                                name="fullName" required value="{{ old('fullName') }}">
 
                             @error('fullName')
                             <p class="text-red-500">{{ $message }}</p>
@@ -39,8 +39,8 @@
                         <div class="text-gray-500 w-1/2">
                             <label for="username">Username*</label>
                             <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('username')@enderror"
-                                name="username" required value="{{ old('username ') }}">
+                                class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('username')@enderror"
+                                name="username" required value="{{ old('username') }}">
 
                             @error('username')
                             <p class="text-red-500">{{ $message }}</p>
@@ -52,8 +52,8 @@
                         <div class="text-gray-500 w-1/2">
                             <label for="email">Email*</label>
                             <input type="email"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('email')@enderror"
-                                name="email" required value="{{ old('email ') }}">
+                                class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('email')@enderror"
+                                name="email" required value="{{ old('email') }}">
 
                             @error('email')
                             <p class="text-red-500">{{ $message }}</p>
@@ -63,8 +63,8 @@
                         <div class="text-gray-500 w-1/2">
                             <label for="phoneNumber">Phone Number*</label>
                             <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('phoneNumber')@enderror"
-                                name="phoneNumber" required value="{{ old('phoneNumber ') }}">
+                                class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('phoneNumber')@enderror"
+                                name="phoneNumber" required value="{{ old('phoneNumber') }}">
 
                             @error('phoneNumber')
                             <p class="text-red-500">{{ $message }}</p>
@@ -76,8 +76,8 @@
                         <div class="text-gray-500 w-1/2">
                             <label for="age">Age (yr)*</label>
                             <input type="number"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('age')@enderror"
-                                name="age" required value="{{ old('age ') }}">
+                                class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('age')@enderror"
+                                name="age" required value="{{ old('age') }}">
 
                             @error('age')
                             <p class="text-red-500">{{ $message }}</p>
@@ -87,8 +87,8 @@
                         <div class="text-gray-500 w-1/2">
                             <label for="role">Register as*</label>
                             <select
-                                class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('role')@enderror"
-                                id="role" name="role" required value="{{ old('role ') }}">
+                                class="w-full bg-[#FFFCF0] input border border-gray-400 text-gray-500 py-2 px-3 pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('role')@enderror"
+                                id="role" name="role" required value="{{ old('role') }}">
                                 <option class="block disabled">Please select your role</option>
                                 <option>member</option>
                                 <option>volunteer</option>
@@ -105,8 +105,8 @@
                         <div class="text-gray-500 w-full">
                             <label for="address">Address*</label>
                             <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('address')@enderror"
-                                name="address" required value="{{ old('address ') }}">
+                                class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('address')@enderror"
+                                name="address" required value="{{ old('address') }}">
 
                             @error('address')
                             <p class="text-red-500">{{ $message }}</p>
@@ -118,8 +118,8 @@
                         <div class="text-gray-500 w-1/2">
                             <label for="password">Password*</label>
                             <input type="password"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('password')@enderror"
-                                name="password" required value="{{ old('password ') }}">
+                                class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('password')@enderror"
+                                name="password" required value="{{ old('password') }}">
 
                             @error('password')
                             <p class="text-red-500">{{ $message }}</p>
@@ -129,8 +129,8 @@
                         <div class="text-gray-500 w-1/2">
                             <label for="confirmPassword">Confirm Password*</label>
                             <input type="password"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('confirmPassword')@enderror"
-                                name='confirmPassword' required value="{{ old('confirmPassword ') }}">
+                                class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('confirmPassword')@enderror"
+                                name='confirmPassword' required value="{{ old('confirmPassword') }}">
 
                             @error('confirmPassword')
                             <p class="text-red-500">{{ $message }}</p>
@@ -139,7 +139,7 @@
                         <div class="text-gray-500 w-1/2 hidden">
                             <label for="ip">Ip Address*</label>
                             <input type="text"
-                                class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 @error('ip')@enderror"
+                                class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('ip')@enderror"
                                 name='ip' required value="{{$data->ip}}" hidden>
 
                             @error('ip')
@@ -150,7 +150,7 @@
 
                     <div class="flex justify-end">
                         <button type="submit"
-                            class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Register</button>
+                            class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500 input flex justify-center items-center py-5">Register</button>
                     </div> <!-- button-flex -->
                 </form>
             </div> <!-- form-register-fields -->

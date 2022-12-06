@@ -24,12 +24,14 @@ class PartnerUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'owner_name' => ['required'],
-            'restaurant_name' => ['required'],
-            'food_type' => ['required'],
+            'owner_name' => [''],
+            'restaurant_name' => [''],
+            'food_type' => [''],
             'restaurant_image' => ['required','image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
-            'restaurant_address' => ['required'],
-            'restaurant_contact' => ['required'],
+            'restaurant_address' => [''],
+            'email' => ['email:dns,rfc'],
+            'password' => ['min:6'],
+            'restaurant_contact' => [''],
         ];
     }
 }

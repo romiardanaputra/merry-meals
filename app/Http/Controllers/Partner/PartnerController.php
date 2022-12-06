@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Meal;
 
 class PartnerController extends Controller
 {
@@ -14,7 +15,11 @@ class PartnerController extends Controller
      */
     public function index()
     {
-        //
+        return view('meal.list_meal', [
+            'meals' => Meal::all(),
+            'dashboard_info' => 'Meal Lists',
+            'title_page' => 'Meal lists',
+        ]);
     }
 
     /**
