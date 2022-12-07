@@ -34,7 +34,7 @@ class MealsController extends Controller
         ($req->hasFile('path'))
             ? $meal->path = $req->file('path')->store('meal-images')
             : back();
-        $meal->save();  
+        $meal->save();
         return to_route('meal.index');
     }
 
@@ -62,7 +62,7 @@ class MealsController extends Controller
         ($req->hasFile('path'))
             ? $meal->path = $req->file('path')->store('meal-images')
             : back();
-        $meal->save();  
+        $meal->save();
         return to_route('meal.index');
     }
 

@@ -7,6 +7,7 @@
     <title>Merry Meal | {{ $title_page }}</title>
     @vite('resources/css/app.css')
     <link rel="icon" href="{!! asset('/favicon.ico') !!}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
     @yield('component_content')

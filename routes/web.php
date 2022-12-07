@@ -1,15 +1,43 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MealsController;
 use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\PublicPageController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\PartnerHandlerController;
 use App\Http\Controllers\Member\MemberPageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\GeolocationController;
+use App\Http\Controllers\StripeController;
+use Illuminate\Support\Facades\Route;
+
+// dashboard user route
+
+Route::get('/user/dashboard', function () {
+    return view('components.dashboard_user',[
+        'title_page' => 'User Dashboard',
+        'dashboard_info' => 'User Panel',
+    ]);
+})->middleware('roles:member,caregiver,volunteer')->name('user.dashboard');
+
+// admin route
+Route::get('/admin/dashboard', function () {
+    return view('components.admin',[
+        'title_page' => 'Admin Dashboard',
+        'dashboard_info' => 'Admin Pannel',
+    ]);
+})->middleware('roles:admin')->name('admin.dashboard');
+
+// public page controller
+Route::controller(PublicPageController::class)->group(function () {
+    Route::get('/', 'index')->name('landing.index');
+    Route::get('/about', 'aboutIndex')->name('about');
+    Route::get('/contact', 'contactIndex')->name('contact');
+    Route::get('/term', 'termIndex')->name('term');
+    Route::get('/donate', 'donationIndex')->name('donation');
+});
 
 // MealsController
 Route::resource('meal', MealsController::class)->middleware('roles:admin,partner');
@@ -55,3 +83,10 @@ Route::controller(AuthController::class)->group(function () {
 
 //order controller
 Route::get('/test', [OrderController::class, 'index'])->middleware('roles:member');
+// getting location
+Route::get('ip_details', [GeolocationController::class,'ip_details'])->name('detail_geolocation');
+Route::post('ip_details/store', [GeolocationController::class,'store'])->name('store_geolocation');
+
+//stripe
+Route::get('donation', [StripeController::class, 'stripe']);
+Route::post('donation', [StripeController::class, 'stripePost'])->name('donation.post');

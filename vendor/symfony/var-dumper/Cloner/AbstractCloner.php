@@ -66,9 +66,6 @@ abstract class AbstractCloner implements ClonerInterface
         'DOMAttr' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castAttr'],
         'DOMElement' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castElement'],
         'DOMText' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castText'],
-        'DOMTypeinfo' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castTypeinfo'],
-        'DOMDomError' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castDomError'],
-        'DOMLocator' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castLocator'],
         'DOMDocumentType' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castDocumentType'],
         'DOMNotation' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castNotation'],
         'DOMEntity' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castEntity'],
@@ -163,7 +160,6 @@ abstract class AbstractCloner implements ClonerInterface
         'GdImage' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castGd'],
         ':gd' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castGd'],
 
-        ':mysql link' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castMysqlLink'],
         ':pgsql large object' => ['Symfony\Component\VarDumper\Caster\PgSqlCaster', 'castLargeObject'],
         ':pgsql link' => ['Symfony\Component\VarDumper\Caster\PgSqlCaster', 'castLink'],
         ':pgsql link persistent' => ['Symfony\Component\VarDumper\Caster\PgSqlCaster', 'castLink'],
@@ -191,6 +187,9 @@ abstract class AbstractCloner implements ClonerInterface
         'RdKafka\Topic' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castTopic'],
         'RdKafka\TopicPartition' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castTopicPartition'],
         'RdKafka\TopicConf' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castTopicConf'],
+
+        'FFI\CData' => ['Symfony\Component\VarDumper\Caster\FFICaster', 'castCTypeOrCData'],
+        'FFI\CType' => ['Symfony\Component\VarDumper\Caster\FFICaster', 'castCTypeOrCData'],
     ];
 
     protected $maxItems = 2500;
@@ -217,10 +216,7 @@ abstract class AbstractCloner implements ClonerInterface
      */
     public function __construct(array $casters = null)
     {
-        if (null === $casters) {
-            $casters = static::$defaultCasters;
-        }
-        $this->addCasters($casters);
+        $this->addCasters($casters ?? static::$defaultCasters);
     }
 
     /**
