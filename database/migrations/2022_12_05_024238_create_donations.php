@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('donationAmount');
             $table->string('donatorEmail');
             $table->string('donatorPhone');
-            $table->string('donatorAddress');
+            // $table->string('address');
+            $table->string('description');
             $table->timestamps();
         });
     }

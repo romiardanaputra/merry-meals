@@ -16,7 +16,7 @@ class StripeController extends Controller
      */
     public function stripe()
     {
-        return view('components.stripe' , ['title_page' => 'Donation Form']);
+        return view('components.donation_form' , ['title_page' => 'Donation Form']);
     }
 
     /**
@@ -27,29 +27,34 @@ class StripeController extends Controller
     public function stripePost(Request $request)
     {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
         $customer = Stripe\Customer::create(array(
+            "source" => $request->stripeToken,
             "email" => $request->donatorEmail,
+            // "address"=> $request->address,
             "name" => $request->donatorName,
-            "source" => $request->stripeToken
+            "phone" => $request->donatorPhone,
         ));
 
-        Stripe\Charge::create ([
+        // dd($customer);
 
+        Stripe\Charge::create ([
                 "amount" => $request->amount * 100,
                 "currency" => "usd",
                 // "source" => $request->stripeToken,
+                "description" => $request->description,
                 "customer" => $customer->id,
-                "description" => $request->description
         ]);
 
 
 
         Donation::create([
             'donatorName' => $request->donatorName,
-            'donatorAddress' => $request->donatorAddress,
+            // 'address' => $request->address,
             'donatorEmail' => $request->donatorEmail,
             'donatorPhone' => $request->donatorPhone,
-            'donationAmount' =>$request->amount
+            'donationAmount' =>$request->amount,
+            'description' => $request->description
         ]);
 
 

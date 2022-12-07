@@ -70,5 +70,5 @@ Route::controller(AuthController::class)->group(function () {
 Route::get('ip_details', [GeolocationController::class,'ip_details'])->name('detail_geolocation');
 Route::post('ip_details/store', [GeolocationController::class,'store'])->name('store_geolocation');
 //stripe
-Route::get('stripe', [StripeController::class, 'stripe']);
-Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
+Route::get('donation', [StripeController::class, 'stripe']);
+Route::post('donation', [StripeController::class, 'stripePost'])->name('donation.post');

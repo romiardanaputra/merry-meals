@@ -14,8 +14,9 @@ class Donation extends Model
         'donatorName',
         'donatorEmail',
         'donationAmount',
-        'donatorAddress',
-        'donatorPhone'
+        // 'address',
+        'donatorPhone',
+        'description'
     ];
     protected $guarded = ['donationID'];
 }

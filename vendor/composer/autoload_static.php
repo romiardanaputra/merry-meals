@@ -589,6 +589,7 @@ class ComposerStaticInit70706e87f2f47779ba6722469eec27c9
         'App\\Http\\Requests\\ImageRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ImageRequest.php',
         'App\\Http\\Requests\\UpdateUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateUserRequest.php',
         'App\\Http\\Requests\\UserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UserRequest.php',
+        'App\\Models\\Donation' => __DIR__ . '/../..' . '/app/Models/Donation.php',
         'App\\Models\\Geolocation' => __DIR__ . '/../..' . '/app/Models/Geolocation.php',
         'App\\Models\\Meal' => __DIR__ . '/../..' . '/app/Models/Meal.php',
         'App\\Models\\Member' => __DIR__ . '/../..' . '/app/Models/Member.php',

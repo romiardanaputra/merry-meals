@@ -34,6 +34,7 @@ return array(
     'App\\Http\\Requests\\ImageRequest' => $baseDir . '/app/Http/Requests/ImageRequest.php',
     'App\\Http\\Requests\\UpdateUserRequest' => $baseDir . '/app/Http/Requests/UpdateUserRequest.php',
     'App\\Http\\Requests\\UserRequest' => $baseDir . '/app/Http/Requests/UserRequest.php',
+    'App\\Models\\Donation' => $baseDir . '/app/Models/Donation.php',
     'App\\Models\\Geolocation' => $baseDir . '/app/Models/Geolocation.php',
     'App\\Models\\Meal' => $baseDir . '/app/Models/Meal.php',
     'App\\Models\\Member' => $baseDir . '/app/Models/Member.php',
