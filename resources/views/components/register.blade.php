@@ -93,8 +93,8 @@
                                 <option>member</option>
                                 <option>volunteer</option>
                                 <option>caregiver</option>
+                                <option>partner</option>
                             </select>
-
                             @error('role')
                             <p class="text-red-500">{{ $message }}</p>
                             @enderror

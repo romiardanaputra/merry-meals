@@ -35,6 +35,8 @@ class AuthController extends Controller
                 return redirect()->intended(RouteServiceProvider::CAREGIVER_DASHBOARD);
             } elseif($request->user()->role == 'volunteer'){
                 return redirect()->intended(RouteServiceProvider::VOLUNTEER_DASHBOARD);
+            }elseif($request->user()->role == 'partner'){
+                return redirect()->intended(RouteServiceProvider::PARTNER_DASHBOARD);
             }
         }
         return to_route('login');
@@ -50,7 +52,7 @@ class AuthController extends Controller
 
     public function register_index(Request $request)
     {
-        $data = Location::get('https://' . $request->ip());  //dynamic ip address
+        $data = Location::get('https://' . $request->ip()); 
         return view('components.register', compact('data') , [
             'title_page' => 'Sign Up',
         ]);
@@ -66,7 +68,7 @@ class AuthController extends Controller
     }
 
     public function create_location_based_user($create_user, $request){
-        $data = Location::get('https://' . $request->ip());  //dynamic ip address
+        $data = Location::get('https://' . $request->ip());
         $u_location = new Geolocation;
         $u_location->ip = $data->ip;
         $u_location->countryName = $data->countryName;

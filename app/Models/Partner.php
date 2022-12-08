@@ -12,8 +12,6 @@ class Partner extends Model
     protected $fillable = [
         'owner_name',
         'restaurant_name',
-        'email',
-        'password',
         'restaurant_address',
         'contact',
         'restaurant_image',

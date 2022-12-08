@@ -20,7 +20,6 @@ class PartnerHandlerController extends Controller
         $partner_data = Partner::all();
         return view('admin.list_partner', [
             'data_partners' => $partner_data,
-            // 'partner_loc' => $partner_location_data,
             'title_page' => 'Partner lists',
             'dashboard_info' => 'Partners Lists',
         ]);

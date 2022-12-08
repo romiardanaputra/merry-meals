@@ -2,20 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MealsController;
-use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\PartnerHandlerController;
 use App\Http\Controllers\Member\MemberPageController;
 use App\Http\Controllers\OrderController;
-
-// MealsController
-Route::resource('meal', MealsController::class)->middleware('roles:admin,partner');
+use App\Http\Controllers\Partner\PartnerMealController;
+use App\Http\Controllers\Partner\PartnerProfileController;
 
 // partner controller
-Route::resource('partner', PartnersController::class)->middleware('roles:partner');
+
+Route::controller(PartnerProfileController::class)->middleware('roles:partner')->group(function(){
+Route::get('partner/showProfile/{id}', 'partnerProfile' )->name('partner.profile');
+Route::resource('partner', PartnerProfileController::class);
+
+});
+
+
+Route::resource('meal', PartnerMealController::class)->middleware('roles:partner,member');
+
 
 // admin controller
 Route::resource('admin', AdminController::class)->middleware('roles:admin');
@@ -37,7 +43,7 @@ Route::controller(MemberPageController::class)->middleware('roles:member')->pref
 
 // public page controller
 Route::controller(PublicPageController::class)->group(function () {
-    Route::get('/', 'index')->name('landing.index')->middleware('guest');
+    Route::get('/', 'index')->name('landing.index');
     Route::get('about', 'aboutIndex')->name('about')->middleware('guest');
     Route::get('contact', 'contactIndex')->name('contact');
     Route::get('term', 'termIndex')->name('term')->middleware('guest');
