@@ -9,14 +9,16 @@ class Meal extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
-        'name',
-        'ingredient',
-        'path',
+    protected $fillable = [
+        'mealName',
+        'mealIngredient',
+        'mealImage',
+        'mealType',
+        'mealAvailability',
+        'mealDescription'
     ];
 
     protected $guarded = [
         'id'
     ];
-
 }

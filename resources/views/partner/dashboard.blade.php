@@ -58,12 +58,6 @@
                 class="dash-database w-full h-fit p-[50px] bg-[#FFFDF6] m-auto shadow-[0px_8px_50px_rgba(174,168,135,0.5)] space-y-[35px] overflow-auto">
                 <div class="flex justify-between">
                     <h1 class="font-semibold text-[20px]">{{ $dashboard_info }}</h1>
-                    {{-- @if (Request::routeIs('partnerProfile.show'))
-                    <a role="button" href="{{ route('partnerProfile.edit') }}"
-                        class="w-[10rem] mb-[10px] h-fit bg-[#4CAF3C] p-[5px] text-[#FFFDF6] duration-500 hover:scale-100 flex justify-center align-middle">
-                        Update Profile
-                    </a>
-                    @endif --}}
                 </div>
 
                 <div class=" h-[500px] w-full ">

@@ -10,7 +10,6 @@
                 <input type="text"
                     class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('fullName')@enderror"
                     name="fullName" required value="{{ old('fullName') ?? $user->fullName }}">
-
                 @error('fullName')
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror
@@ -21,7 +20,6 @@
                 <input type="text"
                     class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('username')@enderror"
                     name="username" required value="{{ old('username') ?? $user->username }}" readonly>
-
                 @error('username')
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror
@@ -34,7 +32,6 @@
                 <input type="email"
                     class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('email')@enderror" name="email"
                     required value="{{ old('email') ?? $user->email }}" readonly>
-
                 @error('email')
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror
@@ -45,7 +42,6 @@
                 <input type="text"
                     class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('phoneNumber')@enderror"
                     name="phoneNumber" required value="{{ old('phoneNumber') ?? $user->phoneNumber }}" readonly>
-
                 @error('phoneNumber')
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror
@@ -57,7 +53,6 @@
                 <label for="age">Age (yr)*</label>
                 <input type="number" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('age')@enderror"
                     name="age" required value="{{ old('age') ?? $user->age }}">
-
                 @error('age')
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror
@@ -67,7 +62,6 @@
                 <label for="role">role</label>
                 <input type="text" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('role')@enderror"
                     name="role" required value="{{ old('role') ?? $user->role }}" readonly>
-
                 @error('role')
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror
@@ -80,7 +74,6 @@
                 <input type="text"
                     class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('address')@enderror"
                     name="address" required value="{{ old('address') ?? $user->address }}">
-
                 @error('address')
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror
@@ -93,7 +86,6 @@
                 <input type="password"
                     class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('password')@enderror"
                     name="password" required value="{{ old('password') ?? $user->password }}">
-
                 @error('password')
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror

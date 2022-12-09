@@ -7,55 +7,52 @@
             @csrf
             <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
-                    <label for="owner_name">Owner Name*</label>
+                    <label for="ownerName">Owner Name*</label>
                     <input type="text" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input"
-                        name="owner_name" required value="{{ old('owner_name') ?? $partner->owner_name }}" readonly>
+                        name="ownerName" required value="{{ old('ownerName') ?? $partner->ownerName }}" readonly>
                 </div> <!-- text -->
 
                 <div class="text-gray-500 w-1/2">
-                    <label for="restaurant_name">Restaurant Name*</label>
+                    <label for="restaurantName">Restaurant Name*</label>
                     <input type="text" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input"
-                        name="restaurant_name" required
-                        value="{{ old('restaurant_name') ?? $partner->restaurant_name }}" readonly>
+                        name="restaurantName" required value="{{ old('restaurantName') ?? $partner->restaurantName }}"
+                        readonly>
                 </div> <!-- text -->
             </div> <!-- form-register-flex -->
 
             <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
-                    <label for="restaurant_contact">Restaurant Contact*</label>
+                    <label for="restaurantContact">Restaurant Contact*</label>
                     <input type="text" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input"
-                        name="restaurant_contact" required
-                        value="{{ old('restaurant_contact') ?? $partner->restaurant_contact}}" readonly>
+                        name="restaurantContact" required
+                        value="{{ old('restaurantContact') ?? $partner->restaurantContact}}" readonly>
                 </div> <!-- text -->
 
                 <div class="text-gray-500 w-1/2">
-                    <label for="restaurant_image">Restaurant Image*</label>
+                    <label for="restaurantImage">Restaurant Image*</label>
                     <img class="h-[120x] w-[120px] object-fill m-auto"
-                        src="{{ asset('storage/'.$partner->restaurant_image)  }}" alt="restaurant-image">
+                        src="{{ asset('storage/'.$partner->restaurantImage)  }}" alt="restaurant-image">
                 </div> <!-- text -->
             </div> <!-- form-register-flex -->
 
             <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
-                    <label for="restaurant_address">Restaurant Address*</label>
+                    <label for="restaurantAddress">Restaurant Address*</label>
                     <input type="text" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input"
-                        name="restaurant_address" required
-                        value="{{ old('restaurant_address') $partner->restaurant_address }}" readonly>
+                        name="restaurantAddress" required
+                        value="{{ old('restaurantAddress') $partner->restaurantAddress }}" readonly>
                 </div> <!-- text -->
                 <div class="text-gray-500 w-1/2">
-                    <label for="food_type">Food Type*</label>
+                    <label for="foodType">Food Type*</label>
                     <input type="text" class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input"
-                        name="food_type" required value="{{ old('food_type') $partner->food_type }}" readonly>
+                        name="foodType" required value="{{ old('foodType') $partner->foodType }}" readonly>
                 </div>
             </div>
             <div class="flex justify-end">
-                <a role="button" href="{{ route('partner_handler.index') }}"
+                <a role="button" href="{{ route('profile.index') }}"
                     class="mt-[30px] mr-5 h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500 flex justify-center items-center">
                     Back
                 </a>
-                <button type="submit"
-                    class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create
-                    Partner</button>
             </div> <!-- button-flex -->
         </form>
     </div> <!-- form-register-fields -->

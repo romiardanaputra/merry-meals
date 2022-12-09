@@ -14,12 +14,12 @@ class PartnerUpdateProfile extends FormRequest
     public function rules()
     {
         return [
-            'owner_name' => [''],
-            'restaurant_name' => [''],
-            'food_type' => [''],
-            'restaurant_image' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
-            'restaurant_address' => [''],
-            'restaurant_contact' => ['', 'unique:partners'],
+            'ownerName' => [''],
+            'restaurantName' => [''],
+            'foodType' => [''],
+            'restaurantImage' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
+            'restaurantAddress' => [''],
+            'restaurantContact' => ['', 'unique:partners'],
         ];
     }
 }

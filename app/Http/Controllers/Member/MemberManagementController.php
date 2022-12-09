@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Member;
 
 use App\Models\Meal;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class MemberPageController extends Controller
+
+class MemberManagementController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('member.dashboard', [
             'title_page' => 'Member Dashboard',
             'dashboard_info' => 'Meals Detail',
@@ -14,20 +17,50 @@ class MemberPageController extends Controller
         ]);
     }
 
-    public function show_menu_detail($id){
+    public function create()
+    {
+        //
+    }
+
+    public function store(Request $request)
+    {
+        //
+    }
+
+    public function show($id)
+    {
+        //
+    }
+
+    public function edit($id)
+    {
+        //
+    }
+
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    public function destroy($id)
+    {
+        //
+    }
+
+    public function menuDetailShow($id){
         return view('components.meal_detail',[
             'title_page' => 'Meal Menu',
             'meal' => Meal::find($id),
         ]);
     }
 
-    public function package_food(){
+    public function packageFood(){
         return view('components.test', [
             'title_page' => 'Safety Food Package',
         ]);
     }
 
-    public function show_menu(){
+    public function menuMealShow(){
         return view('member.menu_member', [
             'title_page' => 'Member Menu',
             'dashboard_info' => 'Meals Menu',

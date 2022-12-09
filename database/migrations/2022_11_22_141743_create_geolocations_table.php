@@ -6,17 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('geolocations', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->charset = 'utf8mb4';
-            $table->collation = 'utf8mb4_unicode_ci';
             $table->id();
             $table->string('ip');
             $table->string('countryName')->nullable();
@@ -27,23 +19,11 @@ return new class extends Migration
             $table->string('zipCode')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->foreignId('user_id')->nullable()
-            ->constrained('users')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-            $table->foreignId('partner_id')->nullable()
-            ->constrained('partners')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->foreignId('userID')->nullable()->constrained('users', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    
     public function down()
     {
         Schema::dropIfExists('geolocations');

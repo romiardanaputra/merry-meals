@@ -10,12 +10,12 @@ class Partner extends Model
     use HasFactory;
 
     protected $fillable = [
-        'owner_name',
-        'restaurant_name',
-        'restaurant_address',
-        'contact',
-        'restaurant_image',
-        'food_type',
+        'ownerName',
+        'restaurantName',
+        'restaurantAddress',
+        'restaurantContact',
+        'restaurantImage',
+        'foodType',
     ];
 
     protected $guarded = [

@@ -10,11 +10,13 @@ return new class extends Migration
     {
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('partnerID')->constrained('partners', 'id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('partnerID')->constrained('users', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->string('mealName');
             $table->string('mealIngredient');
             $table->string('mealImage');
             $table->string('mealDescription');
+            $table->string('mealType');
+            $table->string('mealAvailability');
             $table->timestamps();
         });
     }

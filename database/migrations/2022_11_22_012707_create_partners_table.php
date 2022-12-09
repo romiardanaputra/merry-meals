@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
             $table->foreignId('userID')->constrained('users', 'id')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('owner_name')->nullable();
-            $table->string('restaurant_name')->nullable();
-            $table->string('restaurant_address')->nullable();
-            $table->string('restaurant_contact')->nullable();
-            $table->string('restaurant_image')->nullable();
-            $table->string('food_type')->nullable();
+            $table->string('ownerName')->nullable();
+            $table->string('restaurantName')->nullable();
+            $table->string('restaurantAddress')->nullable();
+            $table->string('restaurantContact')->nullable();
+            $table->string('restaurantImage')->nullable();
+            $table->string('foodType')->nullable();
             $table->timestamps();
         });
     }

@@ -25,27 +25,21 @@ class PartnerProfileController extends Controller
         ]);
     }
 
-    public function partnerProfile(Partner $partner){
-        return view('partner.profileShow',[
-            'partner' => $partner,
-        ]);
-    }
-
     public function store(PartnerProfileReq $request)
     {
         $partners = $request->validated();
         $partners = new Partner;
         $partners->userID = auth()->user()->id;
-        $partners->owner_name = $request->owner_name;
-        $partners->restaurant_name = $request->restaurant_name;
-        $partners->restaurant_contact = $request->restaurant_contact;
-        $partners->restaurant_address = $request->restaurant_address;
-        $partners->food_type = $request->food_type;
-        $partners->restaurant_image = ($request->hasFile('restaurant_image'))
-            ? $request->file('restaurant_image')->store('restaurant-images')
+        $partners->ownerName = $request->ownerName;
+        $partners->restaurantName = $request->restaurantName;
+        $partners->restaurantContact = $request->restaurantContact;
+        $partners->restaurantAddress = $request->restaurantAddress;
+        $partners->foodType = $request->foodType;
+        $partners->restaurantImage = ($request->hasFile('restaurantImage'))
+            ? $request->file('restaurantImage')->store('restaurant-images')
             : back();
         $partners->save();
-        return to_route('partner');
+        return to_route('partner.index');
     }
 
     public function edit(Partner $partner)
@@ -63,17 +57,17 @@ class PartnerProfileController extends Controller
         ]);
     }
 
-    public function update(PartnerUpdateProfile $request, Partner $partner)
+    public function update(PartnerUpdateProfile $request)
     {
         $partners = $request->validated();
-        $partners = $partner->id;
-        $partners->owner_name = $request->owner_name;
-        $partners->restaurant_name = $request->restaurant_name;
-        $partners->restaurant_contact = $request->restaurant_contact;
-        $partners->restaurant_address = $request->restaurant_address;
-        $partners->food_type = $request->food_type;
-        $partners->restaurant_image = ($request->hasFile('restaurant_image'))
-            ? $request->file('restaurant_image')->store('restaurant-images')
+        $partners->userID = auth()->user()->id;
+        $partners->ownerName = $request->ownerName;
+        $partners->restaurantName = $request->restaurantName;
+        $partners->restaurantContact = $request->restaurantContact;
+        $partners->restaurantAddress = $request->restaurantAddress;
+        $partners->foodType = $request->foodType;
+        $partners->restaurantImage = ($request->hasFile('restaurantImage'))
+            ? $request->file('restaurantImage')->store('restaurant-images')
             : back();
         $partners->save();
         return to_route('partner_handler.index');

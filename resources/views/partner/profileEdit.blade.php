@@ -7,21 +7,21 @@
             @csrf
             <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
-                    <label for="owner_name">Owner Name*</label>
+                    <label for="ownerName">Owner Name*</label>
                     <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('owner_name')@enderror"
-                        name="owner_name" required value="{{ old('owner_name') ?? $partner->owner_name }}">
-                    @error('owner_name')
+                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('ownerName')@enderror"
+                        name="ownerName" required value="{{ old('ownerName') ?? $partner->ownerName }}">
+                    @error('ownerName')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div> <!-- text -->
 
                 <div class="text-gray-500 w-1/2">
-                    <label for="restaurant_name">Restaurant Name*</label>
+                    <label for="restaurantName">Restaurant Name*</label>
                     <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurant_name')@enderror"
-                        name="restaurant_name" required value="{{ old('restaurant_name') ?? $partner->restaurant_name }}">
-                    @error('restaurant_name')
+                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurantName')@enderror"
+                        name="restaurantName" required value="{{ old('restaurantName') ?? $partner->restaurantName }}">
+                    @error('restaurantName')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div> <!-- text -->
@@ -29,21 +29,21 @@
 
             <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
-                    <label for="restaurant_contact">Restaurant Contact*</label>
+                    <label for="restaurantContact">Restaurant Contact*</label>
                     <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurant_contact')@enderror"
-                        name="restaurant_contact" required value="{{ old('restaurant_contact') ?? $partner->restaurant_contact}}">
-                    @error('contact')
+                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurantContact')@enderror"
+                        name="restaurantContact" required value="{{ old('restaurantContact') ?? $partner->restaurantContact}}">
+                    @error('restaurantContact')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div> <!-- text -->
 
                 <div class="text-gray-500 w-1/2">
-                    <label for="restaurant_image">Restaurant Image*</label>
+                    <label for="restaurantImage">Restaurant Image*</label>
                     <input type="file"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full file-input @error('restaurant_image')@enderror"
-                        name="restaurant_image" required value="{{ old('restaurant_image') ?? $partner->restaurant_image }}">
-                    @error('restaurant_image')
+                        class="bg-[#FFFCF0] border border-gray-400 w-full file-input @error('restaurantImage')@enderror"
+                        name="restaurantImage" required value="{{ old('restaurantImage') ?? $partner->restaurantImage }}">
+                    @error('restaurantImage')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div> <!-- text -->
@@ -51,23 +51,23 @@
 
             <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
-                    <label for="restaurant_address">Restaurant Address*</label>
+                    <label for="restaurantAddress">Restaurant Address*</label>
                     <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurant_address')@enderror"
-                        name="restaurant_address" required value="{{ old('restaurant_address') $partner->restaurant_address }}">
-                    @error('restaurant_address')
+                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurantAddress')@enderror"
+                        name="restaurantAddress" required value="{{ old('restaurantAddress') $partner->restaurantAddress }}">
+                    @error('restaurantAddress')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div> <!-- text -->
                 <div class="text-gray-500 w-1/2">
-                    <label for="food_type">Food Type*</label>
+                    <label for="foodType">Food Type*</label>
                     <select
-                        class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 input pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('food_type')@enderror"
-                        id="food_type" name="food_type" required value="{{ old('food_type') $partner->food_type  }}">
+                        class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 input pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('foodType')@enderror"
+                        id="foodType" name="foodType" required value="{{ old('foodType') $partner->foodType  }}">
                         <option>vegan friendly</option>
                         <option>non vegan friendly</option>
                     </select>
-                    @error('food_type')
+                    @error('foodType')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror<!-- text -->
                 </div>

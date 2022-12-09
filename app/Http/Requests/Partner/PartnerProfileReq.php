@@ -15,12 +15,12 @@ class PartnerProfileReq extends FormRequest
     public function rules()
     {
         return [
-            'owner_name' => ['required'],
-            'restaurant_name' => ['required'],
-            'food_type' => ['required'],
-            'restaurant_image' => ['required','image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
-            'restaurant_address' => ['required'],
-            'restaurant_contact' => ['required', 'unique:partners'],
+            'ownerName' => ['required'],
+            'restaurantName' => ['required'],
+            'foodType' => ['required'],
+            'restaurantImage' => ['required','image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
+            'restaurantAddress' => ['required'],
+            'restaurantContact' => ['required', 'unique:partners'],
         ];
     }
 }
