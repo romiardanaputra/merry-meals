@@ -38,7 +38,7 @@ class AuthController extends Controller
             }elseif($request->user()->role == 'partner'){
                 return redirect()->intended(RouteServiceProvider::PARTNER_DASHBOARD);
             }elseif($request->user()->role == 'donors'){
-                return redirect()->intended('/');
+                return redirect()->intended(RouteServiceProvider::DONOR_DASHBOARD);
             }
             else{
                 return abort(403);
