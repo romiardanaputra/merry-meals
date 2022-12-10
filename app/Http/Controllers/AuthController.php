@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AuthRequest;
 use App\Http\Requests\User\UserAuthRequest;
 use App\Http\Requests\User\UserCreateRequest;
-use App\Http\Requests\UserRequest;
 use App\Models\Geolocation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -37,18 +35,11 @@ class AuthController extends Controller
                 return redirect()->intended(RouteServiceProvider::CAREGIVER_DASHBOARD);
             } elseif($request->user()->role == 'volunteer'){
                 return redirect()->intended(RouteServiceProvider::VOLUNTEER_DASHBOARD);
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
+
             }elseif($request->user()->role == 'partner'){
                 return redirect()->intended(RouteServiceProvider::PARTNER_DASHBOARD);
             }else{
                 return abort(403);
->>>>>>> Stashed changes
-=======
-            }elseif($request->user()->role == 'partner'){
-                return redirect()->intended(RouteServiceProvider::PARTNER_DASHBOARD);
->>>>>>> 30fcb838942d82c689d7430a4bc4e73578ed1d3f
             }
         }
         return to_route('login');

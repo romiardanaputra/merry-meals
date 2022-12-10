@@ -1,14 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminPageController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PublicPageController;
-use App\Http\Controllers\Admin\UserManagementController;
-use App\Http\Controllers\Member\MemberManagementController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\Partner\PartnerMealController;
+use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Partner\PartnerProfileController;
+use App\Http\Controllers\Member\MemberManagementController;
 
 // partner controller
 Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
@@ -30,7 +29,7 @@ Route::controller(MemberManagementController::class)->middleware('roles:member')
 // public page controller
 Route::controller(PublicPageController::class)->group(function () {
     Route::get('/', 'index')->name('landing.index');
-<<<<<<< HEAD
+
     Route::get('/about', 'aboutIndex')->name('about');
     Route::get('/contact', 'contactIndex')->name('contact');
     Route::get('/term', 'termIndex')->name('term');
@@ -44,23 +43,6 @@ Route::resource('meal', MealsController::class)->middleware('roles:admin,partner
 Route::resource('partner', PartnersController::class)->middleware('roles:partner');
 
 // admin controller
-<<<<<<< Updated upstream
-Route::resource('admin', AdminController::class)->middleware('roles:admin');
-Route::resource('partner_handler', PartnerHandlerController::class)->middleware('roles:admin');
-
-// admin page controller
-Route::controller(AdminPageController::class)->middleware('roles:admin')->group(function () {
-    Route::get('list/user', 'show_list_user')->name('admin.list.user');
-    Route::get('list/user/location', 'show_list_location')->name('admin.list.location');
-});
-
-// dashboard member route
-Route::controller(MemberPageController::class)->middleware('roles:member')->prefix('member')->group(function () {
-    Route::get('dashboard', 'index')->name('member.dashboard');
-    Route::get('menu/package', 'package_food')->name('member.menu.package');
-    Route::get('menu', 'show_menu')->name('meal.menu');
-    Route::get('menu/{id}/detail', 'show_menu_detail')->name('member.show');
-=======
 Route::resource('admin', UserManagementController::class)->middleware('roles:admin');
 
 //  member  controller
@@ -71,14 +53,11 @@ Route::controller(MemberManagementController::class)->middleware('roles:member')
         Route::get('detail/{id}', 'menuDetailShow')->name('meal.detail');
     });
     Route::resource('member', MemberManagementController::class);
->>>>>>> Stashed changes
 });
 
 // public page controller
 Route::controller(PublicPageController::class)->group(function () {
     Route::get('/', 'index')->name('landing.index')->middleware('guest');
-=======
->>>>>>> 30fcb838942d82c689d7430a4bc4e73578ed1d3f
     Route::get('about', 'aboutIndex')->name('about')->middleware('guest');
     Route::get('contact', 'contactIndex')->name('contact');
     Route::get('term', 'termIndex')->name('term')->middleware('guest');
