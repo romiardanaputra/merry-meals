@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PublicPageController;
-use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Member\MemberManagementController;
 use App\Http\Controllers\OrderController;
