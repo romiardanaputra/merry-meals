@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
@@ -7,8 +8,7 @@ use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Partner\PartnerProfileController;
-use App\Http\Controllers\Member\MemberManagementController;
-
+use App\Http\Controllers\Member\MemberManagxementController;
 // partner controller
 Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
 
