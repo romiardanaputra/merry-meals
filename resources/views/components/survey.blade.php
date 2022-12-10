@@ -1,20 +1,22 @@
 @extends('layout.main')
 
 <style>
-   .survey-reaction-style[type=radio]{
+   .survey-reaction-style [type="radio"]{
         position: absolute;
         opacity: 0;
         width: 0;
         height: 0;
     }
     
-    .survey-reaction-style[type=radio] + img{
+    .survey-reaction-style [type="radio"] + label > img{
         cursor: pointer;
         filter: grayscale(1);
+        transition: 0.7s;
     }
     
-    .survey-reaction-style[type=radio]:checked + img{
+    .survey-reaction-style [type="radio"]:checked + label > img{
         filter: grayscale(0);
+        transform: scale(1.05);
     }
 </style>
 
@@ -171,21 +173,30 @@
          </div> <!-- rate-title -->
 
          <div class="survey-rate flex flex-row justify-between">
-
-            <div class="survey-reaction-style flex flex-row justify-between h-[122px] w-[122px]">
-               
-               <input type="radio" name="surveyReaction" value="sadReaction">
-               <img src="/images/SadEmoticon.png" alt="sadReaction">
-
-               <input type="radio" name="surveyReaction" value="neutralReaction">
-               <img src="/images/NeutralEmoticon.png" alt="neutralReaction">
-
-               <input type="radio" name="surveyReaction" value="happyReaction">
-               <img src="/images/HappyEmoticon.png" alt="happyReaction">
-               
+            
+            <div class="survey-reaction-style h-[122px] w-[122px] hover:scale-105 duration-700">
+               <input type="radio" name="surveyReaction" value="sadReaction" id="sadReaction">
+               <label for="sadReaction">
+                  <img src="/images/SadEmoticon.png" alt="sadReaction">
+               </label>
             </div>
 
+            <div class="survey-reaction-style h-[122px] w-[122px] hover:scale-105 duration-700">
+               <input type="radio" name="surveyReaction" value="neutralReaction" id="neutralReaction">
+               <label for="neutralReaction">
+                  <img src="/images/NeutralEmoticon.png" alt="neutralReaction">
+               </label>
+            </div>
+
+            <div class="survey-reaction-style h-[122px] w-[122px] hover:scale-105 duration-700">
+               <input type="radio" name="surveyReaction" value="happyReaction" id="happyReaction">
+               <label for="happyReaction">
+                  <img src="/images/HappyEmoticon.png" alt="happyReaction">
+               </label>
+            </div>
+            
          </div> <!-- survey-rate -->
+
       </div> <!-- survey-question -->
          
       </form>
