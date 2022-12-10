@@ -13,7 +13,7 @@ use App\Http\Controllers\Member\MemberManagementController;
 Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
 
 // meal controller
-Route::resource('meal', PartnerMealController::class)->middleware('roles:partner,member');
+Route::resource('meal', PartnerMealController::class)->middleware('roles:partner,member,donors');
 
 // admin controller
 Route::resource('admin', UserManagementController::class)->middleware('roles:admin');
@@ -28,7 +28,7 @@ Route::controller(PublicPageController::class)->group(function () {
 });
 
 //  member  controller
-Route::controller(MemberManagementController::class)->middleware('roles:member')->group(function () {
+Route::controller(MemberManagementController::class)->middleware('roles:member,donors')->group(function () {
     Route::prefix('member')->group(function () {
         Route::get('package', 'packageFood')->name('meal.package');
         Route::get('menu', 'menuMealShow')->name('meal.menu');

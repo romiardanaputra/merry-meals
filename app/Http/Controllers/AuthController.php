@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
     //view for login page
     public function index()
-    {   
+    {
         return view('components.login', [
             "title_page" => "Sign In",
         ]);
@@ -35,7 +35,6 @@ class AuthController extends Controller
                 return redirect()->intended(RouteServiceProvider::CAREGIVER_DASHBOARD);
             } elseif($request->user()->role == 'volunteer'){
                 return redirect()->intended(RouteServiceProvider::VOLUNTEER_DASHBOARD);
-
             }elseif($request->user()->role == 'partner'){
                 return redirect()->intended(RouteServiceProvider::PARTNER_DASHBOARD);
             }else{
@@ -55,7 +54,7 @@ class AuthController extends Controller
 
     public function registerIndex(Request $request)
     {
-        $data = Location::get('https://' . $request->ip()); 
+        $data = Location::get('https://' . $request->ip());
         return view('components.register', compact('data') , [
             'title_page' => 'Sign Up',
         ]);
