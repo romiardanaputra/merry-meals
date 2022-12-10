@@ -46,6 +46,7 @@ Route::resource('meal', MealsController::class)->middleware('roles:admin,partner
 Route::resource('partner', PartnersController::class)->middleware('roles:partner');
 
 // admin controller
+<<<<<<< Updated upstream
 Route::resource('admin', AdminController::class)->middleware('roles:admin');
 Route::resource('partner_handler', PartnerHandlerController::class)->middleware('roles:admin');
 
@@ -61,6 +62,18 @@ Route::controller(MemberPageController::class)->middleware('roles:member')->pref
     Route::get('menu/package', 'package_food')->name('member.menu.package');
     Route::get('menu', 'show_menu')->name('meal.menu');
     Route::get('menu/{id}/detail', 'show_menu_detail')->name('member.show');
+=======
+Route::resource('admin', UserManagementController::class)->middleware('roles:admin');
+
+//  member  controller
+Route::controller(MemberManagementController::class)->middleware('roles:member')->group(function () {
+    Route::prefix('member')->group(function () {
+        Route::get('package', 'packageFood')->name('meal.package');
+        Route::get('menu', 'menuMealShow')->name('meal.menu');
+        Route::get('detail/{id}', 'menuDetailShow')->name('meal.detail');
+    });
+    Route::resource('member', MemberManagementController::class);
+>>>>>>> Stashed changes
 });
 
 // public page controller
