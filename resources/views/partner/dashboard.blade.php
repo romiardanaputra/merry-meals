@@ -18,9 +18,23 @@
                 </div> <!-- sidebar-logo -->
 
                 <div class="sidebar-navigation flex flex-col space-y-[18px]">
-                    <a href="{{ route('landing.index')}}"><button
-                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Back 
-                            </button></a>
+                    <a href="{!! route('landing.index') !!}"><button
+                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Go
+                            Back
+                        </button></a>
+                    <a href="{!! route('partner.create') !!}"><button
+                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">
+                            Create Profile
+                        </button></a>
+                    <a href="{!! route('meal.create') !!}"><button
+                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">
+                            Create Meal
+                        </button></a>
+                    <a href="{!! route('meal.index') !!}"><button
+                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">
+                            Manage Meal
+                        </button></a>
+
                 </div> <!-- sidebar-navigation -->
             </div> <!-- flex -->
 
@@ -42,10 +56,12 @@
 
             <div
                 class="dash-database w-full h-fit p-[50px] bg-[#FFFDF6] m-auto shadow-[0px_8px_50px_rgba(174,168,135,0.5)] space-y-[35px] overflow-auto">
-                <h1 class="font-semibold text-[20px]">{{ $dashboard_info }}</h1>
+                <div class="flex justify-between">
+                    <h1 class="font-semibold text-[20px]">{{ $dashboard_info }}</h1>
+                </div>
 
                 <div class=" h-[500px] w-full ">
-                    @yield('dashboard_admin')
+                    @yield('partnerContent')
                 </div> <!-- table-overflow -->
             </div> <!-- dash-database -->
 

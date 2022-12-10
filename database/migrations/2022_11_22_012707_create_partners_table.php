@@ -14,19 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('partners', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->charset = 'utf8mb4';
-            $table->collation = 'utf8mb4_unicode_ci';
             $table->id();
-            $table->string('owner_name');
-            $table->string('restaurant_name');
-            $table->string('email');
-            $table->string('password');
-            $table->string('restaurant_address');
-            $table->string('restaurant_contact');
-            $table->string('restaurant_image');
-            $table->string('food_type');
-            $table->string('role')->default('partner');
+            $table->foreignId('userID')->constrained('users', 'id')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('ownerName')->nullable();
+            $table->string('restaurantName')->nullable();
+            $table->string('restaurantAddress')->nullable();
+            $table->string('restaurantContact')->nullable();
+            $table->string('restaurantImage')->nullable();
+            $table->string('foodType')->nullable();
             $table->timestamps();
         });
     }
