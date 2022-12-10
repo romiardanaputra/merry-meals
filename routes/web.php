@@ -18,18 +18,9 @@ Route::resource('meal', PartnerMealController::class)->middleware('roles:partner
 // admin controller
 Route::resource('admin', UserManagementController::class)->middleware('roles:admin');
 
-//  member  controller
-Route::controller(MemberManagementController::class)->middleware('roles:member')->prefix('member/meal/')->group(function () {
-    Route::get('package', 'packageFood')->name('meal.package');
-    Route::get('menu', 'menuMealShow')->name('meal.menu');
-    Route::get('{id}/detail', 'menuDetailShow')->name('meal.detail');
-    Route::resource('member', MemberManagementController::class );
-});
-
 // public page controller
 Route::controller(PublicPageController::class)->group(function () {
     Route::get('/', 'index')->name('landing.index');
-
     Route::get('/about', 'aboutIndex')->name('about');
     Route::get('/contact', 'contactIndex')->name('contact');
     Route::get('/term', 'termIndex')->name('term');
@@ -44,15 +35,6 @@ Route::controller(MemberManagementController::class)->middleware('roles:member')
         Route::get('detail/{id}', 'menuDetailShow')->name('meal.detail');
     });
     Route::resource('member', MemberManagementController::class);
-});
-
-// public page controller
-Route::controller(PublicPageController::class)->group(function () {
-    Route::get('/', 'index')->name('landing.index')->middleware('guest');
-    Route::get('about', 'aboutIndex')->name('about')->middleware('guest');
-    Route::get('contact', 'contactIndex')->name('contact');
-    Route::get('term', 'termIndex')->name('term')->middleware('guest');
-    Route::get('donate', 'donationIndex')->name('donation');
 });
 
 // authentication route
