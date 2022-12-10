@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Models\Meal;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,7 +14,7 @@ class MemberManagementController extends Controller
         return view('member.dashboard', [
             'title_page' => 'Member Dashboard',
             'dashboard_info' => 'Meals Detail',
-            'meals' => Meal::all(),
+            'users' => User::all(),
         ]);
     }
 
@@ -45,6 +46,12 @@ class MemberManagementController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function serviceSurvey(){
+        return view('components.survey',[
+            'title_page' => 'survey'
+        ]);
     }
 
     public function menuDetailShow($id)

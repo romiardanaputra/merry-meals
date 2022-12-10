@@ -54,19 +54,6 @@
                         class="w-[10rem] mb-[10px] h-fit bg-[#4CAF3C] p-[5px] text-[#FFFDF6] duration-500 hover:scale-100 flex justify-center align-middle">
                         Create User
                     </a>
-                    @endif
-                    @if (Request::routeIs('meal.index'))
-                    <a role="button" href="{{ route('meal.create') }}"
-                        class="w-[10rem] mb-[10px] h-fit bg-[#4CAF3C] p-[5px] text-[#FFFDF6] duration-500 hover:scale-100 flex justify-center align-middle">
-                        Create Meal
-                    </a>
-                    @endif
-                    @if (Request::routeIs('partner_handler.index'))
-                    <a role="button" href="{{ route('partner_handler.create') }}"
-                        class="w-[10rem] mb-[10px] h-fit bg-[#4CAF3C] p-[5px] text-[#FFFDF6] duration-500 hover:scale-100 flex justify-center align-middle">
-                        Create Partner
-                    </a>
-                    @endif
                 </div>
                 <div class=" h-[500px] w-full overflow-y-auto overflow-x-hidden">
                     @yield('dashboard_admin')
