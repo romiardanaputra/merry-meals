@@ -31,7 +31,7 @@
                 </div> <!-- separation -->
 
                 <div class="basic-package-content-button">
-                    <a href="">
+                    <a href="{{ route('meal.order.success') }}">
                         <button class="bg-[#FFFDF6] border-2 border-[#A07C00] text-[20px] text-[#A07C00] font-semibold h-[60px] w-[250px] hover:scale-105 duration-500">ORDER</button>
                     </a>
                 </div> <!-- basic-package-content-button -->
@@ -63,7 +63,7 @@
                 </div> <!-- separation -->
 
                 <div class="exclusive-package-content-button">
-                    <a href="">
+                    <a href="{{ route('meal.order.success') }}">
                         <button class="bg-[#FFFDF6] border-2 border-[#A07C00] text-[20px] text-[#A07C00] font-semibold h-[60px] w-[250px] hover:scale-105 duration-500">ORDER</button>
                     </a>
                 </div> <!-- exclusive-package-content-button -->

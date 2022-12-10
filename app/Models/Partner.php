@@ -9,6 +9,10 @@ class Partner extends Model
 {
     use HasFactory;
 
+    public function user(){
+        return $this->hasOne(User::class, 'userID', 'id');
+    }
+
     protected $fillable = [
         'ownerName',
         'restaurantName',

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Partner;
 
 use App\Models\Meal;
+use App\Models\Partner;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\MealCreateRequest;
 use App\Http\Requests\Partner\MealUpdateRequest;
@@ -29,7 +31,8 @@ class PartnerMealController extends Controller
     public function store(MealCreateRequest $request)
     {
         $meal = new Meal;
-        $meal->partnerID = auth()->user()->id;
+        $meal->userID = auth()->user()->id;
+        $meal->partnerID = Partner::all()->get('id');
         $meal->mealName = $request->mealName;
         $meal->mealIngredient = $request->mealIngredient;
         $meal->mealDescription = $request->mealDescription;

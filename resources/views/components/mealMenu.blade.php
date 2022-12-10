@@ -1,6 +1,7 @@
 @extends('layout.main')
 @section('component_content')
 <main class="bg-[#FFFCF0] w-full min-h-screen max-h-fit">
+    @include('components.navbar')
     <div class="bg-content px-[147px] py-[110px]">
         <div class="meal-page-title text-[#282222] mb-[53px]">
             <h1 class="font-semibold text-[40px]">Menu Package</h1>
@@ -43,5 +44,6 @@
 
         </div> <!-- container-2 -->
     </div> <!-- bg-content -->
+    @include('components.footer')
 </main> <!-- container -->
 @endsection

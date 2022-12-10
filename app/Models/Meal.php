@@ -9,6 +9,10 @@ class Meal extends Model
 {
     use HasFactory;
 
+    public function partner(){
+        return $this->belongsTo(Partner::class, 'partnerID', 'id');
+    }
+
     protected $fillable = [
         'mealName',
         'mealIngredient',

@@ -18,34 +18,14 @@ class MemberManagementController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        //
+    public function store(){
+        
     }
 
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+    public function orderSuccess(){
+        return view('components.orderSuccess',[
+            'title_page' => 'order success'
+        ]);
     }
 
     public function serviceSurvey(){
@@ -63,7 +43,7 @@ class MemberManagementController extends Controller
     }
 
     public function packageFood(){
-        return view('components.test', [
+        return view('components.mealPackage', [
             'title_page' => 'Safety Food Package',
         ]);
     }
