@@ -36,15 +36,6 @@ Route::controller(PublicPageController::class)->group(function () {
     Route::get('/donate', 'donationIndex')->name('donation');
 });
 
-// MealsController
-Route::resource('meal', MealsController::class)->middleware('roles:admin,partner');
-
-// partner controller
-Route::resource('partner', PartnersController::class)->middleware('roles:partner');
-
-// admin controller
-Route::resource('admin', UserManagementController::class)->middleware('roles:admin');
-
 //  member  controller
 Route::controller(MemberManagementController::class)->middleware('roles:member')->group(function () {
     Route::prefix('member')->group(function () {
@@ -75,9 +66,6 @@ Route::controller(AuthController::class)->group(function () {
 
 //order controller
 Route::get('/test', [OrderController::class, 'index'])->middleware('roles:member');
-// getting location
-Route::get('ip_details', [GeolocationController::class,'ip_details'])->name('detail_geolocation');
-Route::post('ip_details/store', [GeolocationController::class,'store'])->name('store_geolocation');
 
 //stripe
 Route::get('donation', [StripeController::class, 'stripe']);
