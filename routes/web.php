@@ -8,7 +8,7 @@ use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Partner\PartnerProfileController;
-use App\Http\Controllers\Member\MemberManagxementController;
+use App\Http\Controllers\Member\MemberManagementController;
 // partner controller
 Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
 
