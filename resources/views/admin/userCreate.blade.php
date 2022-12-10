@@ -69,9 +69,10 @@
                     <select
                         class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 input pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('role')@enderror"
                         id="role" name="role" required value="{{ old('role') }}" >
-                        <option>member</option>
-                        <option>volunteer</option>
-                        <option>caregiver</option>
+                        <option value="member">member</option>
+                        <option value="volunteer">volunteer</option>
+                        <option value="caregiver">caregiver</option>
+                        <option value="partner">partner</option>
                     </select>
 
                     @error('role')

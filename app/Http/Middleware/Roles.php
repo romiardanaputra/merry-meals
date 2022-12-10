@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class Roles
 {
-
   public function handle(Request $request, Closure $next, ...$roles)
   {
     if (!Auth::check()) {
