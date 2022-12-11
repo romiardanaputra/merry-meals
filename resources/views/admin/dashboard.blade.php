@@ -54,6 +54,7 @@
                         class="w-[10rem] mb-[10px] h-fit bg-[#4CAF3C] p-[5px] text-[#FFFDF6] duration-500 hover:scale-100 flex justify-center align-middle">
                         Create User
                     </a>
+                    @endif
                 </div>
                 <div class=" h-[500px] w-full overflow-y-auto overflow-x-hidden">
                     @yield('dashboard_admin')
