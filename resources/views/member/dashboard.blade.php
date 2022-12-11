@@ -51,33 +51,57 @@
                 </div> <!-- order-history-text -->
 
                 <div class="bg-order-history-histories h-full w-full flex flex-col overflow-auto">
-
+                    @foreach ($orders as $order)
+                    @if ($order->userID == auth()->user()->id)
+                    @if($order->status != 'canceled')
                     <div class="order-histories h-[109px] w-full border-b-2 flex flex-row justify-between">
                         <div class="separation flex flex-row space-x-[17px]">
-
                             <div class="history-histories-image h-[89px] w-[159px]">
-                                <img src="" class="h-[89px] w-[159px]" alt="">
+                                <img src="{{ asset( 'storage/' . $order->meal->mealImage) }}" class="h-[89px] w-[159px]"
+                                    alt="">
                             </div> <!-- history-histories-image -->
 
                             <div
                                 class="order-histories-status h-[89px] w-[111px] flex flex-col justify-between text-center">
                                 <div class="separation text-[#282222]">
-                                    <h1 class="text-[14px] font-semibold">British Salad</h1>
-                                    <p class="text-[12px]">On Delivery</p>
+                                    <h1 class="text-[14px] font-semibold">{{ $order->meal->mealName}}</h1>
+                                    <p class="text-[12px]">{{ $order->partner->restaurantName }}</p>
+                                    <p class="text-[12px]">{{ $order->mealPackage }}</p>
+                                    @if ($order->status == 'on going')
+                                    <p class="text-[12px] text-orange-600">{{ $order->status }}</p>
+                                    @elseif($order->status == 'delivered')
+                                    <p class="text-[12px] text-green-600">{{ $order->status }}</p>
+                                    @endif
                                 </div> <!-- separation -->
 
-                                <p class="text-[12px]">27 November 14:28</p>
+                                <p class="text-[12px]">{{ $order->created_at }}</p>
                             </div> <!-- order-histories-status -->
 
                         </div> <!-- separation -->
 
                         <div class="order-histories-button h-[89px] w-[147px] flex items-center">
-                            <a href="">
-                                <button
-                                    class="bg-[#AF433C] h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-90">Cancel</button>
-                            </a>
+                            <form action="{{ route('member.update', [
+                                'orderStatus' => $orderStatus = 'canceled',
+                                $order->id
+                            ]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                @if ($order->status == 'delivered')
+                                <button class="bg-green-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold"
+                                    disabled>{{ $order->status }}</button>
+                                @else
+                                <button class="bg-red-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
+                                    type="submit">cancel</button>
+                                @endif
+                            </form>
                         </div> <!-- order-histories-button -->
                     </div> <!-- order-histories -->
+                    @else
+                    <div></div>
+                    @endif
+                    @endif
+                    @endforeach
+
 
                 </div> <!-- bg-order-history-histories -->
 

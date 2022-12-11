@@ -10,11 +10,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->foreignId('userID')->constrained('users', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('partnerID')->constrained('partners', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('mealID')->constrained('meals', 'id')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('mealPackage')->default('on going');
             $table->string('status')->default('on going');
+            $table->timestamps();
         });
     }
 

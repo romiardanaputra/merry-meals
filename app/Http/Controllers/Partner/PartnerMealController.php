@@ -31,8 +31,7 @@ class PartnerMealController extends Controller
     public function store(MealCreateRequest $request)
     {
         $meal = new Meal;
-        $meal->userID = auth()->user()->id;
-        $meal->partnerID = Partner::all()->get('id');
+        $meal->partnerID = auth()->user()->partner->id;
         $meal->mealName = $request->mealName;
         $meal->mealIngredient = $request->mealIngredient;
         $meal->mealDescription = $request->mealDescription;

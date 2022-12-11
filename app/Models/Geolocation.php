@@ -9,7 +9,13 @@ class Geolocation extends Model
 {
     use HasFactory;
 
+    public function User()
+    {
+        return $this->hasOne(User::class, 'id', 'id');
+    }
+
     protected $fillable = [
+        'userID',
         'ip',
         'countryName',
         'countryCode',

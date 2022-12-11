@@ -39,7 +39,7 @@ class PartnerProfileController extends Controller
             ? $request->file('restaurantImage')->store('restaurant-images')
             : back();
         $partners->save();
-        return to_route('partner.index');
+        return to_route('partner.index')->with('data_partner', $partners);
     }
 
     public function edit(Partner $partner)

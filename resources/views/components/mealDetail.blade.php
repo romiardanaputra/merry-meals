@@ -26,7 +26,7 @@
                 BACK
                 </button>
             </a> 
-            <a href="{!! route('meal.package') !!}">
+            <a href="{!! route('meal.package',$meal->id) !!}">
                 <button class="bg-[#A07C00] border-2 border-[#A07C00] text-[16px] text-[#FFFCF0] h-[64px] w-[271px] hover:scale-105 duration-500">
                 SELECT
                 </button>

@@ -10,7 +10,15 @@ class User extends Authenticatable
     use HasFactory;
 
     public function partner(){
-        return $this->hasOne(Partner::class);
+        return $this->hasOne(Partner::class, 'userID', 'id');
+    }
+
+    public function order(){
+        return $this->hasMany(Order::class, 'userID', 'id');
+    }
+
+    public function geolocation(){
+        return $this->hasOne(Geolocation::class, 'userID', 'id');
     }
 
     protected $fillable = [
