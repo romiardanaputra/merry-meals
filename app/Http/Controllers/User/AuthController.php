@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Models\User;
+use App\Models\Geolocation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\UserAuthRequest;
-use App\Http\Requests\User\UserCreateRequest;
-use App\Models\Geolocation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Stevebauman\Location\Facades\Location;
 use App\Providers\RouteServiceProvider;
+use Stevebauman\Location\Facades\Location;
+use App\Http\Requests\User\UserAuthRequest;
+use App\Http\Requests\User\UserCreateRequest;
+use App\Http\Requests\User\UserLocation;
 
 class AuthController extends Controller
 {
-    //view for login page
     public function index()
-    {   
+    {
         return view('components.login', [
             "title_page" => "Sign In",
         ]);
@@ -27,18 +27,17 @@ class AuthController extends Controller
     {
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
-            if($request->user()->role == 'admin'){
+            if ($request->user()->role == 'admin') {
                 return redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
-            } elseif($request->user()->role == 'member'){
+            } elseif ($request->user()->role == 'member') {
                 return redirect()->intended(RouteServiceProvider::MEMBER_DASHBOARD);
-            } elseif($request->user()->role == 'caregiver'){
+            } elseif ($request->user()->role == 'caregiver') {
                 return redirect()->intended(RouteServiceProvider::CAREGIVER_DASHBOARD);
-            } elseif($request->user()->role == 'volunteer'){
+            } elseif ($request->user()->role == 'volunteer') {
                 return redirect()->intended(RouteServiceProvider::VOLUNTEER_DASHBOARD);
-
-            }elseif($request->user()->role == 'partner'){
+            } elseif ($request->user()->role == 'partner') {
                 return redirect()->intended(RouteServiceProvider::PARTNER_DASHBOARD);
-            }else{
+            } else {
                 return abort(403);
             }
         }
@@ -55,34 +54,35 @@ class AuthController extends Controller
 
     public function registerIndex(Request $request)
     {
-        $data = Location::get('https://' . $request->ip()); 
-        return view('components.register', compact('data') , [
+        $data = Location::get('https://' . $request->ip());
+        return view('components.register', compact('data'), [
             'title_page' => 'Sign Up',
         ]);
     }
 
-    public function storeRegister(UserCreateRequest $request)
+    public function storeRegister(UserCreateRequest $request, UserLocation $reqLoc)
     {
         $users = $request->validated();
         $users['password'] = Hash::make($users['password']);
         $dataUsers = User::create($users);
-        self::userLocation($dataUsers, $request);
+        self::userLocation($dataUsers, $request, $reqLoc);
         return to_route('login')->with('successRegister', 'successfully registration please login!');
     }
 
-    public static function userLocation($dataUsers, $request){
+    public static function userLocation($dataUsers, $request, $reqLoc)
+    {
+        $uLoc = $reqLoc->validated();
         $data = Location::get('https://' . $request->ip());
-        $loc = new Geolocation;
-        $loc->ip = $data->ip;
-        $loc->countryName = $data->countryName;
-        $loc->countryCode = $data->countryCode;
-        $loc->regionCode = $data->regionCode;
-        $loc->regionName = $data->regionName;
-        $loc->cityName = $data->cityName;
-        $loc->zipCode = $data->zipCode;
-        $loc->latitude = $data->latitude;
-        $loc->longitude = $data->longitude;
-        $loc->userID = $dataUsers->id;
-        $loc->save();
+        $uLoc['ip'] = $data->ip;
+        $uLoc['countryName'] = $data->countryName;
+        $uLoc['countryCode'] = $data->countryCode;
+        $uLoc['regionName'] = $data->regionName;
+        $uLoc['regionCode'] = $data->regionCode;
+        $uLoc['cityName'] = $data->cityName;
+        $uLoc['zipCode'] = $data->zipCode;
+        $uLoc['latitude'] = $data->latitude;
+        $uLoc['longitude'] = $data->longitude;
+        $uLoc['userID'] = $dataUsers->id;
+        Geolocation::create($uLoc);
     }
 }

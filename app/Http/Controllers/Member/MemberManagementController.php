@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 class MemberManagementController extends Controller
 {
-   
+    // display member dashboard
     public function index()
     {
         return view('member.dashboard', [
@@ -20,33 +20,30 @@ class MemberManagementController extends Controller
         ]);
     }
 
-    public function store(Request $request){
-        $order = new Order;
-        $order->userID = auth()->user()->id;
-        $order->mealID = $request->meal;
-        $order->partnerID = $request->partnerID;
-        $order->mealPackage = $request->package;
-        $order->range = self::range($request->partnerID);
-        $order->foodTemperature = self::foodTemperature($order->range);
-        $order->save();
+    // store order
+    public function store(Request $request)
+    {
+        $order['userID'] = auth()->user()->id;
+        $order['mealID'] = $request->meal;
+        $order['partnerID'] = $request->partnerID;
+        $order['mealPackage'] = $request->package;
+        $order['range'] = OrderController::range($request->partnerID);
+        $order['foodTemperature'] = OrderController::foodTemperature($order['range']);
+        Order::create($order);
         return to_route('meal.order.success');
     }
 
-    public function update(Request $request, $id){
-        $order = Order::find($id);
-        $order->status = $request->orderStatus;
-        $order->save();
+    // update order when cancelled
+    public function update(Request $request, $id)
+    {
+        $order['status'] = $request->orderStatus;
+        Order::where('id', $id)->update($order);
         return back();
     }
-
-    public function orderSuccess(){
-        return view('components.orderSuccess',[
-            'title_page' => 'order success'
-        ]);
-    }
-
-    public function serviceSurvey(){
-        return view('components.survey',[
+    // display survey for member
+    public function serviceSurvey()
+    {
+        return view('components.survey', [
             'title_page' => 'survey'
         ]);
     }
@@ -58,17 +55,17 @@ class MemberManagementController extends Controller
             'title_page' => 'Meal Menu',
             'meal' => Meal::find($id),
         ]);
-    }   
+    }
 
-    // packaging
-    public function packageFood($id){
+    // packaging meal
+    public function packageFood($id)
+    {
         return view('components.mealPackage', [
             'title_page' => 'Safety Food Package',
             'meal' => Meal::find($id),
-            'geolocation' => Geolocation::all(),
         ]);
     }
-
+    // display menu member
     public function menuMealShow()
     {
         return view('components.mealMenu', [
@@ -76,42 +73,5 @@ class MemberManagementController extends Controller
             'dashboard_info' => 'Meals Menu',
             'meals' => Meal::all(),
         ]);
-    }
-
-    public function range($partnerID){
-        $partners = Geolocation::where('partnerID', '=', $partnerID)->first();
-        $members = Geolocation::where('userID', '=', auth()->user()->id)->first();
-        $pLat = $partners->latitude;
-        $pLong = $partners->longitude;
-        $mLat = $members->latitude;
-        $mLong = $members->longitude;
-        $distance = self::vincentyGreatCircleDistance($pLat, $pLong, $mLat, $mLong);
-        return $distance;
-    }
-
-    public function foodTemperature($distance){
-        if($distance <= 10.0){
-            $foodTemperature = 'hot Meal';
-        } else {
-            $foodTemperature = 'frozen';
-        }
-        return $foodTemperature;
-    }
-
-    public function vincentyGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000) {
-        // convert from degrees to radians
-        $latFrom = deg2rad($latitudeFrom);
-        $lonFrom = deg2rad($longitudeFrom);
-        $latTo = deg2rad($latitudeTo);
-        $lonTo = deg2rad($longitudeTo);
-    
-        $lonDelta = $lonTo - $lonFrom;
-        $a = pow(cos($latTo) * sin($lonDelta), 2) + pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
-        $b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
-    
-        $angle = atan2(sqrt($a), $b);
-        // distance / 1000 = distance in km
-        $range = ($angle * $earthRadius) / 1000;
-        return $range ;
     }
 }

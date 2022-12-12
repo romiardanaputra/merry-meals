@@ -9,21 +9,11 @@ use Stripe;
 
 class StripeController extends Controller
 {
-    /**
-     * success response method.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function stripe()
     {
         return view('components.donation_form' , ['title_page' => 'Donation Form']);
     }
 
-    /**
-     * success response method.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function stripePost(Request $request)
     {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -36,8 +26,6 @@ class StripeController extends Controller
             "phone" => $request->donatorPhone,
         ));
 
-        // dd($customer);
-
         Stripe\Charge::create ([
                 "amount" => $request->amount * 100,
                 "currency" => "usd",
@@ -45,8 +33,6 @@ class StripeController extends Controller
                 "description" => $request->description,
                 "customer" => $customer->id,
         ]);
-
-
 
         Donation::create([
             'donatorName' => $request->donatorName,
@@ -56,8 +42,7 @@ class StripeController extends Controller
             'donationAmount' =>$request->amount,
             'description' => $request->description
         ]);
-
-
+        
         Session::flash('success', 'Payment successful!');
 
         return back();

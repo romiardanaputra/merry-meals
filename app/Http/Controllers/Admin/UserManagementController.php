@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\AuthController;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\User\UserLocation;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
+use App\Http\Controllers\User\AuthController as UserAuthController;
 
 class UserManagementController extends Controller
 {
@@ -28,12 +29,12 @@ class UserManagementController extends Controller
         ]);
     }
 
-    public function store(UserCreateRequest $request)
+    public function store(UserCreateRequest $request, UserLocation $reqLoc)
     {
         $users = $request->validated();
         $users['password'] = Hash::make($request['password']);
         $dataUsers = User::create($users);
-        AuthController::userLocation($dataUsers, $request);
+        UserAuthController::userLocation($dataUsers, $request, $reqLoc);
         return to_route('admin.index');
     }
 
@@ -56,8 +57,7 @@ class UserManagementController extends Controller
 
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
+        User::where('id', $id)->delete();
         return redirect()->back();
     }
 }

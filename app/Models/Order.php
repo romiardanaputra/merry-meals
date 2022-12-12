@@ -27,7 +27,7 @@ class Order extends Model
         'partnerID',
         'mealID',
         'mealPackage',
-        'radius',
+        'range',
         'foodTemperature',
         'status'
     ];

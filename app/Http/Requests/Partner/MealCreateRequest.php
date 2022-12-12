@@ -14,10 +14,13 @@ class MealCreateRequest extends FormRequest
     public function rules()
     {
         return [
+            'partnerID' => [],
             'mealName' => ['required', 'max:100'],
             'mealIngredient' => ['required', 'max:200'],
             'mealImage' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
             'mealDescription' => ['required', 'max:300'],
+            'mealType' => [],
+            'mealAvailability' => [],
         ];
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Partner\PartnerProfileController;
 use App\Http\Controllers\Member\MemberManagementController;
+use App\Http\Controllers\Member\OrderController;
+use App\Http\Controllers\User\AuthController as UserAuthController;
+use App\Http\Controllers\User\PublicPageController;
 
 // partner controller
 Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
@@ -17,6 +17,9 @@ Route::resource('meal', PartnerMealController::class)->middleware('roles:partner
 
 // admin controller
 Route::resource('admin', UserManagementController::class)->middleware('roles:admin');
+
+// order controller
+Route::get('order/success', [OrderController::class, 'orderSuccess'])->name('meal.order.success');
 
 // public page controller
 Route::controller(PublicPageController::class)->group(function () {
@@ -30,10 +33,7 @@ Route::controller(PublicPageController::class)->group(function () {
 //  member  controller
 Route::controller(MemberManagementController::class)->middleware('roles:member')->group(function () {
     Route::prefix('member')->group(function () {
-        Route::get('test/location', 'range')->name('range');
-        Route::get('get/location', 'getLocation')->name('getLocation');
         Route::get('package/{id}', 'packageFood')->name('meal.package');
-        Route::get('order/success', 'orderSuccess')->name('meal.order.success');
         Route::get('survey', 'serviceSurvey')->name('member.survey');
         Route::get('menu', 'menuMealShow')->name('meal.menu');
         Route::get('menu/detail/{id}', 'menuDetailShow')->name('meal.detail');
@@ -42,15 +42,13 @@ Route::controller(MemberManagementController::class)->middleware('roles:member')
 });
 
 // authentication route
-Route::controller(AuthController::class)->group(function () {
+Route::controller(UserAuthController::class)->group(function () {
     Route::get('login', 'index')->name('login')->middleware('guest');
     Route::post('login', 'authenticate')->name('login.authenticate');
     Route::get('register', 'registerIndex')->name('register.index')->middleware('guest');
     Route::post('register', 'storeRegister')->name('register.store')->middleware('guest');
     Route::post('logout', 'logout')->name('logout');
 });
-
-//order controller
 
 //stripe
 Route::get('donation', [StripeController::class, 'stripe']);
