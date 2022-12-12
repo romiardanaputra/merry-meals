@@ -37,19 +37,6 @@
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div> <!-- text -->
-
-                <div class="text-gray-500 w-1/2">
-                    <label for="restaurantImage">Restaurant Image*</label>
-                    <input type="file"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full file-input @error('restaurantImage')@enderror"
-                        name="restaurantImage" required value="{{ old('restaurantImage') }}">
-                    @error('restaurantImage')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-            </div> <!-- form-register-flex -->
-
-            <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
                     <label for="restaurantAddress">Restaurant Address*</label>
                     <input type="text"
@@ -58,7 +45,10 @@
                     @error('restaurantAddress')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
-                </div> <!-- text -->
+                </div><!-- text -->
+            </div> <!-- form-register-flex -->
+
+            <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
                     <label for="foodType">Food Type*</label>
                     <select
@@ -69,7 +59,17 @@
                     </select>
                     @error('foodType')
                     <p class="text-red-500">{{ $message }}</p>
-                    @enderror<!-- text -->
+                    @enderror
+                </div>
+                <div class="text-gray-500 w-1/2">
+                    <label for="restaurantImage">Restaurant Image*</label>
+                    <input type="file"
+                        class="bg-[#FFFCF0] border border-gray-400 w-full file-input @error('restaurantImage')@enderror"
+                        name="restaurantImage" required value="{{ old('restaurantImage') }}">
+                    @error('restaurantImage')
+                    <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+                    <!-- text -->
                 </div>
             </div>
             <div class="flex justify-end">
@@ -79,7 +79,7 @@
                 </a>
                 <button type="submit"
                     class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create
-                    Partner</button>
+                    Profile</button>
             </div> <!-- button-flex -->
         </form>
     </div> <!-- form-register-fields -->

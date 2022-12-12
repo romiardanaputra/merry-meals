@@ -22,7 +22,7 @@ class PartnerProfileController extends Controller
     // display form create partner profile
     public function create()
     {
-        return view('partner.profile', [
+        return view('partner.profileCreate', [
             'title_page' => 'Create Profile',
             'dashboard_info' => 'partner profile',
         ]);

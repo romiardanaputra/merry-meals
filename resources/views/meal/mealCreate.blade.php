@@ -80,7 +80,7 @@
                     Back
                 </a>
                 <button type="submit"
-                    class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create</button>
+                    class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create Meal</button>
             </div> <!-- button-flex -->
         </form>
     </div> <!-- form-register-fields -->

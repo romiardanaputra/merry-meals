@@ -21,11 +21,9 @@
         <a href="{{ route('member.index') }}"><button
             class="bg-[#FFCE01] {{ Request::is('member/dashboard') ? 'bg-[#282222] text-[#FFCE01]' : '' }} h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
             auth()->user()->username }}</button></a>
-        @endif
-
-        @if (auth()->user()->role == 'admin')
+        @elseif(auth()->user()->role == 'admin')
         <a href="{{ route('admin.index') }}"><button
-            class="{{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }} h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
+            class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
             auth()->user()->username }}</button></a>
         @endif
 
@@ -39,9 +37,9 @@
             class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">SIGN
             IN</button></a>
         <a href="{{ route('register.index') }}"><button
-            class="bg-[#FFCE01] h-[47px] w-[115.61px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">JOIN</button></a>
+            class="bg-[#FFCE01] h-[47px] w-[115.61px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700">JOIN
+          </button></a>
         @endauth
-
       </div> <!-- nav-login-register -->
 
     </div> <!-- navbar-top -->
