@@ -3,17 +3,13 @@
 <main class="font-poppins">
 
     <div class="bg-dashboard-member bg-[#FFFCF0] min-h-screen max-h-fit px-[147px] py-[55px]">
-
         <div
             class="welcome-board bg-[#FFFDF6] h-[100px] flex items-center justify-center text-[20px] text-[#282222] font-semibold shadow-[0px_8px_50px_rgba(174,168,135,0.5)] mb-[55px]">
             <h1>Welcome to your dashboard!</h1>
         </div> <!-- welcome-board -->
-
-        <div class="dashboard-member-information h-[481px] w-full flex flex-row justify-between">
-
+        <div class="dashboard-member-information h-[481px] w-full flex flex-row justify-between space-x-[5rem]">
             <div
                 class="dashboard-member-information-user bg-[#FFFDF6] h-[full] w-[350px] shadow-[0px_8px_50px_rgba(174,168,135,0.5)] px-[66px] py-[55px] flex flex-col justify-between text-[#282222]">
-
                 <div class="user-info h-fit w-full text-center">
                     <h1 class="text-[20px] font-semibold">{{ auth()->user()->username }}</h1>
                     <p class="text-[14px]">{{ auth()->user()->email }}</p>
@@ -44,13 +40,13 @@
             </div> <!-- dashboard-member-information-user -->
 
             <div
-                class="dashboard-member-information-order-history bg-[#FFFDF6] h-full w-[760px] shadow-[0px_8px_50px_rgba(174,168,135,0.5)] flex flex-col space-y-[36px] px-[47px] pt-[55px]">
+                class="dashboard-member-information-order-history bg-[#FFFDF6] h-full w-full shadow-[0px_8px_50px_rgba(174,168,135,0.5)] flex flex-col space-y-[36px] px-[47px] pt-[55px]">
 
                 <div class="order-history-text text-[#282222] text-[20px] font-semibold">
                     <h1>Order History</h1>
                 </div> <!-- order-history-text -->
 
-                <div class="bg-order-history-histories h-full w-full flex flex-col overflow-auto">
+                <div class="bg-order-history-histories h-full w-full flex flex-col overflow-auto space-y-3">
                     @foreach ($orders as $order)
                     @if ($order->userID == auth()->user()->id)
                     @if($order->status != 'canceled')
@@ -90,7 +86,8 @@
                                 <button class="bg-green-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold"
                                     disabled>{{ $order->status }}</button>
                                 @else
-                                <button class="bg-red-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
+                                <button
+                                    class="bg-red-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
                                     type="submit">cancel</button>
                                 @endif
                             </form>
@@ -101,8 +98,6 @@
                     @endif
                     @endif
                     @endforeach
-
-
                 </div> <!-- bg-order-history-histories -->
 
             </div> <!-- dashboard-member-information-order-history -->

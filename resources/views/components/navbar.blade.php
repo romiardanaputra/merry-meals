@@ -25,7 +25,7 @@
 
         @if (auth()->user()->role == 'admin')
         <a href="{{ route('admin.index') }}"><button
-            class="{{ Request::is('admin') ? 'bg-[#282222] text-[#fffcf0]' : '' }} h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
+            class="{{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }} h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
             auth()->user()->username }}</button></a>
         @endif
 
@@ -55,24 +55,34 @@
           class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
       <a href="{{ route('contact') }}"><button
           class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('contact') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">CONTACT</button></a>
+      @else
+      <a href="{{ route('landing.index') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }} ">HOME</button></a>
+      <a href="{{ route('about') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('about') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">ABOUT</button></a>
+      <a href="{{ route('contact') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('contact') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">CONTACT</button></a>
+      <a href="{{ route('term') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('term') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">TERMS
+          & CONDITIONS</button></a>
+      <a href="{{ route('donation') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
       @endif
       @endauth
 
-      <div class="nav w-max h-full">
-        @guest
-        <a href="{{ route('landing.index') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }} ">HOME</button></a>
-        <a href="{{ route('about') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('about') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">ABOUT</button></a>
-        <a href="{{ route('contact') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('contact') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">CONTACT</button></a>
-        <a href="{{ route('term') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('term') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">TERMS
-            & CONDITIONS</button></a>
-        <a href="{{ route('donation') }}"><button
-            class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
-        @endguest 
-      </div> <!-- nav -->
+      @guest
+      <a href="{{ route('landing.index') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }} ">HOME</button></a>
+      <a href="{{ route('about') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('about') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">ABOUT</button></a>
+      <a href="{{ route('contact') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('contact') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">CONTACT</button></a>
+      <a href="{{ route('term') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('term') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">TERMS
+          & CONDITIONS</button></a>
+      <a href="{{ route('donation') }}"><button
+          class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
+      @endguest
     </div> <!-- navbar-bottom -->
   </header> <!-- bg-navbar -->
 </section>

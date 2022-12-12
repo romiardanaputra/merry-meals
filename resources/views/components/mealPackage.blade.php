@@ -36,7 +36,8 @@
                         <form action="{{ route('member.store', 
                         ['meal' => $meal->id, 
                         'package' => $package = 'basic',
-                        'partnerID' => $meal->partnerID])
+                        'partnerID' => $meal->partnerID,
+                        ])
                          }}" method="POST">
                             @csrf
                             <a href="#">
@@ -77,12 +78,11 @@
                     </div> <!-- separation -->
 
                     <div class="exclusive-package-content-button">
-                        <form
-                            action="{{ route('member.store', [
+                        <form action="{{ route('member.store', [
                                 'meal' => $meal->id,
                                 'package' => $package = 'exclusive',
-                                'partnerID' => $meal->partnerID]) }}"
-                            method="POST">
+                                'partnerID' => $meal->partnerID,
+                               ] ) }}" method="POST">
                             @csrf
                             <a href="#">
                                 <button

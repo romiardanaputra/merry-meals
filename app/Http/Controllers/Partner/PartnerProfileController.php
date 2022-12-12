@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Partner;
 
 use App\Models\Partner;
+use App\Models\Geolocation;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\Partner\PartnerProfileReq;
 use App\Http\Requests\Partner\PartnerUpdateProfile;
 
@@ -28,18 +31,19 @@ class PartnerProfileController extends Controller
     public function store(PartnerProfileReq $request)
     {
         $partners = $request->validated();
-        $partners = new Partner;
-        $partners->userID = auth()->user()->id;
-        $partners->ownerName = $request->ownerName;
-        $partners->restaurantName = $request->restaurantName;
-        $partners->restaurantContact = $request->restaurantContact;
-        $partners->restaurantAddress = $request->restaurantAddress;
-        $partners->foodType = $request->foodType;
-        $partners->restaurantImage = ($request->hasFile('restaurantImage'))
+        $partners['userID'] = auth()->user()->id;
+        $partners['restaurantImage'] = ($request->hasFile('restaurantImage'))
             ? $request->file('restaurantImage')->store('restaurant-images')
             : back();
-        $partners->save();
-        return to_route('partner.index')->with('data_partner', $partners);
+        $dataPartners = Partner::create($partners);
+        self::partnerLocation($dataPartners, $partners['userID']);
+        return to_route('partner.index');
+    }
+
+    public static function partnerLocation($dataPartners, $id){
+        $loc = Geolocation::find($id);
+        $loc->partnerID = $dataPartners['id'];
+        $loc->save();
     }
 
     public function edit(Partner $partner)

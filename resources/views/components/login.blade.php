@@ -10,34 +10,22 @@
                 <p class="text-[16px] mt-[-10px]">You can sign in with existing account</p>
             </div> <!-- form-login-text -->
             <div class="form-login-fields h-fit w-full">
+                {{--authentication allert failed --}}
+                @if (session()->has('loginFailed'))
+                <div class="alert alert-error shadow-lg mb-[3rem]">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div>{{ session('loginFailed') }}</div>
+                    </div>
+                </div>
+                @endif
+
                 <form action="{{ route('login.authenticate') }}" method="POST">
                     @csrf
-                    {{--authentication allert success --}}
-                    @if (session()->has('success'))
-                    <div class="alert alert-success shadow-lg">
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6"
-                                fill="none" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{ session('success') }}</span>
-                        </div>
-                    </div>
-                    @endif
-                    {{--authentication allert failed --}}
-                    @if (session()->has('login_error'))
-                    <div class="alert alert-error shadow-lg">
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6"
-                                fill="none" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{ session('login_error') }}</span>
-                        </div>
-                    </div>
-                    @endif
                     <div class="flex flex-col space-y-[24px] mb-[60px]">
                         <div class="text-gray-500 w-full">
                             <label for="email">Email*</label>

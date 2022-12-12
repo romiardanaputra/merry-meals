@@ -21,11 +21,8 @@
                 </a>
                 <div class="sidebar-navigation flex flex-col space-y-[18px]">
                     <a href="{{ route('admin.index') }}"><button
-                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Manage User</button></a>
-
-                    <a href="#donation.list"><button
-                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Donation
-                            List</button></a>
+                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Manage
+                            User</button></a>
                 </div> <!-- sidebar-navigation -->
             </div> <!-- flex -->
 

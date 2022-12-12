@@ -42,7 +42,7 @@ class AuthController extends Controller
                 return abort(403);
             }
         }
-        return to_route('login');
+        return to_route('login')->with('loginFailed', 'login failed please input your data correctly!');
     }
 
     public function logout(Request $request)
@@ -67,7 +67,7 @@ class AuthController extends Controller
         $users['password'] = Hash::make($users['password']);
         $dataUsers = User::create($users);
         self::userLocation($dataUsers, $request);
-        return to_route('login')->with('success_register', 'successfully registration please login!');
+        return to_route('login')->with('successRegister', 'successfully registration please login!');
     }
 
     public static function userLocation($dataUsers, $request){

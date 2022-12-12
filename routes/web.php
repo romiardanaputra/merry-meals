@@ -30,6 +30,8 @@ Route::controller(PublicPageController::class)->group(function () {
 //  member  controller
 Route::controller(MemberManagementController::class)->middleware('roles:member')->group(function () {
     Route::prefix('member')->group(function () {
+        Route::get('test/location', 'range')->name('range');
+        Route::get('get/location', 'getLocation')->name('getLocation');
         Route::get('package/{id}', 'packageFood')->name('meal.package');
         Route::get('order/success', 'orderSuccess')->name('meal.order.success');
         Route::get('survey', 'serviceSurvey')->name('member.survey');
@@ -49,9 +51,6 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 //order controller
-Route::get('/test', [OrderController::class, 'index'])->middleware('roles:member');
-
-
 
 //stripe
 Route::get('donation', [StripeController::class, 'stripe']);
