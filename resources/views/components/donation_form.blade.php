@@ -56,11 +56,11 @@
 
                     <h2 class="text-start text-[20px] font-semibold">Description</h2>
 
-                    <div class="input-style">                        
+                    <div class="input-style pb-[2rem]">                        
                         <textarea name="description" class="p-[1rem] textarea textarea-bordered text-dark w-full border-[#BABABA] rounded" id="description" cols="80" rows="6" required></textarea>
                     </div> <!-- input-style -->
 
-                    <button class="btn btn-primary btn-lg btn-block text-[#FFFDF6]" type="submit">Donate</button>
+                    <button class="my-[1rem] h-[35px] w-full border-2 btn-lg border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:bg-[#AB7C00] hover:duration-500 hover:text-white " type="submit">Donate</button>
                     </form>
                 </div> <!-- payment-form -->
             </div> <!-- payment-details -->
