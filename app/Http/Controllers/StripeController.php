@@ -13,21 +13,11 @@ use Illuminate\Support\Facades\Hash;
 
 class StripeController extends Controller
 {
-    /**
-     * success response method.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function stripe()
     {
         return view('components.donation_form' , ['title_page' => 'Donation Form']);
     }
 
-    /**
-     * success response method.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function stripePost(Request $request)
     {
 
@@ -52,7 +42,6 @@ class StripeController extends Controller
         ]);
 
 
-
         Donation::create([
             'donatorName' => $request->donatorName,
             // 'address' => $request->address,
@@ -72,7 +61,7 @@ class StripeController extends Controller
                 'phoneNumber'=> $request->donatorPhone,
                 'address' => 'not assigned',
                 'password' => Hash::make("asdasd123"),
-                'role' => "donors",
+                'role' => "donor",
                 'age' => 0,
                 'ip_id' => "not assigned"
             ]);

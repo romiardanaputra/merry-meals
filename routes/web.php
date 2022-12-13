@@ -2,22 +2,31 @@
 
 use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PublicPageController;
+use App\Http\Controllers\Member\OrderController;
+use App\Http\Controllers\User\PublicPageController;
 use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Partner\PartnerProfileController;
 use App\Http\Controllers\Member\MemberManagementController;
+use App\Http\Controllers\Rider\RiderController;
+use App\Http\Controllers\User\AuthController as UserAuthController;
+
+
+// rider controller
+Route::resource('dashboard/rider',RiderController::class)->middleware('roles:rider');
 
 // partner controller
-Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
+Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner')->except('show');
 
 // meal controller
-Route::resource('meal', PartnerMealController::class)->middleware('roles:partner,member');
+Route::resource('meal', PartnerMealController::class)->middleware('roles:partner,member,donors');
 
 // admin controller
+Route::get('donator/list', [UserManagementController::class, 'donatorList'])->middleware('roles:admin')->name('donator.list');
 Route::resource('admin', UserManagementController::class)->middleware('roles:admin');
+
+// order controller
+Route::get('order/success', [OrderController::class, 'orderSuccess'])->name('meal.order.success');
 
 // public page controller
 Route::controller(PublicPageController::class)->group(function () {
@@ -29,10 +38,9 @@ Route::controller(PublicPageController::class)->group(function () {
 });
 
 //  member  controller
-Route::controller(MemberManagementController::class)->middleware('roles:member')->group(function () {
+Route::controller(MemberManagementController::class)->middleware('roles:member,donors')->group(function () {
     Route::prefix('member')->group(function () {
         Route::get('package/{id}', 'packageFood')->name('meal.package');
-        Route::get('order/success', 'orderSuccess')->name('meal.order.success');
         Route::get('survey', 'serviceSurvey')->name('member.survey');
         Route::get('menu', 'menuMealShow')->name('meal.menu');
         Route::get('menu/detail/{id}', 'menuDetailShow')->name('meal.detail');
@@ -41,19 +49,15 @@ Route::controller(MemberManagementController::class)->middleware('roles:member')
 });
 
 // authentication route
-Route::controller(AuthController::class)->group(function () {
-    Route::get('login', 'index')->name('login')->middleware('guest');
+Route::controller(UserAuthController::class)->group(function () {
+    Route::get('login', 'index')->middleware('guest')->name('login');
     Route::post('login', 'authenticate')->name('login.authenticate');
-    Route::get('register', 'registerIndex')->name('register.index')->middleware('guest');
-    Route::post('register', 'storeRegister')->name('register.store')->middleware('guest');
+    Route::get('register', 'registerIndex')->middleware('guest')->name('register.index');
+    Route::post('register', 'storeRegister')->middleware('guest')->name('register.store');
     Route::post('logout', 'logout')->name('logout');
 });
 
-//order controller
-Route::get('/test', [OrderController::class, 'index'])->middleware('roles:member');
-
-
-
 //stripe
-Route::get('donation', [StripeController::class, 'stripe']);
+Route::get('donation', [StripeController::class, 'stripe'])->name('donation.form');
 Route::post('donation', [StripeController::class, 'stripePost'])->name('donation.post');
+

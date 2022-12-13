@@ -10,6 +10,8 @@ return new class extends Migration
     {
         Schema::create('geolocations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('userID')->constrained('users', 'id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('partnerID')->nullable()->constrained('partners', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->string('ip');
             $table->string('countryName')->nullable();
             $table->string('countryCode')->nullable();
@@ -19,7 +21,6 @@ return new class extends Migration
             $table->string('zipCode')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->foreignId('userID')->nullable()->constrained('users', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

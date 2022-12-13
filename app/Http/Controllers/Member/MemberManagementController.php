@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Member;
 
 use App\Models\Meal;
+use App\Models\Order;
+use App\Models\Geolocation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 
 class MemberManagementController extends Controller
 {
-   
+    // display member dashboard
     public function index()
     {
         return view('member.dashboard', [
@@ -19,31 +20,30 @@ class MemberManagementController extends Controller
         ]);
     }
 
-    public function store(Request $request){
-        $order = new Order;
-        $order->userID = auth()->user()->id;
-        $order->mealID = $request->meal;
-        $order->partnerID = $request->partnerID;
-        $order->mealPackage = $request->package;
-        $order->save();
+    // store order
+    public function store(Request $request)
+    {
+        $order['userID'] = auth()->user()->id;
+        $order['mealID'] = $request->meal;
+        $order['partnerID'] = $request->partnerID;
+        $order['mealPackage'] = $request->package;
+        $order['range'] = OrderController::range($request->partnerID);
+        $order['foodTemperature'] = OrderController::foodTemperature($order['range']);
+        Order::create($order);
         return to_route('meal.order.success');
     }
 
-    public function update(Request $request, $id){
-        $order = Order::find($id);
-        $order->status = $request->orderStatus;
-        $order->save();
+    // update order when cancelled
+    public function update(Request $request, $id)
+    {
+        $order['status'] = $request->orderStatus;
+        Order::where('id', $id)->update($order);
         return back();
     }
-
-    public function orderSuccess(){
-        return view('components.orderSuccess',[
-            'title_page' => 'order success'
-        ]);
-    }
-
-    public function serviceSurvey(){
-        return view('components.survey',[
+    // display survey for member
+    public function serviceSurvey()
+    {
+        return view('components.survey', [
             'title_page' => 'survey'
         ]);
     }
@@ -55,16 +55,17 @@ class MemberManagementController extends Controller
             'title_page' => 'Meal Menu',
             'meal' => Meal::find($id),
         ]);
-    }   
+    }
 
-    // packaging
-    public function packageFood($id){
+    // packaging meal
+    public function packageFood($id)
+    {
         return view('components.mealPackage', [
             'title_page' => 'Safety Food Package',
             'meal' => Meal::find($id),
         ]);
     }
-
+    // display menu member
     public function menuMealShow()
     {
         return view('components.mealMenu', [

@@ -3,13 +3,6 @@
 <main class="font-poppins">
     @include('components.navbar')
     <div class="bg-register h-fit w-full bg-[#FFFCF0] py-[138px] px-[147px]">
-        @if (session()->has('success_register'))
-        <script>
-            setTimeout(function() {
-                window.location.href = "/login"
-            }, 10000);
-        </script>
-        @endif
         <div style="box-shadow: 0px 8px 50px rgba(174, 168, 135, 0.5);"
             class="bg-form-register h-[789px] w-full bg-[#FFFCF0] p-[103px] flex flex-row justify-center items-center space-x-[108px]">
 
@@ -89,11 +82,11 @@
                             <select
                                 class="w-full bg-[#FFFCF0] input border border-gray-400 text-gray-500 py-2 px-3 pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('role')@enderror"
                                 id="role" name="role" required value="{{ old('role') }}">
-                                <option class="block disabled">Please select your role</option>
                                 <option>member</option>
                                 <option>volunteer</option>
                                 <option>caregiver</option>
                                 <option>partner</option>
+                                <option>rider</option>
                             </select>
                             @error('role')
                             <p class="text-red-500">{{ $message }}</p>
@@ -130,7 +123,7 @@
                             <label for="confirmPassword">Confirm Password*</label>
                             <input type="password"
                                 class="bg-[#FFFCF0] input border border-gray-400 w-full py-2 px-3 @error('confirmPassword')@enderror"
-                                name='confirmPassword' required value="{{ old('confirmPassword') }}">
+                                name='password_confirmation' required value="{{ old('confirmPassword') }}">
 
                             @error('confirmPassword')
                             <p class="text-red-500">{{ $message }}</p>

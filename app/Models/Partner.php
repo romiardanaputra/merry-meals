@@ -13,7 +13,12 @@ class Partner extends Model
         return $this->hasOne(User::class, 'userID', 'id');
     }
 
+    public function geolocation(){
+        return $this->hasOne(Geolocation::class, 'partnerID', 'id');
+    }
+
     protected $fillable = [
+        'userID',
         'ownerName',
         'restaurantName',
         'restaurantAddress',

@@ -20,13 +20,14 @@ class Order extends Model
     public function partner(){
         return $this->belongsTo(Partner::class, 'partnerID', 'id');
     }
+
     
     protected $fillable = [
         'userID',
         'partnerID',
         'mealID',
         'mealPackage',
-        'radius',
+        'range',
         'foodTemperature',
         'status'
     ];

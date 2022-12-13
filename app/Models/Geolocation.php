@@ -16,6 +16,7 @@ class Geolocation extends Model
 
     protected $fillable = [
         'userID',
+        'partnerID',
         'ip',
         'countryName',
         'countryCode',
