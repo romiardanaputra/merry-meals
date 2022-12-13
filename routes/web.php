@@ -8,15 +8,21 @@ use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Partner\PartnerProfileController;
 use App\Http\Controllers\Member\MemberManagementController;
+use App\Http\Controllers\Rider\RiderController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
 
+
+// rider controller
+Route::resource('dashboard/rider',RiderController::class)->middleware('roles:rider');
+
 // partner controller
-Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
+Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner')->except('show');
 
 // meal controller
 Route::resource('meal', PartnerMealController::class)->middleware('roles:partner,member');
 
 // admin controller
+Route::get('donator/list', [UserManagementController::class, 'donatorList'])->middleware('roles:admin')->name('donator.list');
 Route::resource('admin', UserManagementController::class)->middleware('roles:admin');
 
 // order controller
@@ -44,10 +50,10 @@ Route::controller(MemberManagementController::class)->middleware('roles:member')
 
 // authentication route
 Route::controller(UserAuthController::class)->group(function () {
-    Route::get('login', 'index')->name('login')->middleware('guest');
+    Route::get('login', 'index')->middleware('guest')->name('login');
     Route::post('login', 'authenticate')->name('login.authenticate');
-    Route::get('register', 'registerIndex')->name('register.index')->middleware('guest');
-    Route::post('register', 'storeRegister')->name('register.store')->middleware('guest');
+    Route::get('register', 'registerIndex')->middleware('guest')->name('register.index');
+    Route::post('register', 'storeRegister')->middleware('guest')->name('register.store');
     Route::post('logout', 'logout')->name('logout');
 });
 

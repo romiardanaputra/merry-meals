@@ -25,6 +25,10 @@
         <a href="{{ route('admin.index') }}"><button
             class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
             auth()->user()->username }}</button></a>
+        @elseif(auth()->user()->role == 'partner')
+        <a href="{{ route('partner.index') }}"><button
+            class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
+            auth()->user()->username }}</button></a>
         @endif
 
         <form action="{{ route('logout') }}" method="POST">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Donation;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\UserLocation;
@@ -59,5 +60,13 @@ class UserManagementController extends Controller
     {
         User::where('id', $id)->delete();
         return redirect()->back();
+    }
+
+    public function donatorList(){
+        return view('admin.donationList',[
+            'title_page' => 'donator list',
+            'dashboard_info' => 'all list donator',
+            'donators' => Donation::all(),
+        ]);
     }
 }

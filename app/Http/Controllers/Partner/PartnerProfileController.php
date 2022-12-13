@@ -13,9 +13,10 @@ class PartnerProfileController extends Controller
     // display partner dashboard
     public function index()
     {
-        return view('partner.dashboard', [
+        return view('partner.profileShow', [
             'title_page' => 'partner profile',
-            'dashboard_info' => 'partner profile'
+            'dashboard_info' => 'partner profile',
+            'partners' => Partner::all(),
         ]);
     }
 

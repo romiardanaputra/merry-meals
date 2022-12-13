@@ -22,10 +22,13 @@
                             class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Go
                             Back
                         </button></a>
+
+                    @if (!DB::table('partners')->select('userID')->where('userID','=',auth()->user()->id)->exists())
                     <a href="{!! route('partner.create') !!}"><button
                             class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">
                             Create Profile
                         </button></a>
+                    @endif
                     <a href="{!! route('meal.create') !!}"><button
                             class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">
                             Create Meal
