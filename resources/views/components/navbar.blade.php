@@ -17,7 +17,7 @@
 
       <div class="nav-login-register flex flex-row my-auto space-x-[18.57px] text-[#282222]">
         @auth
-        @if (auth()->user()->role == 'member')
+        @if (auth()->user()->role == 'member' || auth()->user()->role == 'donor')
         <a href="{{ route('member.index') }}"><button
             class="bg-[#FFCE01] {{ Request::is('member/dashboard') ? 'bg-[#282222] text-[#FFCE01]' : '' }} h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
             auth()->user()->username }}</button></a>
@@ -50,13 +50,15 @@
 
     <div class="navbar-bottom bg-[#FFCE01] flex flex-row justify-center">
       @auth
-      @if (Auth::user()->role == 'member' || Auth::user()->role == 'donors')
+
+      @if (Auth::user()->role == 'member' || Auth::user()->role == 'donor')
       <a href="{{ route('meal.menu') }}"><button
           class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('member/menu') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">MENU</button></a>
       <a href="{{ route('donation') }}"><button
           class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
       <a href="{{ route('contact') }}"><button
           class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('contact') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">CONTACT</button></a>
+
       @else
       <a href="{{ route('landing.index') }}"><button
           class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('/') ? 'bg-[#282222] text-[#fffcf0]' : '' }} ">HOME</button></a>
@@ -69,7 +71,9 @@
           & CONDITIONS</button></a>
       <a href="{{ route('donation') }}"><button
           class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
+      
       @endif
+
       @endauth
 
       @guest

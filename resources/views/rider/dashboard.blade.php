@@ -43,7 +43,6 @@
 
                 <div class="bg-order-history-histories h-full w-full flex flex-col overflow-auto space-y-3">
                     @foreach ($orders as $order)
-                    @if($order->status != 'canceled')
                     <div class="order-histories h-[109px] w-full border-b-2 flex flex-row justify-between">
                         <div class="separation flex flex-row space-x-[17px]">
                             <div class="history-histories-image h-[89px] w-[159px]">
@@ -64,6 +63,8 @@
 
                                     @if ($order->status == 'on going')
                                     <p class="text-[12px] text-orange-600">{{ $order->status }}</p>
+                                    <p class="text-[12px] text-blue-600">order take by {{ auth()->user()->fullName }}
+                                    </p>
                                     @elseif($order->status == 'delivered')
                                     <p class="text-[12px] text-green-600">{{ $order->status }}</p>
                                     @endif
@@ -75,26 +76,43 @@
                         </div> <!-- separation -->
 
                         <div class="order-histories-button h-[89px] w-[147px] flex items-center">
-                            <form action="{{ route('member.update', [
-                                'orderStatus' => $orderStatus = 'canceled',
-                                $order->id
+                            <form action="{{ route('volunteer.update', [
+                                'orderStatus' => $orderStatus = 'on going',
+                                'volunteerID' => $volunteerID = auth()->user()->id,
+                                $order->id,
+                                'orderStatusDone' => $orderStatusDone = 'delivered'
                             ]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 @if ($order->status == 'delivered')
                                 <button class="bg-green-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold"
                                     disabled>{{ $order->status }}</button>
+                                @elseif ($order->status == 'on going')
+                                <button
+                                    class="bg-orange-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95">Done</button>
+                                @elseif($order->status == 'canceled')
+                                <button
+                                    class="bg-red-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold capitalize"
+                                    disabled>{{ $order->status }}</button>
                                 @else
                                 <button
-                                    class="bg-red-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
-                                    type="submit">cancel</button>
+                                    class="bg-orange-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
+                                    type="submit">Take Order</button>
+                                @endif
+                            </form>
+
+                            <form action="{{ route('volunteer.destroy', $order->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                @if ($order->status == 'canceled')
+                                <button
+                                    class="bg-orange-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
+                                    type="submit">Delete
+                                </button>
                                 @endif
                             </form>
                         </div> <!-- order-histories-button -->
                     </div> <!-- order-histories -->
-                    @else
-                    <div></div>
-                    @endif
                     @endforeach
                 </div> <!-- bg-order-history-histories -->
 

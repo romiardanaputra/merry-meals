@@ -21,11 +21,15 @@ class Order extends Model
         return $this->belongsTo(Partner::class, 'partnerID', 'id');
     }
 
+    public function volunteer(){
+        return $this->belongsTo(User::class, 'volunteerID', 'id');
+    }
     
     protected $fillable = [
         'userID',
         'partnerID',
         'mealID',
+        'volunteerID',
         'mealPackage',
         'range',
         'foodTemperature',
