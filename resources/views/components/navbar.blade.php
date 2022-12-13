@@ -17,7 +17,7 @@
 
       <div class="nav-login-register flex flex-row my-auto space-x-[18.57px] text-[#282222]">
         @auth
-        @if (auth()->user()->role == 'member' || auth()->user()->role == 'donors')
+        @if (auth()->user()->role == 'member')
         <a href="{{ route('member.index') }}"><button
             class="bg-[#FFCE01] {{ Request::is('member/dashboard') ? 'bg-[#282222] text-[#FFCE01]' : '' }} h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
             auth()->user()->username }}</button></a>

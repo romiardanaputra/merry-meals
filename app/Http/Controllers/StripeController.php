@@ -61,7 +61,7 @@ class StripeController extends Controller
                 'phoneNumber'=> $request->donatorPhone,
                 'address' => 'not assigned',
                 'password' => Hash::make("asdasd123"),
-                'role' => "donors",
+                'role' => "donor",
                 'age' => 0,
                 'ip_id' => "not assigned"
             ]);
