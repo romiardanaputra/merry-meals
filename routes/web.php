@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\Member\OrderController;
+use App\Http\Controllers\User\PublicPageController;
 use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Partner\PartnerProfileController;
 use App\Http\Controllers\Member\MemberManagementController;
-use App\Http\Controllers\Member\OrderController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
-use App\Http\Controllers\User\PublicPageController;
 
 // partner controller
 Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
@@ -51,5 +52,6 @@ Route::controller(UserAuthController::class)->group(function () {
 });
 
 //stripe
-Route::get('donation', [StripeController::class, 'stripe']);
+Route::get('donation', [StripeController::class, 'stripe'])->name('donation.form');
 Route::post('donation', [StripeController::class, 'stripePost'])->name('donation.post');
+
