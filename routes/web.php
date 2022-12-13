@@ -8,18 +8,18 @@ use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Partner\PartnerProfileController;
 use App\Http\Controllers\Member\MemberManagementController;
-use App\Http\Controllers\Rider\RiderController;
+use App\Http\Controllers\Rider\RiderController as VolunteerController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
 
 
 // rider controller
-Route::resource('dashboard/rider',RiderController::class)->middleware('roles:rider');
+Route::resource('volunteer',VolunteerController::class)->middleware('roles:volunteer');
 
 // partner controller
 Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner')->except('show');
 
 // meal controller
-Route::resource('meal', PartnerMealController::class)->middleware('roles:partner,member,donors');
+Route::resource('meal', PartnerMealController::class)->middleware('roles:partner');
 
 // admin controller
 Route::get('donator/list', [UserManagementController::class, 'donatorList'])->middleware('roles:admin')->name('donator.list');
@@ -38,7 +38,7 @@ Route::controller(PublicPageController::class)->group(function () {
 });
 
 //  member  controller
-Route::controller(MemberManagementController::class)->middleware('roles:member,donors')->group(function () {
+Route::controller(MemberManagementController::class)->middleware('roles:member,donor,volunteer')->group(function () {
     Route::prefix('member')->group(function () {
         Route::get('package/{id}', 'packageFood')->name('meal.package');
         Route::get('survey', 'serviceSurvey')->name('member.survey');

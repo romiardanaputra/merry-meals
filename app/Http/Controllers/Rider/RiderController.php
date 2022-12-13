@@ -16,33 +16,18 @@ class RiderController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
     public function update(Request $request, $id)
     {
-        //
+        $order['volunteerID'] = $request->volunteerID;
+        $order['status'] = $request->orderStatus;
+        $order['status'] = $request->orderStatusDone;
+        Order::where('id', $id)->update($order);
+        return back();
     }
 
     public function destroy($id)
     {
-        //
+        Order::where('id', $id)->delete();
+        return back();
     }
 }

@@ -35,12 +35,10 @@ class AuthController extends Controller
                 return redirect()->intended(RouteServiceProvider::CAREGIVER_DASHBOARD);
             } elseif ($request->user()->role == 'volunteer') {
                 return redirect()->intended(RouteServiceProvider::VOLUNTEER_DASHBOARD);
-            }elseif($request->user()->role == 'donors'){
+            }elseif($request->user()->role == 'donor'){
                 return redirect()->intended(RouteServiceProvider::DONOR_DASHBOARD);
             }elseif ($request->user()->role == 'partner') {
                 return redirect()->intended(RouteServiceProvider::PARTNER_DASHBOARD);
-            } elseif ($request->user()->role == 'rider') {
-                return redirect()->intended(RouteServiceProvider::RIDER_DASHBOARD);
             } else {
                 return abort(403);
             }

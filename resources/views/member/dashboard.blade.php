@@ -64,6 +64,9 @@
                                     <p class="text-[12px]">{{ $order->partner->restaurantName }}</p>
                                     <p class="text-[12px]">{{ $order->mealPackage }}</p>
                                     @if ($order->status == 'on going')
+                                    <p class="text-[12px] text-blue-600">order take by driver {{ $order->volunteer->fullName }}</p>
+                                    @endif
+                                    @if ($order->status == 'on going')
                                     <p class="text-[12px] text-orange-600">{{ $order->status }}</p>
                                     @elseif($order->status == 'delivered')
                                     <p class="text-[12px] text-green-600">{{ $order->status }}</p>

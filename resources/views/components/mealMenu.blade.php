@@ -1,6 +1,5 @@
 @extends('layout.main')
 @section('component_content')
-@include('components.navbar')
 <main class="bg-[#FFFCF0] w-full min-h-screen max-h-fit">
     @include('components.navbar')
     <div class="bg-content px-[147px] py-[110px]">
