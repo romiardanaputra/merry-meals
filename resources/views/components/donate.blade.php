@@ -27,7 +27,7 @@
                     visitor may be the only person the senior sees all day on some days. It is critical that we
                     check on our elderly neighbors.
                 </p>
-                <a href=""><button
+                <a href="{!! route('donation.form') !!}"><button
                         class="h-[63px] w-[370px] bg-[#FFFCF0] text-[#A07C00] border-2 border-[#A07C00] box-border hover:scale-105 duration-500">Start
                         to Donate</button></a>
             </div> <!-- donate-section-two-content -->

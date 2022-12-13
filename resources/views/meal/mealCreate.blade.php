@@ -10,7 +10,7 @@
                     <label for="mealName">Meal Name*</label>
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input input-bordered @error('mealName')@enderror"
-                        name="mealName" required value="{{ old('mealName ') }}">
+                        name="mealName" required value="{{ old('mealName') }}">
 
                     @error('mealName')
                     <p class="text-red-500">{{ $message }}</p>
@@ -20,7 +20,7 @@
                     <label for="mealType">Meal Type*</label>
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input input-bordered @error('mealType')@enderror"
-                        name="mealType" required>
+                        name="mealType" required value="{{ old('mealType') }}">
 
                     @error('mealType')
                     <p class="text-red-500">{{ $message }}</p>
@@ -32,7 +32,7 @@
                     <label for="mealIngredient">Meal Ingredient*</label>
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input input-bordered @error('mealIngredient')@enderror"
-                        name="mealIngredient" required>
+                        name="mealIngredient" required value="{{ old('mealIngredient') }}">
 
                     @error('mealIngredient')
                     <p class="text-red-500">{{ $message }}</p>
@@ -42,7 +42,7 @@
                     <label for="mealDescription">Meal Description*</label>
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input input-bordered @error('mealDescription')@enderror"
-                        name="mealDescription" required>
+                        name="mealDescription" required value="{{ old('mealDescription') }}">
 
                     @error('mealDescription')
                     <p class="text-red-500">{{ $message }}</p>
@@ -55,7 +55,7 @@
                     <label for="mealAvailability">Meal Available*</label>
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input input-bordered @error('mealAvailability')@enderror"
-                        name="mealAvailability" required>
+                        name="mealAvailability" required value="{{ old('mealAvailability') }}">
 
                     @error('mealAvailability')
                     <p class="text-red-500">{{ $message }}</p>
@@ -66,7 +66,7 @@
                     <label for="mealImage">Meal Image*</label>
                     <input type="file"
                         class="file-input file-input-bordered bg-[#FFFCF0] border border-gray-400 w-full @error('mealImage')@enderror"
-                        name="mealImage" required>
+                        name="mealImage" required value="{{ old('mealImage') }}">
 
                     @error('mealImage')
                     <p class="text-red-500">{{ $message }}</p>
@@ -80,7 +80,7 @@
                     Back
                 </a>
                 <button type="submit"
-                    class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create</button>
+                    class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create Meal</button>
             </div> <!-- button-flex -->
         </form>
     </div> <!-- form-register-fields -->

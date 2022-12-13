@@ -3,50 +3,52 @@
 namespace App\Http\Controllers\Member;
 
 use App\Models\Meal;
+use App\Models\Order;
+use App\Models\Geolocation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class MemberManagementController extends Controller
 {
+    // display member dashboard
     public function index()
     {
         return view('member.dashboard', [
             'title_page' => 'Member Dashboard',
             'dashboard_info' => 'Meals Detail',
-            'meals' => Meal::all(),
+            'orders' => Order::all(),
         ]);
     }
 
-    public function create()
-    {
-        //
-    }
-
+    // store order
     public function store(Request $request)
     {
-        //
+        $order['userID'] = auth()->user()->id;
+        $order['mealID'] = $request->meal;
+        $order['partnerID'] = $request->partnerID;
+        $order['mealPackage'] = $request->package;
+        $order['range'] = OrderController::range($request->partnerID);
+        $order['foodTemperature'] = OrderController::foodTemperature($order['range']);
+        Order::create($order);
+        return to_route('meal.order.success');
     }
 
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
+    // update order when cancelled
     public function update(Request $request, $id)
     {
-        //
+        $order['status'] = $request->orderStatus;
+        Order::where('id', $id)->update($order);
+        return back();
     }
-
-    public function destroy($id)
+    // display survey for member
+    public function serviceSurvey()
     {
-        //
+        return view('components.survey', [
+            'title_page' => 'survey'
+        ]);
     }
 
+    // detail meal
     public function menuDetailShow($id)
     {
         return view('components.mealDetail', [
@@ -55,12 +57,15 @@ class MemberManagementController extends Controller
         ]);
     }
 
-    public function packageFood(){
-        return view('components.test', [
+    // packaging meal
+    public function packageFood($id)
+    {
+        return view('components.mealPackage', [
             'title_page' => 'Safety Food Package',
+            'meal' => Meal::find($id),
         ]);
     }
-
+    // display menu member
     public function menuMealShow()
     {
         return view('components.mealMenu', [

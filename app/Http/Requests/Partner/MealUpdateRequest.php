@@ -14,10 +14,13 @@ class MealUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'partnerID' => [],
             'mealName' => ['max:100'],
             'mealIngredient' => ['max:200'],
             'mealImage' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
             'mealDescription' => ['max:300'],
+            'mealType' => [],
+            'mealAvailability' => [],
         ];
     }
 }

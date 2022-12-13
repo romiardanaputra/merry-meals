@@ -15,6 +15,7 @@ class PartnerProfileReq extends FormRequest
     public function rules()
     {
         return [
+            'userID' => [],
             'ownerName' => ['required'],
             'restaurantName' => ['required'],
             'foodType' => ['required'],

@@ -26,9 +26,10 @@
 
           <div class="vertical-line border-[1px] h-[245px] border-[#282222]"></div>
 
+          @guest
           <div class="footer-content-register flex flex-col space-y-[26px]">
             <div class="footer-content-register-heading">
-              <h1 class="font-bold">Sign up to be a member </br> or a volunteer</h1>
+              <h1 class="font-bold">Sign up to be a member <br/> or a volunteer</h1>
             </div> <!-- footer-content-register-heading -->
 
             <div class="footer-content-register-button">
@@ -36,6 +37,7 @@
                   class="h-[44px] w-[195px] bg-[#282222] text-[#FFFDF6] text-[16px] hover:scale-105 duration-500">Register</button></a>
             </div> <!-- footer-content-register-button -->
           </div> <!-- footer-content-register -->
+          @endguest
         </div> <!-- footer-content-navigation -->
 
       </div> <!-- footer-content -->

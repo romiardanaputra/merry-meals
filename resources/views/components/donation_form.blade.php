@@ -2,11 +2,11 @@
 @section('component_content')
 @include('components.navbar')
 <main class="font-poppins">
-    <div class="bg-donation-page min-h-screen max-h-fit bg-[#FFFCF0] px-[147px] py-[55px] text-[#282222]">
+    <div class="bg-donation-page min-h-screen max-h-fit bg-[#FFFCF0] py-[138px] px-[147px] text-[#282222]">
         <div class="donation-section bg-[#FFFDF6] shadow-[0px_8px_50px_rgba(174,168,135,0.5)] h-fit w-full py-[50px] px-[170px]">
-            <h1 class="text-center text-[25px] font-semibold">Donation</h1>
+            <h1 class="text-center text-[25px] font-semibold ">Donation</h1>
 
-            <div class="payment-details mt-[20px] flex flex-col space-y-[20px]">
+            <div class="payment-details mt-[3rem] flex flex-col space-y-[20px]">
                 @if (Session::has('success'))
                 <div class="alert alert-success text-center">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -18,37 +18,37 @@
                     <form role="form" action="{{ route('donation.post') }}" method="post" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form" class="require-validation flex flex-col space-y-[15px]">
                             @csrf
 
-                    <h2 class="text-start text-[20px] font-semibold">Payment Details</h2>
+                    <h2 class="text-start text-[20px] font-semibold pb-[.8rem]">Payment Details</h2>
 
                     <div class="input-style">
                         <label for="donatorName">Full Name</label>
                         <br>
-                        <input type="text" name="donatorName" id="donatorName" required class="border-2 border- p-[10px] rounded border-[#BABABA] w-full">
+                        <input type="text" name="donatorName" id="donatorName" required class=" p-[10px] rounded border-[#BABABA] w-full input input-bordered">
                     </div> <!-- input-style -->
 
                     <div class="input-style flex flex-row w-full space-x-[35px]">
                         <div class="form-input-style w-full">
                             <label for="donatorPhone">Phone Number</label>
                             <br>
-                            <input type="number" name="donatorPhone" id="donatorPhone" required class="border-2 border- p-[10px] rounded border-[#BABABA] w-full">
+                            <input type="number" name="donatorPhone" id="donatorPhone" required class="input input-bordered p-[10px] rounded border-[#BABABA] w-full">
                         </div> <!-- form-input-style -->
 
                         <div class="form-input-style w-full">
                             <label for="donatorEmail">Email</label>
                             <br>
-                            <input type="email" name="donatorEmail" id="donatorEmail" required class="border-2 border- p-[10px] rounded border-[#BABABA] w-full">
+                            <input type="email" name="donatorEmail" id="donatorEmail" required class="input input-bordered p-[10px] rounded border-[#BABABA] w-full">
                         </div> <!-- form-input-style -->
                     </div> <!-- input-style -->
 
-                    <div class="input-style required">
+                    <div class="input-style required pb-[1rem]">
                         <label for="amount">Donation Amount ($)</label>
                         <br>
-                        <input type="number" name="amount" id="amount" required class="border-2 border- p-[10px] rounded border-[#BABABA] w-full">
+                        <input type="number" name="amount" id="amount" required class="input input-bordered p-[10px] rounded border-[#BABABA] w-full">
                     </div> <!-- input-style -->
 
-                    <h2 class="text-start text-[20px] font-semibold">Card Details</h2>
+                    <h2 class="text-start text-[20px] font-semibold">Card Detail</h2>
 
-                    <div id="card-element" class="w-full border-2 border-[#BABABA] rounded p-6">
+                    <div id="card-element" class="w-full border-[1px] bg-white border-[#BABABA] rounded p-6">
                         <!-- A Stripe Element will be inserted here. -->
                     </div> <!-- card-element -->
                         <!-- Used to display form errors. -->
@@ -56,11 +56,11 @@
 
                     <h2 class="text-start text-[20px] font-semibold">Description</h2>
 
-                    <div class="input-style">                        
-                        <textarea name="description" class="text-dark w-full border-2 border-[#BABABA] rounded" id="description" cols="80" rows="6" required></textarea>
+                    <div class="input-style pb-[2rem]">                        
+                        <textarea name="description" class="p-[1rem] textarea textarea-bordered text-dark w-full border-[#BABABA] rounded" id="description" cols="80" rows="6" required></textarea>
                     </div> <!-- input-style -->
 
-                    <button class="btn btn-primary btn-lg btn-block text-[#FFFDF6]" type="submit">Donate</button>
+                    <button class="my-[1rem] h-[35px] w-full border-2 btn-lg border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:bg-[#AB7C00] hover:duration-500 hover:text-white " type="submit">Donate</button>
                     </form>
                 </div> <!-- payment-form -->
             </div> <!-- payment-details -->

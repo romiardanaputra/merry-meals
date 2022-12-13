@@ -9,6 +9,7 @@ use App\Http\Requests\Partner\MealUpdateRequest;
 
 class PartnerMealController extends Controller
 {
+    // display meal list in partner
     public function index()
     {
         return view('meal.mealList', [
@@ -17,7 +18,7 @@ class PartnerMealController extends Controller
             'title_page' => 'Meal lists',
         ]);
     }
-
+    // display for form partner profile
     public function create()
     {
         return view('meal.mealCreate', [
@@ -26,22 +27,19 @@ class PartnerMealController extends Controller
         ]);
     }
 
+    // store meal created by partner
     public function store(MealCreateRequest $request)
     {
-        $meal = new Meal;
-        $meal->partnerID = auth()->user()->id;
-        $meal->mealName = $request->mealName;
-        $meal->mealIngredient = $request->mealIngredient;
-        $meal->mealDescription = $request->mealDescription;
-        $meal->mealType = $request->mealType;
-        $meal->mealAvailability = $request->mealAvailability;
-        ($request->hasFile('mealImage'))
-            ? $meal->mealImage = $request->file('mealImage')->store('meal-images')
+        $meal = $request->validated();
+        $meal['partnerID'] = auth()->user()->partner->id;
+        $meal['mealImage'] = ($request->hasFile('mealImage'))
+            ?  $request->file('mealImage')->store('meal-images')
             : back();
-        $meal->save();
+        Meal::create($meal);
         return to_route('meal.index');
     }
 
+    // show spesific meal based mealID
     public function show($id)
     {
         return view('meal.mealDetail', [
@@ -49,6 +47,7 @@ class PartnerMealController extends Controller
         ]);
     }
 
+    // show edit form meal based meal id 
     public function edit($id)
     {
         return view('meal.mealEdit', [
@@ -58,22 +57,22 @@ class PartnerMealController extends Controller
         ]);
     }
 
+    // update meal based on meal id
     public function update(MealUpdateRequest $request, $id)
     {
-        $meal = Meal::find($id);
-        $meal->mealName = $request->mealName;
-        $meal->mealIngredient = $request->mealIngredient;
-        ($request->hasFile('mealImage'))
-            ? $meal->mealImage = $request->file('mealImage')->store('meal-images')
+        $meal = $request->validated();
+        $meal['partnerID'] = auth()->user()->partner->id;
+        $meal['mealImage'] = ($request->hasFile('mealImage'))
+            ?  $request->file('mealImage')->store('meal-images')
             : back();
-        $meal->save();
+        Meal::where('id', $id)->update($meal);
         return to_route('meal.index');
     }
 
+    // delete meal based on meal id
     public function destroy($id)
     {
-        $meal = Meal::find($id);
-        $meal->delete();
+        Meal::where('id', $id)->delete();
         return back();
     }
 }

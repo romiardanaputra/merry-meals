@@ -110,7 +110,7 @@
                     <label for="confirmPassword">Confirm Password*</label>
                     <input type="password"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('confirmPassword')@enderror"
-                        name='confirmPassword' required value="{{ old('confirmPassword') }}">
+                        name='password_confirmation' required value="{{ old('confirmPassword') }}">
 
                     @error('confirmPassword')
                     <p class="text-red-500">{{ $message }}</p>

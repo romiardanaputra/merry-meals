@@ -21,11 +21,6 @@
                 </div> <!-- user-address -->
 
                 <div class="user-button flex flex-col space-y-[10px]">
-                    <a href="{!! route('member.survey') !!}">
-                        <button
-                            class="h-[44px] w-full border-2 bg-[#282222] border-[#282222] text-[#FFFCF0] text-[16px] font-semibold duration-700 hover:scale-105">Take
-                            Survey</button>
-                    </a>
 
                     <form action="{!! route('logout') !!}" method="POST">
                         @csrf
@@ -43,12 +38,11 @@
                 class="dashboard-member-information-order-history bg-[#FFFDF6] h-full w-full shadow-[0px_8px_50px_rgba(174,168,135,0.5)] flex flex-col space-y-[36px] px-[47px] pt-[55px]">
 
                 <div class="order-history-text text-[#282222] text-[20px] font-semibold">
-                    <h1>Order History</h1>
+                    <h1>Incoming Order</h1>
                 </div> <!-- order-history-text -->
 
                 <div class="bg-order-history-histories h-full w-full flex flex-col overflow-auto space-y-3">
                     @foreach ($orders as $order)
-                    @if ($order->userID == auth()->user()->id)
                     @if($order->status != 'canceled')
                     <div class="order-histories h-[109px] w-full border-b-2 flex flex-row justify-between">
                         <div class="separation flex flex-row space-x-[17px]">
@@ -63,6 +57,11 @@
                                     <h1 class="text-[14px] font-semibold">{{ $order->meal->mealName}}</h1>
                                     <p class="text-[12px]">{{ $order->partner->restaurantName }}</p>
                                     <p class="text-[12px]">{{ $order->mealPackage }}</p>
+                                    <p class="text-[12px]">{{ $order->range }} KM</p>
+                                    <p class="text-[12px]">{{ $order->foodTemperature }}</p>
+                                    <p class="text-[12px]">{{ $order->user->fullName }}</p>
+                                    <p class="text-[12px]">{{ $order->user->address }}</p>
+
                                     @if ($order->status == 'on going')
                                     <p class="text-[12px] text-orange-600">{{ $order->status }}</p>
                                     @elseif($order->status == 'delivered')
@@ -95,7 +94,6 @@
                     </div> <!-- order-histories -->
                     @else
                     <div></div>
-                    @endif
                     @endif
                     @endforeach
                 </div> <!-- bg-order-history-histories -->

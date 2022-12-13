@@ -21,10 +21,10 @@
                 </a>
                 <div class="sidebar-navigation flex flex-col space-y-[18px]">
                     <a href="{{ route('admin.index') }}"><button
-                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Manage User</button></a>
-
-                    <a href="#donation.list"><button
-                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Donation
+                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Manage
+                            User</button></a>
+                    <a href="{{ route('donator.list') }}"><button
+                            class="w-full h-[50px] bg-[#282222] border-2 border-solid border-[#FFFDF6] text-[#FFFDF6] duration-700 hover:bg-[#FFFDF6] hover:text-[#282222]">Donator
                             List</button></a>
                 </div> <!-- sidebar-navigation -->
             </div> <!-- flex -->
@@ -48,23 +48,11 @@
             <div
                 class="dash-database w-full h-fit p-[50px] bg-[#FFFDF6] m-auto shadow-[0px_8px_50px_rgba(174,168,135,0.5)] space-y-[35px]">
                 <div class="flex justify-between">
-                    <h1 class="font-semibold text-[20px]">{{ $dashboard_info }}</h1>
+                    <h1 class="font-semibold text-[20px] capitalize">{{ $dashboard_info }}</h1>
                     @if (Request::routeIs('admin.index'))
                     <a role="button" href="{{ route('admin.create') }}"
                         class="w-[10rem] mb-[10px] h-fit bg-[#4CAF3C] p-[5px] text-[#FFFDF6] duration-500 hover:scale-100 flex justify-center align-middle">
                         Create User
-                    </a>
-                    @endif
-                    @if (Request::routeIs('meal.index'))
-                    <a role="button" href="{{ route('meal.create') }}"
-                        class="w-[10rem] mb-[10px] h-fit bg-[#4CAF3C] p-[5px] text-[#FFFDF6] duration-500 hover:scale-100 flex justify-center align-middle">
-                        Create Meal
-                    </a>
-                    @endif
-                    @if (Request::routeIs('partner_handler.index'))
-                    <a role="button" href="{{ route('partner_handler.create') }}"
-                        class="w-[10rem] mb-[10px] h-fit bg-[#4CAF3C] p-[5px] text-[#FFFDF6] duration-500 hover:scale-100 flex justify-center align-middle">
-                        Create Partner
                     </a>
                     @endif
                 </div>

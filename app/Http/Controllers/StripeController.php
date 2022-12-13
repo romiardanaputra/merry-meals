@@ -13,21 +13,11 @@ use Illuminate\Support\Facades\Hash;
 
 class StripeController extends Controller
 {
-    /**
-     * success response method.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function stripe()
     {
         return view('components.donation_form' , ['title_page' => 'Donation Form']);
     }
 
-    /**
-     * success response method.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function stripePost(Request $request)
     {
 
@@ -50,7 +40,6 @@ class StripeController extends Controller
                 "description" => $request->description,
                 "customer" => $customer->id,
         ]);
-
 
 
         Donation::create([

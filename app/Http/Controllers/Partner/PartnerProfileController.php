@@ -3,45 +3,52 @@
 namespace App\Http\Controllers\Partner;
 
 use App\Models\Partner;
+use App\Models\Geolocation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\PartnerProfileReq;
 use App\Http\Requests\Partner\PartnerUpdateProfile;
 
 class PartnerProfileController extends Controller
 {
+    // display partner dashboard
     public function index()
     {
-        return view('partner.dashboard', [
+        return view('partner.profileShow', [
             'title_page' => 'partner profile',
-            'dashboard_info' => 'partner profile'
+            'dashboard_info' => 'partner profile',
+            'partners' => Partner::all(),
         ]);
     }
 
+    // display form create partner profile
     public function create()
     {
-        return view('partner.profile', [
+        return view('partner.profileCreate', [
             'title_page' => 'Create Profile',
             'dashboard_info' => 'partner profile',
         ]);
     }
 
+    // store partner profile
     public function store(PartnerProfileReq $request)
     {
         $partners = $request->validated();
-        $partners = new Partner;
-        $partners->userID = auth()->user()->id;
-        $partners->ownerName = $request->ownerName;
-        $partners->restaurantName = $request->restaurantName;
-        $partners->restaurantContact = $request->restaurantContact;
-        $partners->restaurantAddress = $request->restaurantAddress;
-        $partners->foodType = $request->foodType;
-        $partners->restaurantImage = ($request->hasFile('restaurantImage'))
+        $partners['userID'] = auth()->user()->id;
+        $partners['restaurantImage'] = ($request->hasFile('restaurantImage'))
             ? $request->file('restaurantImage')->store('restaurant-images')
             : back();
-        $partners->save();
+        $dataPartners = Partner::create($partners);
+        self::partnerLocation($dataPartners, $partners['userID']);
         return to_route('partner.index');
     }
 
+    // update partner location after creating partner profile
+    public static function partnerLocation($dataPartners, $id){
+        $loc['partnerID'] = $dataPartners['id'];
+        Geolocation::where('id',$id)->update($loc);
+    }
+
+    // edit partner based on partner id
     public function edit(Partner $partner)
     {
         return view('partner.profileEdit', [
@@ -51,31 +58,27 @@ class PartnerProfileController extends Controller
         ]);
     }
 
+    // show partner profile based on partner id 
     public function show(Partner $partner){
         return view('partner.profileShow',[
             'partners' => $partner,
         ]);
     }
 
-    public function update(PartnerUpdateProfile $request)
+    // update partner profile based on partner id
+    public function update(PartnerUpdateProfile $request, $id)
     {
         $partners = $request->validated();
-        $partners->userID = auth()->user()->id;
-        $partners->ownerName = $request->ownerName;
-        $partners->restaurantName = $request->restaurantName;
-        $partners->restaurantContact = $request->restaurantContact;
-        $partners->restaurantAddress = $request->restaurantAddress;
-        $partners->foodType = $request->foodType;
-        $partners->restaurantImage = ($request->hasFile('restaurantImage'))
+        $partners['userID'] = auth()->user()->id;
+        $partners['restaurantImage'] = ($request->hasFile('restaurantImage'))
             ? $request->file('restaurantImage')->store('restaurant-images')
             : back();
-        $partners->save();
+        Partner::where('id', $id)->update($partners);
         return to_route('partner_handler.index');
     }
 
-    public function destroy(Partner $partner)
+    public function destroy($id)
     {
-        $partners = $partner->id;
-        $partners->delete();
+        Partner::where('id', $id)->delete();
     }
 }

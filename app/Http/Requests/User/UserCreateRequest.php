@@ -20,7 +20,7 @@ class UserCreateRequest extends FormRequest
             'phoneNumber' => ['required', 'unique:users', 'numeric'],
             'age' => ['required', 'numeric'],
             'address' => ['required'],
-            'password' => ['required', 'min:6'],
+            'password' => ['required', 'min:6', 'confirmed'],
             'role' => ['required'],
         ];
     }

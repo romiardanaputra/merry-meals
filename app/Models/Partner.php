@@ -9,7 +9,16 @@ class Partner extends Model
 {
     use HasFactory;
 
+    public function user(){
+        return $this->hasOne(User::class, 'userID', 'id');
+    }
+
+    public function geolocation(){
+        return $this->hasOne(Geolocation::class, 'partnerID', 'id');
+    }
+
     protected $fillable = [
+        'userID',
         'ownerName',
         'restaurantName',
         'restaurantAddress',
