@@ -52,11 +52,12 @@
 
             <div class="flex flex-row space-x-[45px]">
                 <div class="text-gray-500 w-1/2">
-                    <label for="mealAvailability">Meal Available*</label>
-                    <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input input-bordered @error('mealAvailability')@enderror"
-                        name="mealAvailability" required value="{{ old('mealAvailability') }}">
-
+                    <label for="mealAvailability">Meal Availability*</label><br>
+                    <select name="mealAvailability" id="mealAvailability" required class="@error('mealAvailability')@enderror bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input input-bordered">
+                        <option value="available">Available</option>
+                        <option value="not available">Not Available</option>
+                    </select>
+                    
                     @error('mealAvailability')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror

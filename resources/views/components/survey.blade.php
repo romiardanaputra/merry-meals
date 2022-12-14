@@ -239,9 +239,11 @@
          </div> <!-- survey-question -->
 
       </form>
-      <a href="{{ route('member.index') }}">
-         <button class="bg-[#AF433C] h-[50px] w-fit px-[50px] duration-700 hover:scale-105">Cancel</button>
-      </a>
+      <div class="button-cancel flex justify-center">
+         <a href="{{ route('member.index') }}">
+            <button class="bg-[#AF433C] h-[50px] w-fit px-[50px] duration-700 hover:scale-105 text-[#FFFDF6]">Cancel</button>
+         </a>
+      </div> <!-- button-cancel -->
    </div> <!-- bg-survey -->
 
 </main>

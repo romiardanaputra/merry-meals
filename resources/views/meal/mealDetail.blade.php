@@ -16,7 +16,7 @@
         </div>
 
         <div class="flex flex-col space-y-[50px]">
-            <img class="w-[562px] h-[316px]" src="{{ asset('storage/'. $meal->mealImage) }}" alt="image-meal-detail">
+            <img class="w-[562px] h-[316px] object-cover" src="{{ asset('storage/'. $meal->mealImage) }}" alt="image-meal-detail">
 
             <div class="flex flex-row justify-between">
                 <a href="{!! route('meal.menu') !!}">
