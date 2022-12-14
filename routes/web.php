@@ -8,9 +8,12 @@ use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Partner\PartnerProfileController;
 use App\Http\Controllers\Member\MemberManagementController;
+use App\Http\Controllers\Member\SurveyController;
 use App\Http\Controllers\Rider\RiderController as VolunteerController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
 
+// survey controller
+Route::resource('survey',SurveyController::class)->middleware('roles:member,caregiver')->only(['index', 'store']);
 
 // rider controller
 Route::resource('volunteer',VolunteerController::class)->middleware('roles:volunteer');

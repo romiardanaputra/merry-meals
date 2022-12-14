@@ -40,13 +40,6 @@ class MemberManagementController extends Controller
         Order::where('id', $id)->update($order);
         return back();
     }
-    // display survey for member
-    public function serviceSurvey()
-    {
-        return view('components.survey', [
-            'title_page' => 'survey'
-        ]);
-    }
 
     // detail meal
     public function menuDetailShow($id)

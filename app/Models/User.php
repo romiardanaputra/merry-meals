@@ -21,6 +21,10 @@ class User extends Authenticatable
         return $this->hasOne(Geolocation::class, 'userID', 'id');
     }
 
+    public function survey(){
+        return $this->hasOne(Survey::class, 'userID', 'id');
+    }
+
     protected $fillable = [
         'fullName',
         'username',
