@@ -26,5 +26,6 @@ class SurveyController extends Controller
         $survey = $request->validated();
         $survey['userID'] = auth()->user()->id;
         Survey::create($survey);
+        return to_route('member.index');
     }
 }

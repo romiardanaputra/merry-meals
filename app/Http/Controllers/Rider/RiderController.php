@@ -20,7 +20,6 @@ class RiderController extends Controller
     {
         $order['volunteerID'] = $request->volunteerID;
         $order['status'] = $request->orderStatus;
-        $order['status'] = $request->orderStatusDone;
         Order::where('id', $id)->update($order);
         return back();
     }

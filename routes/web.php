@@ -19,7 +19,7 @@ Route::resource('survey',SurveyController::class)->middleware('roles:member,care
 Route::resource('volunteer',VolunteerController::class)->middleware('roles:volunteer');
 
 // partner controller
-Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner')->except('show');
+Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
 
 // meal controller
 Route::resource('meal', PartnerMealController::class)->middleware('roles:partner');

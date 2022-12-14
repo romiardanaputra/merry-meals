@@ -80,24 +80,33 @@
                                 'orderStatus' => $orderStatus = 'on going',
                                 'volunteerID' => $volunteerID = auth()->user()->id,
                                 $order->id,
-                                'orderStatusDone' => $orderStatusDone = 'delivered'
                             ]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 @if ($order->status == 'delivered')
                                 <button class="bg-green-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold"
                                     disabled>{{ $order->status }}</button>
-                                @elseif ($order->status == 'on going')
-                                <button
-                                    class="bg-orange-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95">Done</button>
                                 @elseif($order->status == 'canceled')
                                 <button
                                     class="bg-red-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold capitalize"
                                     disabled>{{ $order->status }}</button>
-                                @else
+                                @elseif($order->status == 'preparation')
                                 <button
                                     class="bg-orange-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
                                     type="submit">Take Order</button>
+                                @endif
+                            </form>
+
+                            <form action="{{ route('volunteer.update',[
+                                 'volunteerID' => $volunteerID = auth()->user()->id,
+                                $order->id,
+                                'orderStatus' => $orderStatus = 'delivered'
+                            ]) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                                @if ($order->status == 'on going')
+                                <button
+                                    class="bg-green-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold">Done</button>
                                 @endif
                             </form>
 

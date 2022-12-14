@@ -49,7 +49,7 @@
                 </div> <!-- user-address -->
 
                 <div class="user-button flex flex-col space-y-[10px]">
-                    <a href="{!! route('member.survey') !!}">
+                    <a href="{!! route('survey.index') !!}">
                         <button
                             class="h-[44px] w-full border-2 bg-[#282222] border-[#282222] text-[#FFFCF0] text-[16px] font-semibold duration-700 hover:scale-105">Take
                             Survey</button>
