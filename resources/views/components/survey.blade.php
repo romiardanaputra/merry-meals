@@ -21,7 +21,27 @@
 </style>
 
 @section('component_content')
-@include('components.navbar')
+
+<navbar class="font-poppins">
+    <div class="bg-navbar bg-[#282222] h-[187px] w-full p-[40px] flex flex-row justify-between">
+        <div class="bg-nav-logo flex flex-row space-x-[37px]">
+        
+        <div class="flex flex-col items-center justify-center">
+            <div class="logo-image bg-[#FFFDF6] p-[10px] rounded-[50%] h-[55px] w-[55px]">
+                <img src="/images/MerryMealLogo-02.png" alt="logo_image">
+            </div> <!-- logo-image -->
+        </div> <!-- logo-flex -->
+
+            <div class="flex flex-col items-center justify-center">
+                <div class="logo-name flex flex-col text-[#FFFDF6] font-semibold w-[500px] space-y-[-10px]">
+                    <h1 class="text-[20px] tracking-[10px] w-full">MERRY MEAL</h1>
+                    <h2 class="text-[12.5px] tracking-[7.2px] w-full">MEALS ON WHEELS</h2>
+                </div> <!-- logo-name -->
+            </div> <!-- logo-name-items-center -->
+      
+        </div> <!-- bg-nav-logo -->        
+    </div> <!-- bg-navbar -->
+</navbar>
 
 <main class="font-poppins">
 
@@ -197,6 +217,11 @@
             
          </div> <!-- survey-rate -->
 
+         <div class="survey-submit-button flex flex-row space-x-[20px] justify-center items-center text-[#FFFDF6]">
+            <button type="submit" class="bg-[#4CAF3C] h-[50px] w-fit px-[50px] duration-700 hover:scale-105">Submit</button>
+            <button type="reset" class="bg-[#AF433C] h-[50px] w-fit px-[50px] duration-700 hover:scale-105">Reset</button>
+         </div> <!-- survey-submit-button -->
+
       </div> <!-- survey-question -->
          
       </form>
@@ -205,5 +230,54 @@
 
 </main>
 
-@include('components.footer')
+<footer class="font-poppins bg-footer h-[754px] bg-[#282222] flex flex-col w-full">
+
+    <div class="footer px-[90px] py-[334px] bg-[#282222]">
+      <div class="footer-content flex flex-row h-[245px] w-full justify-between items-center">
+
+        <div class="footer-content-logo flex flex-row space-x-[20px] items-center p-[57px]">
+          <div class="f-c-logo-image h-[125px] w-[125px] bg-[#FFFDF6] flex items-center justify-center rounded-[50%]">
+            <img src="/images/MerryMealLogo-02.png" alt="logo_image" class="h-[64px] w-[64px]">
+          </div> <!-- f-c-logo-image -->
+
+          <div
+            class="f-c-logo-name flex flex-col text-[#FFFDF6] font-semibold h-[73px] w-[500px] space-y-[10px] py-[15px]">
+            <h1 class="text-[36px] tracking-[10px] w-full">MERRY MEAL</h1>
+            <h2 class="text-[24px] tracking-[7px] w-full">MEALS ON WHEELS</h2>
+          </div> <!-- f-c-logo-name -->
+        </div> <!-- footer-content-logo -->
+
+        <div class="footer-content-navigation flex flex-row p-[57px] space-x-[57px] items-center">
+          <div class="footer-content-company flex flex-col text-[#FFFDF6] text-[16px] space-y-[17px]">
+            <h1 class="font-bold">Company</h1>
+            <a href="{{ route('about') }}" class="hover:scale-105 duration-500">About Us</a>
+            <a href="{{ route('contact') }}" class="hover:scale-105 duration-500">Contact Us</a>
+            <a href="{{ route('term') }}" class="hover:scale-105 duration-500">Terms & Conditions</a>
+          </div> <!-- footer-content-company -->
+
+          <div class="vertical-line border-[1px] h-[245px] border-[#FFFDF6]"></div>
+
+          @guest
+          <div class="footer-content-register flex flex-col space-y-[26px]">
+            <div class="footer-content-register-heading">
+              <h1 class="font-bold">Sign up to be a member <br/> or a volunteer</h1>
+            </div> <!-- footer-content-register-heading -->
+
+            <div class="footer-content-register-button">
+              <a href="{{ route('register.index') }}"><button
+                  class="h-[44px] w-[195px] bg-[#282222] text-[#FFFDF6] text-[16px] hover:scale-105 duration-500">Register</button></a>
+            </div> <!-- footer-content-register-button -->
+          </div> <!-- footer-content-register -->
+          @endguest
+        </div> <!-- footer-content-navigation -->
+
+      </div> <!-- footer-content -->
+    </div> <!-- footer -->
+
+    <div class="footer-copyright w-full px-[290px] mt-[-70px] text-[#FFFDF6] border-t-2 border-[#FFFDF6]">
+      <h1 class="mt-[15px]">&copy; 2022 All Rights Reserved | Merry Meal</h1>
+    </div> <!-- footer-copyright -->
+
+  </footer> <!-- bg-footer -->
+
 @endsection
