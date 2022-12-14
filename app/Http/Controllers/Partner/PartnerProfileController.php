@@ -15,7 +15,7 @@ class PartnerProfileController extends Controller
     {
         return view('partner.profileShow', [
             'title_page' => 'partner profile',
-            'dashboard_info' => 'partner profile',
+            'dashboard_info' => '',
             'partners' => Partner::all(),
         ]);
     }

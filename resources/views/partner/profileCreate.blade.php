@@ -52,7 +52,7 @@
                 <div class="text-gray-500 w-1/2">
                     <label for="foodType">Food Type*</label>
                     <select
-                        class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 input pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('foodType')@enderror"
+                        class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 input pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('foodType')@enderror capitalize"
                         id="foodType" name="foodType" required value="{{ old('foodType') }}">
                         <option>vegan friendly</option>
                         <option>non vegan friendly</option>

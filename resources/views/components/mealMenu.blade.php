@@ -30,25 +30,25 @@
                         </p>
 
                         @if ($meal->mealAvailability == 'not available')
-                        <p class="font-normal text-red-500 text-justify tracking-tight break-words">
+                        <p class="font-normal text-red-500 text-justify tracking-tight break-words capitalize">
                             {{$meal->mealAvailability}}
                         </p>
                         @elseif($meal->mealAvailability == 'available')
-                        <p class="font-normal text-green-500 text-justify tracking-tight break-words">
+                        <p class="font-normal text-green-500 text-justify tracking-tight break-words capitalize">
                             {{$meal->mealAvailability}}
                         </p>
                         @endif
                     </div> <!-- card-meal-desc -->
 
                     @if($meal->mealAvailability == 'not available')
-                    <div class="button-order p-[44px]">
+                    <div class="button-order px-[44px]">
                         <a href="{{ route('meal.detail', $meal->id) }}"><button
                                 class="w-full bg-slate-300 text-slate-600 p-[10px] rounded-xl uppercase font-bold leading-relaxed tracking-wide" disabled>
                                 {{ $meal->mealAvailability }}
                                 </button></a>
                     </div> <!-- button-order -->
                     @else
-                    <div class="button-order p-[44px]">
+                    <div class="button-order px-[44px]">
                         <a href="{{ route('meal.detail', $meal->id) }}"><button
                                 class="w-full bg-[#EDB01C] text-[#FFFCF0] p-[10px] rounded-xl hover:scale-105 duration-700">Order
                                 Now</button></a>

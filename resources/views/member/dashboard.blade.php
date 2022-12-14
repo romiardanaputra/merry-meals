@@ -53,33 +53,31 @@
                     @if($order->status != 'canceled')
                     <div class="order-histories h-[109px] w-full border-b-2 flex flex-row justify-between">
                         <div class="separation flex flex-row space-x-[17px]">
-                            <div class="history-histories-image h-[89px] w-[159px]">
-                                <img src="{{ asset( 'storage/' . $order->meal->mealImage) }}" class="h-[89px] w-[159px]"
+                            <div class="history-histories-image">
+                                <img src="{{ asset( 'storage/' . $order->meal->mealImage) }}" class="h-[89px] w-[157px] object-cover"
                                     alt="">
                             </div> <!-- history-histories-image -->
+                            
+                                <div class="order-status-1 text-[#282222]">
+                                    <h1 class="text-[14px] font-semibold w-full">{{ $order->meal->mealName}}</h1>
+                                    <p class="text-[12px]"><i class="fa-solid fa-utensils"></i> {{ $order->partner->restaurantName }}</p>
+                                    <p class="text-[12px] capitalize"><i class="fa-solid fa-box-open"></i> {{ $order->mealPackage }} | {{ $order->foodTemperature }}</p>
+                                    <p class="text-[12px]"><i class="fa-solid fa-clock"></i> {{ $order->created_at }}</p>
+                                </div> <!-- order-status-1 -->
 
-                            <div
-                                class="order-histories-status h-[89px] w-[111px] flex flex-col justify-between text-center">
-                                <div class="separation text-[#282222]">
-                                    <h1 class="text-[14px] font-semibold">{{ $order->meal->mealName}}</h1>
-                                    <p class="text-[12px]">{{ $order->partner->restaurantName }}</p>
-                                    <p class="text-[12px]">{{ $order->mealPackage }}</p>
+                                <div class="order-status-2">
                                     @if ($order->status == 'on going')
-                                    <p class="text-[12px] text-blue-600">order take by driver {{ $order->volunteer->fullName }}</p>
+                                    <p class="text-[12px] text-blue-600 capitalize"><i class="fa-solid fa-motorcycle"></i> {{ $order->volunteer->fullName }}</p>
                                     @endif
                                     @if ($order->status == 'on going')
-                                    <p class="text-[12px] text-orange-600">{{ $order->status }}</p>
+                                    <p class="text-[12px] text-orange-600 capitalize"><i class="fa-regular fa-hourglass-half"></i> {{ $order->status }}</p>
                                     @elseif($order->status == 'delivered')
-                                    <p class="text-[12px] text-green-600">{{ $order->status }}</p>
-                                    @endif
-                                </div> <!-- separation -->
-
-                                <p class="text-[12px]">{{ $order->created_at }}</p>
-                            </div> <!-- order-histories-status -->
-
+                                    <p class="text-[12px] text-green-600 capitalize"><i class="fa-solid fa-check"></i> {{ $order->status }}</p>
+                                    @endif                                    
+                                </div> <!-- order-status-2 -->
                         </div> <!-- separation -->
 
-                        <div class="order-histories-button h-[89px] w-[147px] flex items-center">
+                        <div class="order-histories-button h-[89px] w-[147px] flex items-center justify-center">
                             <form action="{{ route('member.update', [
                                 'orderStatus' => $orderStatus = 'canceled',
                                 $order->id
@@ -87,11 +85,11 @@
                                 @csrf
                                 @method('PUT')
                                 @if ($order->status == 'delivered')
-                                <button class="bg-green-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold"
+                                <button class="bg-green-600 h-[44px] text-[#FFFDF6] text-[16px] font-semibold p-[20px] flex items-center rounded-xl capitalize"
                                     disabled>{{ $order->status }}</button>
                                 @else
                                 <button
-                                    class="bg-red-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
+                                    class="bg-red-600 h-[44px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95 p-[20px] flex items-center rounded-xl capitalize"
                                     type="submit">cancel</button>
                                 @endif
                             </form>

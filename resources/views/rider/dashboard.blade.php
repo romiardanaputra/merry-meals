@@ -41,41 +41,38 @@
                     <h1>Incoming Order</h1>
                 </div> <!-- order-history-text -->
 
-                <div class="bg-order-history-histories h-full w-full flex flex-col overflow-auto space-y-3">
+                <div class="bg-order-history-histories h-full w-full flex flex-col overflow-auto">
                     @foreach ($orders as $order)
                     <div class="order-histories h-[109px] w-full border-b-2 flex flex-row justify-between">
-                        <div class="separation flex flex-row space-x-[17px]">
-                            <div class="history-histories-image h-[89px] w-[159px]">
-                                <img src="{{ asset( 'storage/' . $order->meal->mealImage) }}" class="h-[89px] w-[159px]"
-                                    alt="">
-                            </div> <!-- history-histories-image -->
+                        
+                        <div class="history-histories-image">
+                            <img src="{{ asset( 'storage/' . $order->meal->mealImage) }}" class="h-[89px] w-[157px] object-cover"
+                                alt="">
+                        </div> <!-- history-histories-image -->
+                            
+                            <div class="restaurant-stat-1 text-start">
+                                <h1 class="text-[14px] font-semibold w-full">{{ $order->meal->mealName}}</h1>
+                                <div class="restaurant-misc">                                        
+                                    <p class="text-[12px]"><i class="fa-solid fa-utensils"></i> {{ $order->partner->restaurantName }}</p>
+                                    <p class="text-[12px] capitalize"><i class="fa-solid fa-box-open"></i> {{ $order->mealPackage }} | {{ $order->foodTemperature }}</p>
+                                    <p class="text-[12px]"><i class="fa-solid fa-route"></i> {{ $order->range }} KM</p>
+                                    <p class="text-[12px] w-[150px] truncate"><i class="fa-solid fa-location-dot"></i> {{ $order->user->address }}</p>
+                                </div> <!-- restaurant-misc -->
+                            </div> <!-- restaurant-stat-1 -->                                    
+                            
+                            <div class="restaurant-stat-2 text-start">                                    
+                                <p class="text-[12px]"><i class="fa-solid fa-user"></i> {{ $order->user->fullName }}</p>
+                                @if ($order->status == 'on going')
+                                <p class="text-[12px] text-orange-600 capitalize"><i class="fa-regular fa-hourglass-half"></i> {{ $order->status }}</p>
+                                <p class="text-[12px] text-blue-600 capitalize"><i class="fa-solid fa-motorcycle"></i> {{ auth()->user()->fullName }}
+                                </p>
+                                @elseif($order->status == 'delivered')
+                                <p class="text-[12px] text-green-600 capitalize"><i class="fa-solid fa-check"></i> {{ $order->status }}</p>
+                                @endif
+                                <p class="text-[12px]"><i class="fa-solid fa-clock"></i> {{ $order->created_at }}</p>
+                            </div> <!-- restaurant-stat-2 -->                        
 
-                            <div
-                                class="order-histories-status h-[89px] w-[111px] flex flex-col justify-between text-center">
-                                <div class="separation text-[#282222]">
-                                    <h1 class="text-[14px] font-semibold">{{ $order->meal->mealName}}</h1>
-                                    <p class="text-[12px]">{{ $order->partner->restaurantName }}</p>
-                                    <p class="text-[12px]">{{ $order->mealPackage }}</p>
-                                    <p class="text-[12px]">{{ $order->range }} KM</p>
-                                    <p class="text-[12px]">{{ $order->foodTemperature }}</p>
-                                    <p class="text-[12px]">{{ $order->user->fullName }}</p>
-                                    <p class="text-[12px]">{{ $order->user->address }}</p>
-
-                                    @if ($order->status == 'on going')
-                                    <p class="text-[12px] text-orange-600">{{ $order->status }}</p>
-                                    <p class="text-[12px] text-blue-600">order take by {{ auth()->user()->fullName }}
-                                    </p>
-                                    @elseif($order->status == 'delivered')
-                                    <p class="text-[12px] text-green-600">{{ $order->status }}</p>
-                                    @endif
-                                </div> <!-- separation -->
-
-                                <p class="text-[12px]">{{ $order->created_at }}</p>
-                            </div> <!-- order-histories-status -->
-
-                        </div> <!-- separation -->
-
-                        <div class="order-histories-button h-[89px] w-[147px] flex items-center">
+                        <div class="order-histories-button h-[89px] w-[147px] flex flex-col items-center justify-center space-y-[1px]">
                             <form action="{{ route('volunteer.update', [
                                 'orderStatus' => $orderStatus = 'on going',
                                 'volunteerID' => $volunteerID = auth()->user()->id,
@@ -84,15 +81,15 @@
                                 @csrf
                                 @method('PUT')
                                 @if ($order->status == 'delivered')
-                                <button class="bg-green-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold"
+                                <button class="bg-green-600 h-[40px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold rounded-xl capitalize"
                                     disabled>{{ $order->status }}</button>
                                 @elseif($order->status == 'canceled')
                                 <button
-                                    class="bg-red-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold capitalize"
+                                    class="bg-red-600 h-[40px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold rounded-xl capitalize"
                                     disabled>{{ $order->status }}</button>
                                 @elseif($order->status == 'preparation')
                                 <button
-                                    class="bg-orange-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
+                                    class="bg-orange-600 h-[40px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95 rounded-xl"
                                     type="submit">Take Order</button>
                                 @endif
                             </form>
@@ -106,7 +103,7 @@
                             @method('PUT')
                                 @if ($order->status == 'on going')
                                 <button
-                                    class="bg-green-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold">Done</button>
+                                    class="bg-green-600 h-[40px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95 p-[20px] flex justify-center items-center rounded-xl">Done</button>
                                 @endif
                             </form>
 
@@ -115,7 +112,7 @@
                                 @method('DELETE')
                                 @if ($order->status == 'canceled')
                                 <button
-                                    class="bg-orange-600 h-[44px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95"
+                                    class="bg-orange-600 h-[40px] w-[147px] text-[#FFFDF6] text-[16px] font-semibold duration-700 hover:scale-95 p-[20px] flex justify-center items-center rounded-xl"
                                     type="submit">Delete
                                 </button>
                                 @endif
