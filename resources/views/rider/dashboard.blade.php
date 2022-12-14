@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('component_content')
+@include('components.navbarMember')
 <main class="font-poppins">
-
     <div class="bg-dashboard-member bg-[#FFFCF0] min-h-screen max-h-fit px-[147px] py-[55px]">
         <div
             class="welcome-board bg-[#FFFDF6] h-[100px] flex items-center justify-center text-[20px] text-[#282222] font-semibold shadow-[0px_8px_50px_rgba(174,168,135,0.5)] mb-[55px]">

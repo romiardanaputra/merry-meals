@@ -11,6 +11,10 @@ use App\Http\Controllers\Member\MemberManagementController;
 use App\Http\Controllers\Member\SurveyController;
 use App\Http\Controllers\Rider\RiderController as VolunteerController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
+use App\Http\Controllers\User\RegisterController;
+
+// register controller
+Route::resource('register',RegisterController::class)->middleware('guest');
 
 // survey controller
 Route::resource('survey',SurveyController::class)->middleware('roles:member,caregiver')->only(['index', 'store']);
@@ -41,7 +45,7 @@ Route::controller(PublicPageController::class)->group(function () {
 });
 
 //  member  controller
-Route::controller(MemberManagementController::class)->middleware('roles:member,donor,volunteer')->group(function () {
+Route::controller(MemberManagementController::class)->middleware('roles:member,donor')->group(function () {
     Route::prefix('member')->group(function () {
         Route::get('package/{id}', 'packageFood')->name('meal.package');
         Route::get('survey', 'serviceSurvey')->name('member.survey');
@@ -55,8 +59,6 @@ Route::controller(MemberManagementController::class)->middleware('roles:member,d
 Route::controller(UserAuthController::class)->group(function () {
     Route::get('login', 'index')->middleware('guest')->name('login');
     Route::post('login', 'authenticate')->name('login.authenticate');
-    Route::get('register', 'registerIndex')->middleware('guest')->name('register.index');
-    Route::post('register', 'storeRegister')->middleware('guest')->name('register.store');
     Route::post('logout', 'logout')->name('logout');
 });
 

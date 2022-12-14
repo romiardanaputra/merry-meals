@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\UserLocation;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
-use App\Http\Controllers\User\AuthController as UserAuthController;
+use App\Http\Controllers\User\RegisterController;
 
 class UserManagementController extends Controller
 {
@@ -35,7 +35,7 @@ class UserManagementController extends Controller
         $users = $request->validated();
         $users['password'] = Hash::make($request['password']);
         $dataUsers = User::create($users);
-        UserAuthController::userLocation($dataUsers, $request, $reqLoc);
+        RegisterController::userLocation($dataUsers, $request, $reqLoc);
         return to_route('admin.index');
     }
 
