@@ -62,8 +62,9 @@ class UserManagementController extends Controller
         return redirect()->back();
     }
 
-    public function donatorList(){
-        return view('admin.donationList',[
+    public function donatorList()
+    {
+        return view('admin.donationList', [
             'title_page' => 'donator list',
             'dashboard_info' => 'all list donator',
             'donators' => Donation::all(),
