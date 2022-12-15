@@ -13,7 +13,7 @@
         </div>
 
         <div class="w-[710px] h-[108px] mt-[10px]">
-            <img src="images/peopleGathering.jpg" alt="aboutUs">
+            <img src={{ asset('images/peopleGathering.jpg') }} alt="aboutUs">
         </div>
     </div>
 

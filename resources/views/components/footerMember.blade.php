@@ -5,7 +5,7 @@
  
           <div class="footer-content-logo flex flex-row space-x-[20px] items-center p-[57px]">
              <div class="f-c-logo-image h-[125px] w-[125px] bg-[#FFFDF6] flex items-center justify-center rounded-[50%]">
-                <img src="/images/MerryMealLogo-02.png" alt="logo_image" class="h-[64px] w-[64px]">
+                <img src="{{ asset('/images/MerryMealLogo-02.png')}}" alt="logo_image" class="h-[64px] w-[64px]">
              </div> <!-- f-c-logo-image -->
  
              <div

@@ -181,21 +181,21 @@
                <div class="survey-reaction-style h-[122px] w-[122px] hover:scale-105 duration-700">
                   <input type="radio" name="overall" value="sadReaction" id="sadReaction">
                   <label for="sadReaction">
-                     <img src="/images/SadEmoticon.png" alt="sadReaction">
+                     <img src={{ asset('/images/SadEmoticon.png') }} alt="sadReaction">
                   </label>
                </div>
 
                <div class="survey-reaction-style h-[122px] w-[122px] hover:scale-105 duration-700">
                   <input type="radio" name="overall" value="neutralReaction" id="neutralReaction">
                   <label for="neutralReaction">
-                     <img src="/images/NeutralEmoticon.png" alt="neutralReaction">
+                     <img src={{ asset('/images/NeutralEmoticon.png') }} alt="neutralReaction">
                   </label>
                </div>
 
                <div class="survey-reaction-style h-[122px] w-[122px] hover:scale-105 duration-700">
                   <input type="radio" name="overall" value="happyReaction" id="happyReaction">
                   <label for="happyReaction">
-                     <img src="/images/HappyEmoticon.png" alt="happyReaction">
+                     <img src={{ asset('/images/HappyEmoticon.png') }} alt="happyReaction">
                   </label>
                </div>
 

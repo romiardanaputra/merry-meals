@@ -84,11 +84,9 @@
                                 'partnerID' => $meal->partnerID,
                                ] ) }}" method="POST">
                             @csrf
-                            <a href="#">
-                                <button
-                                    class="bg-[#FFFDF6] border-2 border-[#A07C00] text-[20px] text-[#A07C00] font-semibold h-[60px] w-[250px] hover:scale-105 duration-500"
-                                    type="submit">ORDER</button>
-                            </a>
+                            <button
+                                class="bg-[#FFFDF6] border-2 border-[#A07C00] text-[20px] text-[#A07C00] font-semibold h-[60px] w-[250px] hover:scale-105 duration-500"
+                                type="submit">ORDER</button>
                         </form>
                     </div> <!-- exclusive-package-content-button -->
                 </div> <!-- exclusive-package-content -->

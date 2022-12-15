@@ -54,27 +54,32 @@
                     <div class="order-histories h-[109px] w-full border-b-2 flex flex-row justify-between">
                         <div class="separation flex flex-row space-x-[17px]">
                             <div class="history-histories-image">
-                                <img src="{{ asset( 'storage/' . $order->meal->mealImage) }}" class="h-[89px] w-[157px] object-cover"
-                                    alt="">
+                                <img src="{{ asset( 'storage/' . $order->meal->mealImage) }}"
+                                    class="h-[89px] w-[157px] object-cover" alt="">
                             </div> <!-- history-histories-image -->
-                            
-                                <div class="order-status-1 text-[#282222]">
-                                    <h1 class="text-[14px] font-semibold w-full">{{ $order->meal->mealName}}</h1>
-                                    <p class="text-[12px]"><i class="fa-solid fa-utensils"></i> {{ $order->partner->restaurantName }}</p>
-                                    <p class="text-[12px] capitalize"><i class="fa-solid fa-box-open"></i> {{ $order->mealPackage }} | {{ $order->foodTemperature }}</p>
-                                    <p class="text-[12px]"><i class="fa-solid fa-clock"></i> {{ $order->created_at }}</p>
-                                </div> <!-- order-status-1 -->
 
-                                <div class="order-status-2">
-                                    @if ($order->status == 'on going')
-                                    <p class="text-[12px] text-blue-600 capitalize"><i class="fa-solid fa-motorcycle"></i> {{ $order->volunteer->fullName }}</p>
-                                    @endif
-                                    @if ($order->status == 'on going')
-                                    <p class="text-[12px] text-orange-600 capitalize"><i class="fa-regular fa-hourglass-half"></i> {{ $order->status }}</p>
-                                    @elseif($order->status == 'delivered')
-                                    <p class="text-[12px] text-green-600 capitalize"><i class="fa-solid fa-check"></i> {{ $order->status }}</p>
-                                    @endif                                    
-                                </div> <!-- order-status-2 -->
+                            <div class="order-status-1 text-[#282222]">
+                                <h1 class="text-[14px] font-semibold w-full">{{ $order->meal->mealName}}</h1>
+                                <p class="text-[12px]"><i class="fa-solid fa-utensils"></i> {{
+                                    $order->partner->restaurantName }}</p>
+                                <p class="text-[12px] capitalize"><i class="fa-solid fa-box-open"></i> {{
+                                    $order->mealPackage }} | {{ $order->foodTemperature }}</p>
+                                <p class="text-[12px]"><i class="fa-solid fa-clock"></i> {{ $order->created_at }}</p>
+                            </div> <!-- order-status-1 -->
+
+                            <div class="order-status-2">
+                                @if ($order->status == 'on going')
+                                <p class="text-[12px] text-blue-600 capitalize"><i class="fa-solid fa-motorcycle"></i>
+                                    {{ $order->volunteer->fullName }}</p>
+                                @endif
+                                @if ($order->status == 'on going')
+                                <p class="text-[12px] text-orange-600 capitalize"><i
+                                        class="fa-regular fa-hourglass-half"></i> {{ $order->status }}</p>
+                                @elseif($order->status == 'delivered')
+                                <p class="text-[12px] text-green-600 capitalize"><i class="fa-solid fa-check"></i> {{
+                                    $order->status }}</p>
+                                @endif
+                            </div> <!-- order-status-2 -->
                         </div> <!-- separation -->
 
                         <div class="order-histories-button h-[89px] w-[147px] flex items-center justify-center">
@@ -85,7 +90,8 @@
                                 @csrf
                                 @method('PUT')
                                 @if ($order->status == 'delivered')
-                                <button class="bg-green-600 h-[44px] text-[#FFFDF6] text-[16px] font-semibold p-[20px] flex items-center rounded-xl capitalize"
+                                <button
+                                    class="bg-green-600 h-[44px] text-[#FFFDF6] text-[16px] font-semibold p-[20px] flex items-center rounded-xl capitalize"
                                     disabled>{{ $order->status }}</button>
                                 @else
                                 <button

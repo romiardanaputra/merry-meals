@@ -20,7 +20,7 @@ Route::resource('register',RegisterController::class)->middleware('guest');
 Route::resource('survey',SurveyController::class)->middleware('roles:member,caregiver')->only(['index', 'store']);
 
 // rider controller
-Route::resource('volunteer',VolunteerController::class)->middleware('roles:volunteer');
+Route::resource('volunteer',VolunteerController::class)->middleware('roles:volunteer')->only(['index', 'update', 'destroy']);
 
 // partner controller
 Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');

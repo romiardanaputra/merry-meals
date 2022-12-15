@@ -28,7 +28,7 @@
             </div> <!-- section-serve-content-text -->
 
             <div class="section-serve-content-image h-[430px] w-[644px]">
-                <img src="images/aboutUsImage.jpg" alt="">
+                <img src={{ asset('images/aboutUsImage.jpg') }} alt="serve-with-grandma-picture">
             </div> <!-- section-serve-content-image -->
         </div> <!-- section-serve-content -->
     </div> <!-- section-serve -->

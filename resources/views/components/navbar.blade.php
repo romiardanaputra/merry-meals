@@ -4,7 +4,7 @@
 
       <div class="logo flex flex-row space-x-[37px] ">
         <div class="logo-image h-[104px] w-[105px]">
-          <img src="/images/MerryMealLogo-02.png" alt="logo_image">
+          <img src={{ asset('/images/MerryMealLogo-02.png')}} alt="logo_image">
         </div> <!-- logo-image -->
 
         <div class="flex flex-row items-center">
@@ -17,9 +17,9 @@
 
       <div class="nav-login-register flex flex-row my-auto space-x-[18.57px] text-[#282222]">
         @auth
-        @if (auth()->user()->role == 'member' || auth()->user()->role == 'donor')
+        @if (auth()->user()->role == 'member' || auth()->user()->role == 'donor' || auth()->user()->role == 'caregiver')
         <a href="{{ route('member.index') }}"><button
-            class="bg-[#FFCE01] {{ Request::is('member/dashboard') ? 'bg-[#282222] text-[#FFCE01]' : '' }} h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
+            class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
             auth()->user()->username }}</button></a>
         @elseif(auth()->user()->role == 'admin')
         <a href="{{ route('admin.index') }}"><button
@@ -27,6 +27,10 @@
             auth()->user()->username }}</button></a>
         @elseif(auth()->user()->role == 'partner')
         <a href="{{ route('partner.index') }}"><button
+            class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
+            auth()->user()->username }}</button></a>
+        @elseif(auth()->user()->role == 'volunteer')
+        <a href="{{ route('volunteer.index') }}"><button
             class="bg-[#FFCE01] h-[47px] w-[136.89px] hover:bg-[#282222] hover:text-[#FFCE01] duration-700 ">{{
             auth()->user()->username }}</button></a>
         @endif
@@ -71,7 +75,7 @@
           & CONDITIONS</button></a>
       <a href="{{ route('donation') }}"><button
           class="p-[22px] hover:bg-[#282222] hover:text-[#FFFCF0] duration-500 {{ Request::is('donate') ? 'bg-[#282222] text-[#fffcf0]' : '' }}">DONATE</button></a>
-      
+
       @endif
 
       @endauth
