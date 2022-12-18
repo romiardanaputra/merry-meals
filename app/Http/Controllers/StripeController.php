@@ -22,31 +22,23 @@ class StripeController extends Controller
 
     public function stripePost(Request $request, UserLocation $reqLoc)
     {
-
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
         $customer = Stripe\Customer::create(array(
             "source" => $request->stripeToken,
             "email" => $request->donatorEmail,
-            // "address"=> $request->address,
             "name" => $request->donatorName,
             "phone" => $request->donatorPhone,
         ));
 
-        // dd($customer);
-
         Stripe\Charge::create([
             "amount" => $request->amount * 100,
             "currency" => "usd",
-            // "source" => $request->stripeToken,
             "description" => $request->description,
-            "customer" => $customer->id,
+            "customer" => $customer->id
         ]);
-
 
         Donation::create([
             'donatorName' => $request->donatorName,
-            // 'address' => $request->address,
             'donatorEmail' => $request->donatorEmail,
             'donatorPhone' => $request->donatorPhone,
             'donationAmount' => $request->amount,
@@ -68,7 +60,7 @@ class StripeController extends Controller
                 'ip_id' => "not assigned"
             ]);
             RegisterController::userLocation($dataDonator, $request, $reqLoc);
-            Session::flash('success', 'Payment successful. we have created an account for you, you can use your email and asdasd123 as your password to login to our website!');
+            Session::flash('success', 'Payment successful. we have created an account for you, you can use your email and [asdasd123] as your password to login to our website!');
         }
         return back();
     }
