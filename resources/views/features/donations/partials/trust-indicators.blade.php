@@ -29,7 +29,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <p class="text-xs font-medium text-foreground/50 leading-relaxed italic">
-                Pelaporan transparansi donasi dilakukan secara berkala setiap akhir bulan melalui laporan publik di portal transparansi Merry Meals. Donasi Anda 100% dialokasikan untuk operasional nutrisi.
+                Donation transparency reports are published monthly through the Merry Meals Transparency Portal. 100% of your donation is allocated to nutritional operations.
             </p>
         </div>
     </div>

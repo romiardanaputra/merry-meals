@@ -8,6 +8,7 @@
             .text-h4 { font-size: 1.953rem; font-weight: 800; line-height: 1.2; }
             .text-h5 { font-size: 1.5625rem; font-weight: 800; }
             .text-h6 { font-size: 1.25rem; font-weight: 800; }
+            .text-p  { font-size: 1rem; font-weight: 500; line-height: 1.6; color: #222222; }
             .font-black { font-weight: 900; }
             
             @keyframes pulse-slow {
@@ -26,7 +27,7 @@
         <section class="relative h-[80vh] min-h-[600px] flex items-center overflow-hidden">
             <!-- Background Image with Warming Overlay -->
             <div class="absolute inset-0 z-0">
-                <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent z-10"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 to-transparent z-10 backdrop-blur-[2px]"></div>
                 <!-- Note: image_bdef14.jpg would go here if file exists, using placeholder for now -->
                 <img src="{{ asset('storage/images/donateBackground2.jpg') }}" 
                      alt="Empowering Lives" 
@@ -39,12 +40,12 @@
                     <div class="space-y-4">
                         <span class="inline-block px-4 py-1.5 bg-primary/20 text-primary text-xs font-black uppercase tracking-[0.4em] rounded-full backdrop-blur-md border border-primary/20">Charity & Impact</span>
                         <h1 class="text-h1 text-white">
-                            Satu Langkah Kecil,<br/>
-                            <span class="italic text-primary">Satu Piring Harapan.</span>
+                            A Single Step,<br/>
+                            <span class="italic text-primary">A Plate of Hope.</span>
                         </h1>
                     </div>
-                    <p class="text-xl text-white/70 font-medium leading-relaxed max-w-xl">
-                        Donasi Anda membantu lansia dan penyandang disabilitas mendapatkan akses nutrisi yang layak demi kesehatan dan masa depan yang lebih bermartabat.
+                    <p class="text-xl text-white/90 font-medium leading-relaxed max-w-xl">
+                        Your contribution helps seniors and persons with disabilities access the nutrition they need for a healthier, more dignified life.
                     </p>
                     <div class="flex flex-wrap items-center gap-6 pt-4">
                         <div class="flex -space-x-3">
@@ -82,7 +83,7 @@
                                 <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V5C14.017 3.34315 15.3601 2 17.017 2H20.017C21.6738 2 23.017 3.34315 23.017 5V19C23.017 20.1046 22.1216 21 21.017 21H14.017ZM1.017 19V5C1.017 3.34315 2.36011 2 4.017 2H7.017C8.67385 2 10.017 3.34315 10.017 5V6C10.017 7.10457 9.12157 8 8.017 8H5.017C4.46472 8 4.017 8.44772 4.017 9V15C4.017 15.5523 4.46472 16 5.017 16H8.017C9.12157 16 10.017 16.8954 10.017 18V21H1.017Z" />
                             </svg>
                             <p class="text-xl text-white font-medium leading-relaxed italic relative z-10">
-                                "Kontribusi Anda bukan hanya tentang uang, tapi tentang memberikan martabat kembali kepada mereka yang membutuhkan."
+                                "Your contribution is more than just money—it’s about restoring dignity to those who need it most."
                             </p>
                             <div class="mt-8 flex items-center gap-4">
                                 <div class="w-10 h-1 bg-primary rounded-full"></div>

@@ -10,7 +10,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Name -->
                 <div class="relative">
-                    <label class="block text-sm font-semibold text-dark mb-2">FullName</label>
+                    <label class="block text-sm font-bold text-dark mb-2">Full Name</label>
                     <input type="text" name="name" x-model="formData.name" required
                         class="w-full px-5 py-4 bg-background-soft border border-border/40 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-dark font-medium placeholder:text-foreground/30"
                         placeholder="John Doe">
