@@ -67,6 +67,15 @@
                 <div class="w-full lg:w-7/12 order-1">
                     <div class="space-y-12">
                         @include('features.donations.partials.donation-form')
+                        
+                        <!-- Refined Mission Statement -->
+                        <div class="p-10 bg-white rounded-[2.5rem] border border-border/50 animate-on-scroll">
+                            <h4 class="text-h4 text-dark mb-6 tracking-tight">Every Contribution Counts</h4>
+                            <p class="text-p leading-relaxed">
+                                Your contribution to Merry Meals makes a profound difference in the lives of our elders and the homebound. Every dollar counts in our mission to end senior hunger. We deeply appreciate your generosity and partnership. Every day, our dedicated volunteers and drivers reach out to the most vulnerable members of our community, ensuring they receive not only a nutritious meal but also a vital moment of engagement and connection.
+                            </p>
+                        </div>
+
                         @include('features.donations.partials.trust-indicators')
                     </div>
                 </div>
