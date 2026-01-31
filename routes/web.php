@@ -35,6 +35,7 @@ Route::group(['middleware' => 'web'], function () {
   Route::get('/', [IndexController::class, 'index'])->name('index');
   Route::get('/about', [AboutController::class, 'index'])->name('about');
   Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
   Route::get('/docs', [DocsController::class, 'index'])->name('docs');
 
   Route::group(['prefix' => 'donation'], function () {

@@ -12,11 +12,11 @@
         </style>
     @endsection
 
-    <x-landing.hero />
-    <x-landing.stats />
-    <x-landing.mission />
-    <x-landing.features />
-    <x-landing.cta />
+    @include('features.home.partials.hero')
+    @include('features.home.partials.stats')
+    @include('features.home.partials.mission')
+    @include('features.home.partials.features')
+    @include('features.home.partials.cta')
 
     @section('js_custom')
         @vite(['resources/js/docs-animations.js'])

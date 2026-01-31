@@ -1,43 +1,50 @@
 <x-app-layout>
-  <div class="bg-[#FFFCF0]">
-    <!-- header -->
-    <div class="flex h-[145px] w-auto justify-center bg-[#FFCE01]">
-      <h1 class="font-Poppins pt-[1rem] text-[32px] font-bold text-[#282222] md:text-[48px] lg:text-[58px]">
-        CONTACT US
-      </h1>
-    </div>
-    <!-- Content -->
-    <div>
-      <div
-        class="m-auto my-[50px] h-auto w-full max-w-[1145px] text-pretty bg-[#FFEEB1] p-[20px] leading-relaxed md:my-[80px] md:p-[30px] lg:my-[100px] lg:p-[50px]"
-      >
-        <div class="font-Poppins text-[#282222]">
-          <h3 class="text-[24px] font-bold md:text-[32px] lg:text-[40px]">COMPANY SUPPORT</h3>
+    @section('css_custom')
+        @vite(['resources/css/docs.css'])
+        <style>
+            .text-h2 { font-size: 3.052rem; font-weight: 900; line-height: 1.1; }
+            .text-h4 { font-size: 1.953rem; font-weight: 800; line-height: 1.2; }
+            .font-black { font-weight: 900; }
+            
+            @keyframes pulse-slow {
+                0%, 100% { opacity: 0.3; transform: scale(1); }
+                50% { opacity: 0.5; transform: scale(1.05); }
+            }
+            .animate-pulse-slow {
+                animation: pulse-slow 6s infinite ease-in-out;
+            }
+        </style>
+    @endsection
 
-          <p class="mt-[10px] text-[16px] md:mt-[15px] md:text-[18px] lg:mt-[20px] lg:text-[20px]">
-            We support our partners, volunteers, and members. Regarding concern and request we would like to connect
-            with you
-          </p>
+    <div class="bg-background-soft font-inter min-h-screen overflow-x-hidden pt-24 pb-20">
+        <div class="container mx-auto px-6">
+            <!-- Header Section -->
+            <div class="max-w-3xl mb-16 space-y-4 animate-on-scroll">
+                <span class="inline-block px-4 py-1.5 bg-primary/10 text-primary text-xs font-black uppercase tracking-[0.2em] rounded-full">Contact Us</span>
+                <h1 class="text-h2 text-dark tracking-tighter">
+                    Get in <span class="italic text-primary">Touch</span> with Us.
+                </h1>
+                <p class="text-xl text-foreground/60 font-medium leading-relaxed">
+                    Have questions about our programs or want to support our mission? Reach out to the Merry Meals team today.
+                </p>
+            </div>
 
-          <p class="mt-[10px] text-[14px] text-[#5E5E5E] md:mt-[10px] md:text-[16px] lg:mt-[10px] lg:text-[18px]">
-            For further question, contacts are available below:
-          </p>
+            <div class="flex flex-col lg:flex-row gap-16 lg:gap-24">
+                <!-- Left Column: Form (60%) -->
+                <div class="w-full lg:w-3/5 order-2 lg:order-1">
+                    @include('features.contact.partials.form')
+                </div>
 
-          <p class="mt-[10px] text-[16px] md:mt-[15px] md:text-[18px] lg:mt-[20px] lg:text-[20px]">
-            T: +62 (261) 3058270
-          </p>
-          <p class="text-[16px] md:text-[18px] lg:text-[20px]">
-            info
-            @merrymeal.co.i
-          </p>
-
-          <p class="mt-[10px] text-[16px] md:mt-[15px] md:text-[18px] lg:mt-[20px] lg:text-[20px]">
-            Jl. Gunungsari Sawunggaling Wonokromo Surabaya Jawa Timur
-          </p>
-          <p class="text-[16px] md:text-[18px] lg:text-[20px]">Surabaya, East Java</p>
-          <p class="text-[16px] md:text-[18px] lg:text-[20px]">60264</p>
+                <!-- Right Column: Info & Map (40%) -->
+                <div class="w-full lg:w-2/5 order-1 lg:order-2 space-y-12">
+                    @include('features.contact.partials.info')
+                    @include('features.contact.partials.map')
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+
+    @section('js_custom')
+        @vite(['resources/js/docs-animations.js'])
+    @endsection
 </x-app-layout>
