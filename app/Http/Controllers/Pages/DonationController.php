@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 class DonationController extends Controller
 {
      public function index(){
-      return view('features.donation.index');
+      return view('features.donations.index');
     }
 
     public function create(){
-      return view('features.donation.partials.donation-form');
+      return view('features.donations.partials.donation-form');
     }
 }
