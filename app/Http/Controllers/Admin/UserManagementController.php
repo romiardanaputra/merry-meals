@@ -15,7 +15,7 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        return view('admin.UserList', [
+        return view('features.admin.UserList', [
             'data_users' => User::all(),
             'title_page' => 'User List',
             'dashboard_info' => 'Users Data',
@@ -24,7 +24,7 @@ class UserManagementController extends Controller
 
     public function create()
     {
-        return view('admin.userCreate', [
+        return view('features.admin.userCreate', [
             'title_page' => 'Sign Up',
             'dashboard_info' => 'Create a New User',
         ]);
@@ -41,7 +41,7 @@ class UserManagementController extends Controller
 
     public function edit($id)
     {
-        return view('admin.userEdit
+        return view('features.admin.userEdit
         ', [
             'title_page' => 'Edit User',
             'user' => User::find($id),
@@ -64,7 +64,7 @@ class UserManagementController extends Controller
 
     public function donatorList()
     {
-        return view('admin.donationList', [
+        return view('features.admin.donationList', [
             'title_page' => 'donator list',
             'dashboard_info' => 'all list donator',
             'donators' => Donation::all(),

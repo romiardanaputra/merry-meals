@@ -12,7 +12,7 @@ class PartnerMealController extends Controller
     // display meal list in partner
     public function index()
     {
-        return view('meal.mealList', [
+        return view('features.meals.mealList', [
             'meals' => Meal::all(),
             'dashboard_info' => 'Meal Lists',
             'title_page' => 'Meal lists',
@@ -21,7 +21,7 @@ class PartnerMealController extends Controller
     // display for form partner profile
     public function create()
     {
-        return view('meal.mealCreate', [
+        return view('features.meals.mealCreate', [
             'title_page' => 'Create Meal',
             'dashboard_info' => 'Create Meal'
         ]);
@@ -42,7 +42,7 @@ class PartnerMealController extends Controller
     // show spesific meal based mealID
     public function show($id)
     {
-        return view('meal.mealDetail', [
+        return view('features.meals.mealDetail', [
             'meal' => Meal::find($id),
         ]);
     }
@@ -50,7 +50,7 @@ class PartnerMealController extends Controller
     // show edit form meal based meal id 
     public function edit($id)
     {
-        return view('meal.mealEdit', [
+        return view('features.meals.mealEdit', [
             'meal' => Meal::find($id),
             'title_page' => 'Meal Edit',
             'dashboard_info' => 'Meal Edit'

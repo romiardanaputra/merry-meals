@@ -22,6 +22,6 @@ class DocsController extends Controller
             'installation' => 'Installation',
         ];
 
-        return view('docs.index', compact('links'));
+        return view('features.docs.index', compact('links'));
     }
 }

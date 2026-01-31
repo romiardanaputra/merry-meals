@@ -23,6 +23,6 @@ class meal_detail extends Component
      */
     public function render()
     {
-        return view('components.meal_detail');
+        return view('features.meals.mealDetail');
     }
 }

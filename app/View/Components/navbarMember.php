@@ -23,6 +23,6 @@ class navbarMember extends Component
      */
     public function render()
     {
-        return view('components.navbar-member');
+        return view('features.member.partials.navbar');
     }
 }

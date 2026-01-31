@@ -23,6 +23,6 @@ class landing extends Component
      */
     public function render()
     {
-        return view('components.landing');
+        return view('features.home.index');
     }
 }

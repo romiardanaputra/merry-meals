@@ -23,6 +23,6 @@ class footerMember extends Component
      */
     public function render()
     {
-        return view('components.footer-member');
+        return view('features.member.partials.footer');
     }
 }

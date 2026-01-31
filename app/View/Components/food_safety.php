@@ -23,6 +23,6 @@ class food_safety extends Component
      */
     public function render()
     {
-        return view('components.food_safety');
+        return view('features.meals.mealPackage');
     }
 }

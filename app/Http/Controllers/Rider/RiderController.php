@@ -10,7 +10,7 @@ class RiderController extends Controller
 {
     public function index()
     {
-        return view('rider.dashboard', [
+        return view('features.rider.dashboard', [
             'title_page' => 'Rider Dashboard',
             'orders' => Order::all(),
         ]);

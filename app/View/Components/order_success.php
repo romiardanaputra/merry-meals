@@ -23,6 +23,6 @@ class order_success extends Component
      */
     public function render()
     {
-        return view('components.order_success');
+        return view('features.meals.orderSuccess');
     }
 }

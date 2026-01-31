@@ -23,6 +23,6 @@ class meal_menu extends Component
      */
     public function render()
     {
-        return view('components.meal_menu');
+        return view('features.meals.mealMenu');
     }
 }

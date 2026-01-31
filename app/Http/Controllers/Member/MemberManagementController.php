@@ -13,7 +13,7 @@ class MemberManagementController extends Controller
     // display member dashboard
     public function index()
     {
-        return view('member.dashboard', [
+        return view('features.member.dashboard', [
             'title_page' => 'Member Dashboard',
             'dashboard_info' => 'Meals Detail',
             'orders' => Order::all(),
@@ -44,7 +44,7 @@ class MemberManagementController extends Controller
     // detail meal
     public function menuDetailShow($id)
     {
-        return view('components.mealDetail', [
+        return view('features.meals.mealDetail', [
             'title_page' => 'Meal Menu',
             'meal' => Meal::find($id),
         ]);
@@ -53,7 +53,7 @@ class MemberManagementController extends Controller
     // packaging meal
     public function packageFood($id)
     {
-        return view('components.mealPackage', [
+        return view('features.meals.mealPackage', [
             'title_page' => 'Safety Food Package',
             'meal' => Meal::find($id),
         ]);
@@ -61,7 +61,7 @@ class MemberManagementController extends Controller
     // display menu member
     public function menuMealShow()
     {
-        return view('components.mealMenu', [
+        return view('features.meals.mealMenu', [
             'title_page' => 'Member Menu',
             'dashboard_info' => 'Meals Menu',
             'meals' => Meal::all(),

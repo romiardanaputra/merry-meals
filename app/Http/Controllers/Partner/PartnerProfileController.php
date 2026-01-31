@@ -13,7 +13,7 @@ class PartnerProfileController extends Controller
     // display partner dashboard
     public function index()
     {
-        return view('partner.profileShow', [
+        return view('features.partner.profileShow', [
             'title_page' => 'partner profile',
             'dashboard_info' => '',
             'partners' => Partner::all(),
@@ -23,7 +23,7 @@ class PartnerProfileController extends Controller
     // display form create partner profile
     public function create()
     {
-        return view('partner.profileCreate', [
+        return view('features.partner.profileCreate', [
             'title_page' => 'Create Profile',
             'dashboard_info' => 'partner profile',
         ]);
@@ -51,7 +51,7 @@ class PartnerProfileController extends Controller
     // edit partner based on partner id
     public function edit(Partner $partner)
     {
-        return view('partner.profileEdit', [
+        return view('features.partner.profileEdit', [
             'partners' => $partner,
             'dashboard_info' => 'partner edit profile',
             'title_page' => 'partner edit profile',
@@ -60,7 +60,7 @@ class PartnerProfileController extends Controller
 
     // show partner profile based on partner id 
     public function show(Partner $partner){
-        return view('partner.profileShow',[
+        return view('features.partner.profileShow',[
             'partners' => $partner,
         ]);
     }
