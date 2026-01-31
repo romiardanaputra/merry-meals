@@ -1,68 +1,49 @@
 <?php
 
-use App\Http\Controllers\StripeController;
+use App\Http\Controllers\Pages\AboutController;
+use App\Http\Controllers\Pages\BlogController;
+use App\Http\Controllers\Pages\ContactController;
+use App\Http\Controllers\Pages\DonationController;
+use App\Http\Controllers\Pages\IndexController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Member\OrderController;
-use App\Http\Controllers\User\PublicPageController;
-use App\Http\Controllers\Partner\PartnerMealController;
-use App\Http\Controllers\Admin\UserManagementController;
-use App\Http\Controllers\Partner\PartnerProfileController;
-use App\Http\Controllers\Member\MemberManagementController;
-use App\Http\Controllers\Member\SurveyController;
-use App\Http\Controllers\Rider\RiderController as VolunteerController;
-use App\Http\Controllers\User\AuthController as UserAuthController;
-use App\Http\Controllers\User\RegisterController;
 
-// register controller
-Route::resource('register',RegisterController::class)->middleware('guest');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
 
-// survey controller
-Route::resource('survey',SurveyController::class)->middleware('roles:member,caregiver')->only(['index', 'store']);
 
-// rider controller
-Route::resource('volunteer',VolunteerController::class)->middleware('roles:volunteer')->only(['index', 'update', 'destroy']);
+Route::get('/dashboard', function () {
+  return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// partner controller
-Route::resource('partner', PartnerProfileController::class)->middleware('roles:partner');
-
-// meal controller
-Route::resource('meal', PartnerMealController::class)->middleware('roles:partner');
-
-// admin controller
-Route::get('donator/list', [UserManagementController::class, 'donatorList'])->middleware('roles:admin')->name('donator.list');
-Route::resource('admin', UserManagementController::class)->middleware('roles:admin');
-
-// order controller
-Route::get('order/success', [OrderController::class, 'orderSuccess'])->name('meal.order.success');
-
-// public page controller
-Route::controller(PublicPageController::class)->group(function () {
-    Route::get('/', 'index')->name('landing.index');
-    Route::get('/about', 'aboutIndex')->name('about');
-    Route::get('/contact', 'contactIndex')->name('contact');
-    Route::get('/term', 'termIndex')->name('term');
-    Route::get('/donate', 'donationIndex')->name('donation');
+Route::middleware('auth')->group(function () {
+  Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+  Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//  member  controller
-Route::controller(MemberManagementController::class)->middleware('roles:member,donor')->group(function () {
-    Route::prefix('member')->group(function () {
-        Route::get('package/{id}', 'packageFood')->name('meal.package');
-        Route::get('survey', 'serviceSurvey')->name('member.survey');
-        Route::get('menu', 'menuMealShow')->name('meal.menu');
-        Route::get('menu/detail/{id}', 'menuDetailShow')->name('meal.detail');
-    });
-    Route::resource('member', MemberManagementController::class);
+Route::group(['middleware' => 'web'], function () {
+  Route::get('/', [IndexController::class, 'index'])->name('index');
+  Route::get('/about', [AboutController::class, 'index'])->name('about');
+  Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+  Route::group(['prefix' => 'donation'], function () {
+    Route::get('/', [DonationController::class, 'index'])->name('donation');
+    Route::get('/create', [DonationController::class, 'create'])->name('donation.create');
+  });
+
+  Route::group(['prefix' => 'blog'], function(){
+    Route::get('/', [BlogController::class, 'index'])->name('blog');
+  });
 });
 
-// authentication route
-Route::controller(UserAuthController::class)->group(function () {
-    Route::get('login', 'index')->middleware('guest')->name('login');
-    Route::post('login', 'authenticate')->name('login.authenticate');
-    Route::post('logout', 'logout')->name('logout');
-});
 
-//stripe
-Route::get('donation', [StripeController::class, 'stripe'])->name('donation.form');
-Route::post('donation', [StripeController::class, 'stripePost'])->name('donation.post');
-
+require __DIR__ . '/auth.php';

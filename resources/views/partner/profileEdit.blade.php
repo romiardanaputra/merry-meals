@@ -54,7 +54,7 @@
                     <label for="restaurantAddress">Restaurant Address*</label>
                     <input type="text"
                         class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurantAddress')@enderror"
-                        name="restaurantAddress" required value="{{ old('restaurantAddress') $partner->restaurantAddress }}">
+                        name="restaurantAddress" required value="{{ old('restaurantAddress') ?? $partner->restaurantAddress }}">
                     @error('restaurantAddress')
                     <p class="text-red-500">{{ $message }}</p>
                     @enderror
@@ -63,7 +63,7 @@
                     <label for="foodType">Food Type*</label>
                     <select
                         class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 input pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('foodType')@enderror"
-                        id="foodType" name="foodType" required value="{{ old('foodType') $partner->foodType  }}">
+                        id="foodType" name="foodType" required value="{{ old('foodType') ??$partner->foodType  }}">
                         <option>vegan friendly</option>
                         <option>non vegan friendly</option>
                     </select>

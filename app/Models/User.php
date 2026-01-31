@@ -7,34 +7,42 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory;
+  use HasFactory;
 
-    public function partner(){
-        return $this->hasOne(Partner::class, 'userID', 'id');
-    }
+  protected $table = 'users';
+  protected $primaryKey = 'id';
+  protected $guarded = 'id';
 
-    public function order(){
-        return $this->hasMany(Order::class, 'userID', 'id');
-    }
+  protected $fillable = [
+    'fullName',
+    'username',
+    'email',
+    'phoneNumber',
+    'age',
+    'address',
+    'password',
+    'role',
+  ];
 
-    public function geolocation(){
-        return $this->hasOne(Geolocation::class, 'userID', 'id');
-    }
 
-    public function survey(){
-        return $this->hasOne(Survey::class, 'userID', 'id');
-    }
+  public function partner()
+  {
+    return $this->hasOne(Partner::class, 'userID', 'id');
+  }
 
-    protected $fillable = [
-        'fullName',
-        'username',
-        'email',
-        'phoneNumber',
-        'age',
-        'address',
-        'password',
-        'role',
-    ];
+  public function order()
+  {
+    return $this->hasMany(Order::class, 'userID', 'id');
+  }
 
-    protected $guarded = ['id'];
+  public function geolocation()
+  {
+    return $this->hasOne(Geolocation::class, 'userID', 'id');
+  }
+
+  public function survey()
+  {
+    return $this->hasOne(Survey::class, 'userID', 'id');
+  }
+
 }
