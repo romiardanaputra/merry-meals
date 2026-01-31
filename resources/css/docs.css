@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   :root {
     /* Merry Meals Colors mapped to shadcn-like variables */
@@ -30,6 +34,111 @@
     --ring: 48 100% 50%;
 
     --radius: 0.75rem;
+  }
+
+  :root {
+    /* Mobile Base (Minor Third 1.200) */
+    --base-font-size: 16px;
+
+    --text-h1: 2.986rem;
+    --text-h2: 2.488rem;
+    --text-h3: 2.074rem;
+    --text-h4: 1.728rem;
+    --text-h5: 1.44rem;
+    --text-h6: 1.2rem;
+    --text-base: 1rem;
+    --text-small: 0.833rem;
+    --text-xs: 0.694rem;
+    --text-display: 3.583rem;
+
+    --font-main: 'Inter', system-ui, sans-serif;
+    --body-color: #222222;
+    --heading-line-height: 1.2;
+    --body-line-height: 1.6;
+    --heading-letter-spacing: -0.01em;
+  }
+
+  /* Desktop Enhancement (Major Third 1.250) */
+  @media (min-width: 768px) {
+    :root {
+      --text-h1: 3.815rem;
+      --text-h2: 3.052rem;
+      --text-h3: 2.441rem;
+      --text-h4: 1.953rem;
+      --text-h5: 1.563rem;
+      --text-h6: 1.25rem;
+      --text-small: 0.8rem;
+      --text-xs: 0.64rem;
+      --text-display: 4.768rem;
+
+      --heading-line-height: 1.15;
+      --heading-letter-spacing: -0.022em;
+    }
+  }
+
+  :root {
+    font-size: var(--base-font-size);
+    font-family: var(--font-main);
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: var(--body-color);
+    line-height: var(--body-line-height);
+    font-weight: 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    line-height: var(--heading-line-height);
+    letter-spacing: var(--heading-letter-spacing);
+    color: hsl(var(--foreground));
+  }
+
+  h1 {
+    font-size: var(--text-h1);
+  }
+  h2 {
+    font-size: var(--text-h2);
+  }
+  h3 {
+    font-size: var(--text-h3);
+  }
+  h4 {
+    font-size: var(--text-h4);
+  }
+  h5 {
+    font-size: var(--text-h5);
+  }
+  h6 {
+    font-size: var(--text-h6);
+  }
+
+  /* Target Laptop 1366x768 with potential 125% zoom */
+  @media (min-width: 1024px) and (max-width: 1366px) {
+    :root {
+      font-size: 13.5px; /* Balanced for 125% zoom comfort */
+    }
+  }
+
+  @media (min-width: 1440px) {
+    :root {
+      font-size: 16px;
+    }
+  }
+
+  /* Sticky Header Glassmorphism Utility */
+  .header-sticky {
+    @apply sticky top-0 z-[100] transition-all duration-500;
+  }
+
+  .header-scrolled {
+    @apply border-border/40 border-b bg-white/80 py-2 shadow-sm backdrop-blur-xl;
   }
 
   .dark {
@@ -65,19 +174,23 @@
 
 @layer components {
   .doc-section {
-    @apply border-border border-b px-6 py-16 transition-colors duration-300 lg:px-12;
+    @apply relative overflow-hidden py-12 transition-colors duration-300 md:py-20 lg:px-12;
+  }
+
+  .doc-card {
+    @apply border bg-card overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:border-primary/50 hover:shadow-xl;
   }
 
   .glass-card {
-    @apply rounded-xl border border-white/20 bg-white/10 backdrop-blur-md;
+    @apply rounded-md border border-white/20 bg-white/10 backdrop-blur-md;
   }
 
   .code-container {
-    @apply border-border/50 my-4 overflow-x-auto rounded-lg border bg-dark p-4 font-mono text-sm text-white shadow-lg;
+    @apply my-4 overflow-x-auto rounded-lg border border-primary/50 bg-dark p-4 font-mono text-sm text-white shadow-lg;
   }
 
   .sidebar-link {
-    @apply text-muted-foreground flex items-center gap-3 rounded-lg px-4 py-3 transition-all duration-200 hover:bg-primary/10 hover:text-primary;
+    @apply text-muted flex items-center gap-3 rounded-lg px-4 py-3 transition-all duration-200 hover:bg-primary/10 hover:text-primary;
   }
 
   .sidebar-link.active {

@@ -1,95 +1,64 @@
 @section('js_custom')
   <script defer async type="module">
-    var toggleOpen = document.getElementById('toggleOpen');
-    var toggleClose = document.getElementById('toggleClose');
-    var collapseMenu = document.getElementById('collapseMenu');
+    const header = document.querySelector('header');
+    const toggleOpen = document.getElementById('toggleOpen');
+    const toggleClose = document.getElementById('toggleClose');
+    const collapseMenu = document.getElementById('collapseMenu');
+
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
 
     function handleClick() {
-      if (collapseMenu.style.display === 'block') {
-        collapseMenu.style.display = 'none';
-      } else {
-        collapseMenu.style.display = 'block';
-      }
+      collapseMenu.classList.toggle('hidden');
+      collapseMenu.classList.toggle('flex');
     }
 
     toggleOpen.addEventListener('click', handleClick);
-    toggleClose.addEventListener('click', handleClick);
+    if(toggleClose) toggleClose.addEventListener('click', handleClick);
   </script>
 @endsection
 
-<header class="bg-light">
-  <div
-    class="relative z-50 mx-auto flex min-h-[70px] w-full max-w-screen-2xl flex-wrap items-center justify-between gap-5 px-4 py-4 tracking-wide sm:px-10"
-  >
-    <a href="{{ route('index') }}" class="flex items-center gap-4 max-sm:hidden">
-      <img src="{{ asset('storage/images/merry-meal-logo-2.png') }}" alt="logo" class="w-9" />
-      <div class="flex flex-col">
-        <span class="text-lg font-bold uppercase tracking-wider">Merry Meals</span>
-        <span class="text-sm font-bold uppercase tracking-widest">Meals On Wheel</span>
+<header class="header-sticky w-full bg-white transition-all duration-300 font-inter">
+  <div class="container mx-auto flex h-20 items-center justify-between px-6 lg:px-10">
+    <!-- Logo -->
+    <a href="{{ route('index') }}" class="flex items-center gap-3 group">
+      <div class="relative">
+        <img src="{{ asset('storage/images/merry-meal-logo-2.png') }}" alt="logo" class="w-10 group-hover:scale-110 transition-transform duration-300" />
+        <div class="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      </div>
+      <div class="flex flex-col leading-none">
+        <span class="text-xl font-black uppercase tracking-tighter text-foreground">Merry Meals</span>
+        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Meals On Wheel</span>
       </div>
     </a>
-    <a href="{{ route('index') }}" class="hidden max-sm:block">
-      <img src="{{ asset('storage/images/merry-meal-logo-2.png') }}" alt="logo" class="w-9" />
-    </a>
 
-    <div
-      id="collapseMenu"
-      class="max-lg:hidden max-lg:before:fixed max-lg:before:inset-0 max-lg:before:z-50 max-lg:before:bg-black max-lg:before:opacity-50 lg:!block"
-    >
-      <button
-        id="toggleClose"
-        class="fixed right-4 top-2 z-[100] flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white lg:hidden"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 fill-black" viewBox="0 0 320.591 320.591">
-          <path
-            d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"
-            data-original="#000000"
-          ></path>
-          <path
-            d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"
-            data-original="#000000"
-          ></path>
-        </svg>
-      </button>
-
-      <ul
-        class="z-50 gap-x-4 max-lg:fixed max-lg:left-0 max-lg:top-0 max-lg:h-full max-lg:w-1/2 max-lg:min-w-[300px] max-lg:space-y-3 max-lg:overflow-auto max-lg:bg-white max-lg:p-6 max-lg:shadow-md lg:flex"
-      >
-        <li class="mb-6 hidden max-md:block sm:flex sm:items-center sm:gap-4 lg:hidden">
-          <a href="{{ route('index') }}">
-            <img src="{{ asset('storage/images/merry-meal-logo-2.png') }}" alt="logo" class="w-36" />
-          </a>
-          <div class="flex flex-col text-dark">
-            <span class="text-lg font-bold tracking-wider">Merry Meals</span>
-            <span class="text-sm font-medium tracking-widest">Meals On Wheel</span>
-          </div>
-        </li>
-        <x-nav-link :active="request()->routeIs('index')" :route="route('index')">Home</x-nav-link>
-        <x-nav-link :active="request()->routeIs('about')" :route="route('about')">About</x-nav-link>
-        <x-nav-link :active="request()->routeIs('contact')" :route="route('contact')">Contact</x-nav-link>
-        <x-nav-link :active="request()->routeIs('donation')" :route="route('donation')">Donation</x-nav-link>
+    <!-- Desktop Navigation -->
+    <nav id="collapseMenu" class="hidden lg:flex items-center absolute lg:relative top-full lg:top-auto left-0 w-full lg:w-auto bg-white lg:bg-transparent border-b lg:border-none border-border/10 p-6 lg:p-0 z-50">
+      <ul class="flex flex-col lg:flex-row gap-8 lg:gap-10 w-full lg:w-auto">
+        <x-nav-link :active="request()->routeIs('index')" :route="route('index')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">Home</x-nav-link>
+        <x-nav-link :active="request()->routeIs('about')" :route="route('about')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">About</x-nav-link>
+        <x-nav-link :active="request()->routeIs('contact')" :route="route('contact')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">Contact</x-nav-link>
+        <x-nav-link :active="request()->routeIs('donation')" :route="route('donation')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">Donation</x-nav-link>
       </ul>
-    </div>
+    </nav>
 
-    <div class="flex space-x-4 max-lg:ml-auto">
-      <x-button :type="App\Enum\ButtonType::SolidHover" :route="route('login')" :classes="'bg-primary'">
-        Login
-      </x-button>
-      <x-button
-        :type="App\Enum\ButtonType::OutlineHover"
-        :route="route('register')"
-        :classes="'border-dark hover:bg-dark !text-dark hover:!text-light'"
-      >
-        Join Now
-      </x-button>
+    <!-- Actions -->
+    <div class="flex items-center gap-4">
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="{{ route('login') }}" class="px-6 py-2.5 text-sm font-bold text-foreground hover:text-primary transition-colors">Login</a>
+        <a href="{{ route('register') }}" class="px-7 py-2.5 bg-primary text-dark font-black text-sm rounded-2xl shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">Join Now</a>
+      </div>
 
-      <button id="toggleOpen" class="cursor-pointer lg:hidden">
-        <svg class="h-7 w-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path
-            fill-rule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clip-rule="evenodd"
-          ></path>
+      <!-- Mobile Toggle -->
+      <button id="toggleOpen" class="p-2 -mr-2 text-foreground lg:hidden">
+        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
         </svg>
       </button>
     </div>

@@ -36,22 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 2. Section Staggered Animations
   gsap.utils.toArray('.doc-section').forEach((section) => {
+    // Skip scroll animations for specifically marked sections
+    if (section.classList.contains('no-animate')) return;
+
     // Find elements to animate within the section
     const title = section.querySelector('h2');
-    const content = section.querySelectorAll('.animate-on-scroll');
+    // Select .animate-on-scroll elements that are NOT the already selected title
+    const content = Array.from(section.querySelectorAll('.animate-on-scroll')).filter((el) => el !== title);
     const cards = section.querySelectorAll('.doc-card');
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: 'top 80%',
+        start: 'top 85%', // Trigger slightly earlier
         toggleActions: 'play none none reverse',
       },
     });
 
     if (title) {
       tl.from(title, {
-        opacity: 0,
+        autoAlpha: 0, // Using autoAlpha for visibility + opacity
         x: -30,
         duration: 0.8,
         ease: 'power2.out',
@@ -62,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tl.from(
         content,
         {
-          opacity: 0,
+          autoAlpha: 0,
           y: 30,
           stagger: 0.2,
           duration: 0.6,
@@ -76,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tl.from(
         cards,
         {
-          opacity: 0,
+          autoAlpha: 0,
           scale: 0.9,
           y: 40,
           stagger: 0.1,

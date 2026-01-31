@@ -1,10 +1,10 @@
-<section id="mission" class="doc-section py-24 bg-card overflow-hidden">
+<section id="mission" class="doc-section py-16 md:py-24 bg-card overflow-hidden">
     <div class="container mx-auto px-6">
-        <div class="flex flex-col lg:flex-row items-center gap-16">
+        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div class="w-full lg:w-1/2 relative animate-on-scroll">
                 <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl opacity-50"></div>
-                <img src="{{ asset('storage/images/aboutUsImage.jpg') }}" alt="Our Community" class="rounded-3xl shadow-2xl relative z-10 border border-border">
-                <div class="absolute -bottom-6 -right-6 p-6 bg-primary text-dark font-bold rounded-2xl shadow-xl z-20 max-w-xs animate-bounce-slow">
+                <img src="{{ asset('storage/images/aboutUsImage.jpg') }}" alt="Our Community" class="rounded-xl shadow-2xl relative z-10 border border-border w-full">
+                <div class="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 p-4 md:p-6 bg-primary text-dark font-bold rounded-xl shadow-xl z-20 max-w-[200px] md:max-w-xs text-xs md:text-sm lg:text-base animate-bounce-slow">
                     "Health and prosperity for all will always be our priority."
                 </div>
             </div>

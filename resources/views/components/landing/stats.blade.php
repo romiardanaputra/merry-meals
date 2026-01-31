@@ -1,4 +1,4 @@
-<section id="features" class="doc-section py-24 bg-background relative">r-y border-border relative overflow-hidden">
+<section id="stats" class="doc-section py-16 md:py-24 bg-background relative overflow-hidden">
     <div class="container mx-auto px-6">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             <div class="text-center space-y-2 animate-on-scroll">
