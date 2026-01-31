@@ -1,0 +1,90 @@
+@layer base {
+  :root {
+    /* Merry Meals Colors mapped to shadcn-like variables */
+    --background: 42 100% 97%; /* #FFFCF0 (secondary) */
+    --foreground: 0 6% 15%; /* #282222 (dark) */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 6% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 6% 15%;
+
+    --primary: 48 100% 50%; /* #FFCE01 */
+    --primary-foreground: 0 0% 15%;
+
+    --secondary: 48 100% 97%; /* #FFFCF0 */
+    --secondary-foreground: 0 6% 15%;
+
+    --muted: 42 20% 94%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 42 100% 31%; /* #A07C00 */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 48 20% 90%;
+    --input: 48 20% 90%;
+    --ring: 48 100% 50%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 0 6% 15%; /* #282222 */
+    --foreground: 42 100% 97%; /* #FFFCF0 */
+
+    --card: 0 6% 12%;
+    --card-foreground: 42 100% 97%;
+
+    --popover: 0 6% 12%;
+    --popover-foreground: 42 100% 97%;
+
+    --primary: 48 100% 50%;
+    --primary-foreground: 0 0% 15%;
+
+    --secondary: 0 6% 20%;
+    --secondary-foreground: 42 100% 97%;
+
+    --muted: 0 6% 20%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 42 100% 31%;
+    --accent-foreground: 42 100% 97%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 42 100% 97%;
+
+    --border: 0 6% 25%;
+    --input: 0 6% 25%;
+    --ring: 48 100% 50%;
+  }
+}
+
+@layer components {
+  .doc-section {
+    @apply border-border border-b px-6 py-16 transition-colors duration-300 lg:px-12;
+  }
+
+  .glass-card {
+    @apply rounded-xl border border-white/20 bg-white/10 backdrop-blur-md;
+  }
+
+  .code-container {
+    @apply border-border/50 my-4 overflow-x-auto rounded-lg border bg-dark p-4 font-mono text-sm text-white shadow-lg;
+  }
+
+  .sidebar-link {
+    @apply text-muted-foreground flex items-center gap-3 rounded-lg px-4 py-3 transition-all duration-200 hover:bg-primary/10 hover:text-primary;
+  }
+
+  .sidebar-link.active {
+    @apply bg-primary/20 font-semibold text-primary;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}

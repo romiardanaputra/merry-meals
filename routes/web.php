@@ -5,6 +5,7 @@ use App\Http\Controllers\Pages\BlogController;
 use App\Http\Controllers\Pages\ContactController;
 use App\Http\Controllers\Pages\DonationController;
 use App\Http\Controllers\Pages\IndexController;
+use App\Http\Controllers\Pages\DocsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,7 @@ Route::group(['middleware' => 'web'], function () {
   Route::get('/', [IndexController::class, 'index'])->name('index');
   Route::get('/about', [AboutController::class, 'index'])->name('about');
   Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+  Route::get('/docs', [DocsController::class, 'index'])->name('docs');
 
   Route::group(['prefix' => 'donation'], function () {
     Route::get('/', [DonationController::class, 'index'])->name('donation');

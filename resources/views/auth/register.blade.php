@@ -16,23 +16,23 @@
         <div>
           <label class="mb-2 block text-sm font-medium text-slate-800">First Name</label>
           <input
-            name="name"
+            name="fullname"
             type="text"
             class="w-full rounded border-gray-200 bg-slate-100 px-4 py-3 text-sm text-slate-800 outline-primary transition-all focus:border-primary focus:bg-transparent focus:outline-primary"
-            placeholder="Enter name"
+            placeholder="Enter fullname"
           />
         </div>
         <div>
-          <label class="mb-2 block text-sm font-medium text-slate-800">Last Name</label>
+          <label class="mb-2 block text-sm font-medium text-slate-800">Username</label>
           <input
-            name="lname"
+            name="username"
             type="text"
             class="w-full rounded border-gray-200 bg-slate-100 px-4 py-3 text-sm text-slate-800 outline-primary transition-all focus:border-primary focus:bg-transparent focus:outline-primary"
             placeholder="Enter last name"
           />
         </div>
         <div>
-          <label class="mb-2 block text-sm font-medium text-slate-800">Email Id</label>
+          <label class="mb-2 block text-sm font-medium text-slate-800">Email</label>
           <input
             name="email"
             type="text"
@@ -43,7 +43,7 @@
         <div>
           <label class="mb-2 block text-sm font-medium text-slate-800">Mobile No.</label>
           <input
-            name="number"
+            name="phone"
             type="number"
             class="w-full rounded border-gray-200 bg-slate-100 px-4 py-3 text-sm text-slate-800 outline-primary transition-all focus:border-primary focus:bg-transparent focus:outline-primary"
             placeholder="Enter mobile number"
