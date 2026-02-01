@@ -48,33 +48,38 @@ class PartnerProfileController extends Controller
         Geolocation::where('id',$id)->update($loc);
     }
 
-    // edit partner based on partner id
-    public function edit(Partner $partner)
+    // edit partner based on auth user
+    public function edit()
     {
+        $partner = auth()->user()->partner;
+        if (!$partner) return to_route('partner.create');
+        
         return view('features.partner.profileEdit', [
-            'partners' => $partner,
-            'dashboard_info' => 'partner edit profile',
-            'title_page' => 'partner edit profile',
+            'partner' => $partner,
+            'dashboard_info' => 'Edit Profile',
+            'title_page' => 'Edit Profile',
         ]);
     }
 
-    // show partner profile based on partner id 
+    // show partner profile based on auth user
     public function show(Partner $partner){
-        return view('features.partner.profileShow',[
-            'partners' => $partner,
-        ]);
+         return view('features.partner.profileShow',[
+            'partners' => $partner, // View expects 'partners' variable? The loop in show view suggests collection. I will check view logic.
+         ]);
     }
 
-    // update partner profile based on partner id
-    public function update(PartnerUpdateProfile $request, $id)
+    // update partner profile
+    public function update(PartnerUpdateProfile $request)
     {
-        $partners = $request->validated();
-        $partners['userID'] = auth()->user()->id;
-        $partners['restaurantImage'] = ($request->hasFile('restaurantImage'))
-            ? $request->file('restaurantImage')->store('restaurant-images')
-            : back();
-        Partner::where('id', $id)->update($partners);
-        return to_route('partner_handler.index');
+        $partner = auth()->user()->partner;
+        $data = $request->validated();
+        
+        if ($request->hasFile('restaurantImage')) {
+            $data['restaurantImage'] = $request->file('restaurantImage')->store('restaurant-images', 'public');
+        }
+
+        $partner->update($data);
+        return to_route('partner.index')->with('success', 'Profile updated successfully');
     }
 
     public function destroy($id)

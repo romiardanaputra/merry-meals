@@ -76,7 +76,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Partner Routes
     Route::middleware('roles:partner')->prefix('partner')->group(function () {
-        Route::get('/', function () { return view('features.partner.dashboard'); })->name('partner.index');
+        Route::get('/', [\App\Http\Controllers\Partner\PartnerDashboardController::class, 'index'])->name('partner.index');
+        Route::get('/orders', [\App\Http\Controllers\Partner\PartnerOrderController::class, 'index'])->name('partner.orders.index');
+        Route::post('/orders/status/{id}', [\App\Http\Controllers\Partner\PartnerOrderController::class, 'update'])->name('partner.orders.update');
+        
+        // Partner Profile
+        Route::get('/partner-profile/create', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'create'])->name('partner.create');
+        Route::post('/partner-profile/store', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'store'])->name('partner.store');
+        Route::get('/partner-profile', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'edit'])->name('partner.profile.edit');
+        Route::put('/partner-profile', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'update'])->name('partner.profile.update');
     });
 
     // Driver Routes

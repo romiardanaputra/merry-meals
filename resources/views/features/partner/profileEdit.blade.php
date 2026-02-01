@@ -1,87 +1,137 @@
-@extends('partner.dashboard')
-@section('partnerContent')
-<main class="font-poppins">
-    <div class="form-register-fields w-full pr-[5rem] mx-[10px]">
-        <form action="{{ route('partnerProfile.edit', $partner) }}" class="flex flex-col space-y-[24px]" method="POST"
-            enctype="multipart/form-data">
-            @csrf
-            <div class="flex flex-row space-x-[45px]">
-                <div class="text-gray-500 w-1/2">
-                    <label for="ownerName">Owner Name*</label>
-                    <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('ownerName')@enderror"
-                        name="ownerName" required value="{{ old('ownerName') ?? $partner->ownerName }}">
-                    @error('ownerName')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
+@extends('layouts.main')
 
-                <div class="text-gray-500 w-1/2">
-                    <label for="restaurantName">Restaurant Name*</label>
-                    <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurantName')@enderror"
-                        name="restaurantName" required value="{{ old('restaurantName') ?? $partner->restaurantName }}">
-                    @error('restaurantName')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-            </div> <!-- form-register-flex -->
+@section('css_custom')
+    @vite(['resources/css/docs.css'])
+    <style>
+        .text-h2 { font-size: calc(1.5rem + 1.5vw); font-weight: 900; line-height: 1.1; letter-spacing: -0.05em; }
+    </style>
+@endsection
 
-            <div class="flex flex-row space-x-[45px]">
-                <div class="text-gray-500 w-1/2">
-                    <label for="restaurantContact">Restaurant Contact*</label>
-                    <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurantContact')@enderror"
-                        name="restaurantContact" required value="{{ old('restaurantContact') ?? $partner->restaurantContact}}">
-                    @error('restaurantContact')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
+@section('component_content')
+<main class="min-h-screen bg-[#F8F8F8] font-inter">
+    <!-- Sidebar Logic -->
+    @include('features.partner.partials.sidebar')
 
-                <div class="text-gray-500 w-1/2">
-                    <label for="restaurantImage">Restaurant Image*</label>
-                    <input type="file"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full file-input @error('restaurantImage')@enderror"
-                        name="restaurantImage" required value="{{ old('restaurantImage') ?? $partner->restaurantImage }}">
-                    @error('restaurantImage')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-            </div> <!-- form-register-flex -->
-
-            <div class="flex flex-row space-x-[45px]">
-                <div class="text-gray-500 w-1/2">
-                    <label for="restaurantAddress">Restaurant Address*</label>
-                    <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('restaurantAddress')@enderror"
-                        name="restaurantAddress" required value="{{ old('restaurantAddress') ?? $partner->restaurantAddress }}">
-                    @error('restaurantAddress')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-                <div class="text-gray-500 w-1/2">
-                    <label for="foodType">Food Type*</label>
-                    <select
-                        class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 input pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('foodType')@enderror"
-                        id="foodType" name="foodType" required value="{{ old('foodType') ??$partner->foodType  }}">
-                        <option>vegan friendly</option>
-                        <option>non vegan friendly</option>
-                    </select>
-                    @error('foodType')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror<!-- text -->
+    <!-- Mobile Header -->
+    <header x-data="{ mobileMenuOpen: false }" class="lg:hidden bg-white border-b border-black/5 p-4 sticky top-0 z-40">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-dark rounded-xl flex items-center justify-center text-white">
+                    <img src="{{ asset('storage/images/merry-meal-logo-2.png') }}" class="w-6 h-6 object-contain" alt="Logo">
                 </div>
+                <span class="font-black text-dark tracking-tight uppercase">Merry Meal</span>
             </div>
-            <div class="flex justify-end">
-                <a role="button" href="{{ route('partner_handler.index') }}"
-                    class="mt-[30px] mr-5 h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500 flex justify-center items-center">
-                    Back
-                </a>
-                <button type="submit"
-                    class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create
-                    Partner</button>
-            </div> <!-- button-flex -->
-        </form>
-    </div> <!-- form-register-fields -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 text-dark/60 hover:text-dark">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer (Simplified) -->
+        <div x-show="mobileMenuOpen" style="display: none;" class="fixed inset-0 z-50 flex">
+            <div class="fixed inset-0 bg-dark/20 backdrop-blur-sm" @click="mobileMenuOpen = false"></div>
+            <div class="relative flex-1 flex flex-col max-w-xs w-full bg-[#222222] p-6 text-white">
+                <p class="text-white/60 text-sm">Please use desktop for full form access.</p>
+                 <button @click="mobileMenuOpen = false" class="mt-4 text-white font-bold">Close</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="lg:pl-[320px]">
+        <div class="max-w-[1200px] mx-auto p-4 md:p-8 lg:p-12">
+            <!-- Header -->
+            <div class="mb-12">
+                <h1 class="text-h2 text-dark tracking-tighter">Restaurant Profile</h1>
+                <p class="text-dark/40 font-bold text-xs uppercase tracking-[0.3em] mt-2">Manage your establishment details</p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="bg-white rounded-[2.5rem] p-8 md:p-12 border border-black/5 shadow-xl shadow-dark/5">
+                <form action="{{ route('partner.profile.update') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+                    @csrf
+                    @method('PUT')
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Left Column -->
+                        <div class="space-y-6">
+                            <h3 class="text-lg font-black text-dark tracking-tight border-b border-black/5 pb-2">Basic Info</h3>
+                            
+                            <div class="space-y-2">
+                                <label for="restaurantName" class="text-xs font-black uppercase tracking-widest text-dark">Restaurant Name</label>
+                                <input type="text" name="restaurantName" id="restaurantName" required value="{{ old('restaurantName') ?? $partner->restaurantName }}"
+                                    class="w-full bg-[#F8F8F8] border border-black/5 rounded-xl px-4 py-3 text-sm font-bold text-dark focus:ring-0 focus:border-dark transition-colors placeholder:text-dark/20">
+                                @error('restaurantName') <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="ownerName" class="text-xs font-black uppercase tracking-widest text-dark">Owner Name</label>
+                                <input type="text" name="ownerName" id="ownerName" required value="{{ old('ownerName') ?? $partner->ownerName }}"
+                                    class="w-full bg-[#F8F8F8] border border-black/5 rounded-xl px-4 py-3 text-sm font-bold text-dark focus:ring-0 focus:border-dark transition-colors placeholder:text-dark/20">
+                                @error('ownerName') <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p> @enderror
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label for="foodType" class="text-xs font-black uppercase tracking-widest text-dark">Food Type</label>
+                                <div class="relative">
+                                    <select name="foodType" id="foodType" required
+                                        class="w-full bg-[#F8F8F8] border border-black/5 rounded-xl px-4 py-3 text-sm font-bold text-dark focus:ring-0 focus:border-dark transition-colors appearance-none cursor-pointer capitalize">
+                                        <option value="vegan friendly" {{ (old('foodType') ?? $partner->foodType) == 'vegan friendly' ? 'selected' : '' }}>Vegan Friendly</option>
+                                        <option value="non vegan friendly" {{ (old('foodType') ?? $partner->foodType) == 'non vegan friendly' ? 'selected' : '' }}>Non Vegan Friendly</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-dark/40">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </div>
+                                </div>
+                                @error('foodType') <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="space-y-6">
+                            <h3 class="text-lg font-black text-dark tracking-tight border-b border-black/5 pb-2">Contact & Location</h3>
+
+                            <div class="space-y-2">
+                                <label for="restaurantContact" class="text-xs font-black uppercase tracking-widest text-dark">Contact Number</label>
+                                <input type="text" name="restaurantContact" id="restaurantContact" required value="{{ old('restaurantContact') ?? $partner->restaurantContact }}"
+                                    class="w-full bg-[#F8F8F8] border border-black/5 rounded-xl px-4 py-3 text-sm font-bold text-dark focus:ring-0 focus:border-dark transition-colors placeholder:text-dark/20">
+                                @error('restaurantContact') <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="restaurantAddress" class="text-xs font-black uppercase tracking-widest text-dark">Address</label>
+                                <input type="text" name="restaurantAddress" id="restaurantAddress" required value="{{ old('restaurantAddress') ?? $partner->restaurantAddress }}"
+                                    class="w-full bg-[#F8F8F8] border border-black/5 rounded-xl px-4 py-3 text-sm font-bold text-dark focus:ring-0 focus:border-dark transition-colors placeholder:text-dark/20">
+                                @error('restaurantAddress') <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div class="space-y-2 pt-4">
+                                <label for="restaurantImage" class="text-xs font-black uppercase tracking-widest text-dark">Restaurant Image</label>
+                                @if($partner->restaurantImage)
+                                <div class="mb-2">
+                                    <img src="{{ asset('storage/' . $partner->restaurantImage) }}" class="w-full h-32 rounded-xl object-cover border border-black/5">
+                                </div>
+                                @endif
+                                <div class="relative group">
+                                    <input type="file" name="restaurantImage" id="restaurantImage"
+                                        class="w-full file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-[10px] file:font-black file:uppercase file:tracking-widest file:bg-dark file:text-white hover:file:bg-primary hover:file:text-dark transition-all
+                                        bg-[#F8F8F8] border border-black/5 rounded-xl text-sm font-bold text-dark/60">
+                                </div>
+                                @error('restaurantImage') <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-8 border-t border-black/5 flex justify-end gap-4">
+                         <a href="{{ route('partner.index') }}" class="px-8 py-4 bg-white border border-black/5 text-dark rounded-xl font-bold text-xs uppercase tracking-[0.2em] hover:bg-dark/5 transition-all">
+                            Cancel
+                        </a>
+                        <button type="submit" class="px-8 py-4 bg-primary text-dark rounded-xl font-black text-xs uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
 @endsection

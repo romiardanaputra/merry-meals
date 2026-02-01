@@ -12,10 +12,17 @@ class PartnerMealController extends Controller
     // display meal list in partner
     public function index()
     {
+        $user = auth()->user();
+        if ($user->role === 'admin' || $user->role === 'superadmin') {
+            $meals = Meal::all();
+        } else {
+            $meals = Meal::where('partnerID', $user->partner->id)->get();
+        }
+
         return view('features.meals.mealList', [
-            'meals' => Meal::all(),
+            'meals' => $meals,
             'dashboard_info' => 'Meal Lists',
-            'title_page' => 'Meal lists',
+            'title_page' => 'Meal Management',
         ]);
     }
     // display for form partner profile
