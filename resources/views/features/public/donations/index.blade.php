@@ -66,7 +66,7 @@
                 <!-- Left Column: Form (60%) - Priority on Mobile -->
                 <div class="w-full lg:w-7/12 order-1">
                     <div class="space-y-12">
-                        @include('features.donations.partials.donation-form')
+                        @include('features.public.donations.partials.donation-form')
                         
                         <!-- Refined Mission Statement -->
                         <div class="p-10 bg-white rounded-[2.5rem] border border-border/50 animate-on-scroll">
@@ -76,14 +76,14 @@
                             </p>
                         </div>
 
-                        @include('features.donations.partials.trust-indicators')
+                        @include('features.public.donations.partials.trust-indicators')
                     </div>
                 </div>
 
                 <!-- Right Column: Visual Storytelling & Stats (40%) -->
                 <div class="w-full lg:w-5/12 order-2">
                     <div class="sticky top-12 space-y-12">
-                        @include('features.donations.partials.impact-stats')
+                        @include('features.public.donations.partials.impact-stats')
                         
                         <!-- Mini Quote Card -->
                         <div class="p-10 bg-dark rounded-[2.5rem] relative overflow-hidden group">

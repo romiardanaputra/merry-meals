@@ -41,8 +41,7 @@ class UserManagementController extends Controller
 
     public function edit($id)
     {
-        return view('features.admin.userEdit
-        ', [
+        return view('features.admin.userEdit', [
             'title_page' => 'Edit User',
             'user' => User::find($id),
             'dashboard_info' => 'Edit User'

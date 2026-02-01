@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.main')
 @section('component_content')
 <main class="font-poppins">
     @include('components.navbar')

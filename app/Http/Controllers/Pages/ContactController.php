@@ -9,7 +9,7 @@ class ContactController extends Controller
 {
     public function index()
     {
-        return view('features.contact.index');
+        return view('features.public.contact.index');
     }
 
     public function store(Request $request)

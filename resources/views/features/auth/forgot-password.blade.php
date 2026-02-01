@@ -23,7 +23,7 @@
 
             <!-- Form Card -->
             <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] shadow-2xl shadow-dark/5 border border-border/40 animate-on-scroll">
-                <x-auth-session-status class="mb-6" :status="session('status')" />
+                <x-form.auth-session-status class="mb-6" :status="session('status')" />
 
                 <form method="POST" action="{{ route('password.email') }}" class="space-y-8">
                     @csrf
@@ -34,7 +34,7 @@
                         <input id="email" type="email" name="email" :value="old('email')" required autofocus
                             class="w-full px-6 py-4 bg-background-soft border border-border/40 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-dark font-medium placeholder:text-foreground/20"
                             placeholder="name@company.com" />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs font-bold text-red-500" />
+                        <x-form.input-error :messages="$errors->get('email')" class="mt-2 text-xs font-bold text-red-500" />
                     </div>
 
                     <!-- CTA -->

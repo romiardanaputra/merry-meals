@@ -9,7 +9,7 @@
                 class="w-full px-6 py-4 bg-background-soft border border-border/40 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-dark font-medium placeholder:text-foreground/20"
                 placeholder="name@company.com" />
         </div>
-        <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs font-bold text-red-500" />
+        <x-form.input-error :messages="$errors->get('email')" class="mt-2 text-xs font-bold text-red-500" />
     </div>
 
     <!-- Password -->

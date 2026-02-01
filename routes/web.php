@@ -6,6 +6,7 @@ use App\Http\Controllers\Pages\ContactController;
 use App\Http\Controllers\Pages\DonationController;
 use App\Http\Controllers\Pages\IndexController;
 use App\Http\Controllers\Pages\DocsController;
+use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -41,8 +42,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Admin Routes
     Route::middleware('roles:admin')->prefix('admin')->group(function () {
-        Route::get('/', function () { return view('features.admin.dashboard', ['dashboard_info' => 'Admin Panel']); })->name('admin.index');
-        // Add more admin routes here (Manage User, Donator List, etc.)
+        Route::get('/', [UserManagementController::class, 'index'])->name('admin.index');
+        Route::get('/create', [UserManagementController::class, 'create'])->name('admin.create');
+        Route::post('/store', [UserManagementController::class, 'store'])->name('admin.store');
+        Route::get('/edit/{id}', [UserManagementController::class, 'edit'])->name('admin.edit');
+        Route::put('/update/{id}', [UserManagementController::class, 'update'])->name('admin.update');
+        Route::delete('/destroy/{id}', [UserManagementController::class, 'destroy'])->name('admin.destroy');
+        Route::get('/donator-list', [UserManagementController::class, 'donatorList'])->name('donator.list');
     });
 
     // Member Routes

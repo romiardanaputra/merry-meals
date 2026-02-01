@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.main')
 
 @section('component_content')
 <main class="min-h-screen bg-background-soft font-inter">

@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.main')
 
 <style>
    .survey-reaction-style [type="radio"] {

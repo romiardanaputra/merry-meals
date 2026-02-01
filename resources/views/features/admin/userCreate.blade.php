@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('features.admin.dashboard')
 @section('dashboard_admin')
 <main class="font-poppins">
     <div class="form-register-fields w-full pr-[5rem] mx-[10px]">

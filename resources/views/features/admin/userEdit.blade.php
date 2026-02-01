@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('features.admin.dashboard')
 @section('dashboard_admin')
 <div class="form-register-fields w-full pr-[5rem] mx-[10px]">
     <form action="{{ route('admin.update', $user->id) }}" class="flex flex-col space-y-[24px]" method="POST">

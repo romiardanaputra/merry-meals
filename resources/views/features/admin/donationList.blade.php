@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('features.admin.dashboard')
 @section('dashboard_admin')
 <table class="table-fixed w-full text-center text-[#282222] font-semibold border-2 border-[#282222] border-collapse">
     <thead class="text-[12px] bg-[#282222] text-[#FFFDF6] h-[45px]">

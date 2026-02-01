@@ -12,11 +12,11 @@
         </style>
     @endsection
 
-    @include('features.home.partials.hero')
-    @include('features.home.partials.stats')
-    @include('features.home.partials.mission')
-    @include('features.home.partials.features')
-    @include('features.home.partials.cta')
+    @include('features.public.home.partials.hero')
+    @include('features.public.home.partials.stats')
+    @include('features.public.home.partials.mission')
+    @include('features.public.home.partials.features')
+    @include('features.public.home.partials.cta')
 
     @section('js_custom')
         @vite(['resources/js/docs-animations.js'])

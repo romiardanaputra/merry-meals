@@ -32,13 +32,13 @@
             <div class="flex flex-col lg:flex-row gap-16 lg:gap-24">
                 <!-- Left Column: Form (60%) -->
                 <div class="w-full lg:w-3/5 order-2 lg:order-1">
-                    @include('features.contact.partials.form')
+                    @include('features.public.contact.partials.form')
                 </div>
 
                 <!-- Right Column: Info & Map (40%) -->
                 <div class="w-full lg:w-2/5 order-1 lg:order-2 space-y-12">
-                    @include('features.contact.partials.info')
-                    @include('features.contact.partials.map')
+                    @include('features.public.contact.partials.info')
+                    @include('features.public.contact.partials.map')
                 </div>
             </div>
         </div>

@@ -41,10 +41,10 @@
     <!-- Desktop Navigation -->
     <nav id="collapseMenu" class="hidden lg:flex items-center absolute lg:relative top-full lg:top-auto left-0 w-full lg:w-auto bg-white lg:bg-transparent border-b lg:border-none border-border/10 p-6 lg:p-0 z-50">
       <ul class="flex flex-col lg:flex-row gap-8 lg:gap-10 w-full lg:w-auto">
-        <x-nav-link :active="request()->routeIs('index')" :route="route('index')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">Home</x-nav-link>
-        <x-nav-link :active="request()->routeIs('about')" :route="route('about')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">About</x-nav-link>
-        <x-nav-link :active="request()->routeIs('contact')" :route="route('contact')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">Contact</x-nav-link>
-        <x-nav-link :active="request()->routeIs('donation')" :route="route('donation')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">Donation</x-nav-link>
+        <x-ui.nav-link :active="request()->routeIs('index')" :route="route('index')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">Home</x-ui.nav-link>
+        <x-ui.nav-link :active="request()->routeIs('about')" :route="route('about')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">About</x-ui.nav-link>
+        <x-ui.nav-link :active="request()->routeIs('contact')" :route="route('contact')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">Contact</x-ui.nav-link>
+        <x-ui.nav-link :active="request()->routeIs('donation')" :route="route('donation')" class="text-sm font-semibold tracking-tight hover:text-primary transition-colors">Donation</x-ui.nav-link>
       </ul>
     </nav>
 

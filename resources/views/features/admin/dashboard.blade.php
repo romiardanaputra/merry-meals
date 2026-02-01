@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.main')
 @section('component_content')
 <main class="font-poppins">
     <h3 class="hidden">loggin as {{ auth()->user()->role }}</h3>
@@ -6,7 +6,7 @@
         <div
             class="sidebar w-[350px] min-h-screen max-h-fit px-[40px] py-[66px] bg-[#282222] flex flex-col justify-between items-center">
             <div class="flex flex-col">
-                <a href="{{ route('landing.index') }}">
+                <a href="{{ route('index') }}">
                     <div class="sidebar-logo w-full h-[100px] flex flex-row space-x-[9px] mb-[66px]">
                         <div
                             class="s-logo w-[170px] h-[100px] bg-[#FFFDF6] flex items-center justify-center rounded-[50%]">

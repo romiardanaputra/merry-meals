@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.main')
 @section('component_content')
 <main class="font-poppins">
     <div class="bg-success-page min-h-screen max-h-fit bg-[#FFFCF0] flex flex-col items-center justify-center space-y-[50px]">
