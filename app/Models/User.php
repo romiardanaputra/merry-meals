@@ -14,7 +14,7 @@ class User extends Authenticatable
   protected $guarded = 'id';
 
   protected $fillable = [
-    'fullname',
+    'name',
     'username',
     'email',
     'phone',
