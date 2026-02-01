@@ -13,13 +13,45 @@ class User extends Authenticatable
   protected $primaryKey = 'id';
   protected $guarded = 'id';
 
+  const ROLE_SUPERADMIN = 'superadmin';
+  const ROLE_ADMIN = 'admin';
+  const ROLE_MEMBER = 'member';
+  const ROLE_PARTNER = 'partner';
+  const ROLE_DRIVER = 'driver';
+
   protected $fillable = [
     'name',
     'username',
     'email',
     'phone',
     'password',
+    'role',
   ];
+
+  public function isSuperAdmin()
+  {
+    return $this->role === self::ROLE_SUPERADMIN;
+  }
+
+  public function isAdmin()
+  {
+    return $this->role === self::ROLE_ADMIN;
+  }
+
+  public function isMember()
+  {
+    return $this->role === self::ROLE_MEMBER;
+  }
+
+  public function isPartner()
+  {
+    return $this->role === self::ROLE_PARTNER;
+  }
+
+  public function isDriver()
+  {
+    return $this->role === self::ROLE_DRIVER;
+  }
 
 
   public function partner()

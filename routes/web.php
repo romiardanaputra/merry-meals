@@ -7,6 +7,8 @@ use App\Http\Controllers\Pages\DonationController;
 use App\Http\Controllers\Pages\IndexController;
 use App\Http\Controllers\Pages\DocsController;
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,14 +23,47 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/dashboard', function () {
-  return view('features.dashboard.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Shared Dashboard Redirect (if using '/dashboard')
+    Route::get('/dashboard', function () {
+        $user = auth()->user();
+        if ($user->role === User::ROLE_SUPERADMIN) return redirect('superadmin/dashboard');
+        if ($user->role === User::ROLE_ADMIN) return redirect(RouteServiceProvider::ADMIN_DASHBOARD);
+        if ($user->role === User::ROLE_PARTNER) return redirect(RouteServiceProvider::PARTNER_DASHBOARD);
+        if ($user->role === User::ROLE_DRIVER) return redirect('driver/dashboard');
+        return redirect(RouteServiceProvider::MEMBER_DASHBOARD);
+    })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-  Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-  Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Superadmin Routes
+    Route::middleware('roles:superadmin')->prefix('superadmin')->group(function () {
+        Route::get('/dashboard', function () { return view('features.superadmin.dashboard'); })->name('superadmin.dashboard');
+    });
+
+    // Admin Routes
+    Route::middleware('roles:admin')->prefix('admin')->group(function () {
+        Route::get('/', function () { return view('features.admin.dashboard', ['dashboard_info' => 'Admin Panel']); })->name('admin.index');
+        // Add more admin routes here (Manage User, Donator List, etc.)
+    });
+
+    // Member Routes
+    Route::middleware('roles:member')->prefix('member')->group(function () {
+        Route::get('/menu', function () { return view('features.member.dashboard'); })->name('member.menu');
+    });
+
+    // Partner Routes
+    Route::middleware('roles:partner')->prefix('partner')->group(function () {
+        Route::get('/', function () { return view('features.partner.dashboard'); })->name('partner.index');
+    });
+
+    // Driver Routes
+    Route::middleware('roles:driver')->prefix('driver')->group(function () {
+        Route::get('/dashboard', function () { return view('features.rider.dashboard'); })->name('driver.dashboard');
+    });
+
+    // Profile Routes
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::group(['middleware' => 'web'], function () {
