@@ -69,7 +69,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Member Routes
     Route::middleware('roles:member')->prefix('member')->group(function () {
-        Route::get('/menu', function () { return view('features.member.dashboard'); })->name('member.menu');
+        Route::get('/dashboard', [MemberManagementController::class, 'index'])->name('member.dashboard');
+        Route::get('/survey', [MemberManagementController::class, 'surveyShow'])->name('member.survey');
+        Route::post('/survey', [MemberManagementController::class, 'surveyStore'])->name('member.survey.store');
     });
 
     // Partner Routes
