@@ -7,6 +7,8 @@ use App\Http\Controllers\Pages\DonationController;
 use App\Http\Controllers\Pages\IndexController;
 use App\Http\Controllers\Pages\DocsController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Member\MemberManagementController;
+use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -70,6 +72,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Meal & Menu Routes
+    Route::name('meal.')->group(function () {
+        Route::get('/menu', [MemberManagementController::class, 'menuMealShow'])->name('menu');
+        Route::get('/meal/{id}', [MemberManagementController::class, 'menuDetailShow'])->name('detail');
+        Route::get('/package/{id}', [MemberManagementController::class, 'packageFood'])->name('package');
+        Route::get('/order-success', function () { return view('features.meals.orderSuccess'); })->name('order.success');
+        
+        // Meal Management (Partner/Admin)
+        Route::get('/meals', [PartnerMealController::class, 'index'])->name('index');
+        Route::get('/meals/create', [PartnerMealController::class, 'create'])->name('create');
+        Route::post('/meals/store', [PartnerMealController::class, 'store'])->name('store');
+        Route::get('/meals/edit/{id}', [PartnerMealController::class, 'edit'])->name('edit');
+        Route::put('/meals/update/{id}', [PartnerMealController::class, 'update'])->name('update');
+        Route::delete('/meals/destroy/{id}', [PartnerMealController::class, 'destroy'])->name('destroy');
+    });
 });
 
 Route::group(['middleware' => 'web'], function () {

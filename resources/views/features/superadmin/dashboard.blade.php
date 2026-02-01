@@ -15,15 +15,15 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Stat Cards -->
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-dark/5 border border-border/40">
+            <div class="bg-white p-8 rounded-xl shadow-xl shadow-dark/5 border border-border/40">
                 <h3 class="text-xs font-black uppercase tracking-widest text-dark/40 mb-4">Total Users</h3>
                 <p class="text-h2 text-dark">0</p>
             </div>
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-dark/5 border border-border/40">
+            <div class="bg-white p-8 rounded-xl shadow-xl shadow-dark/5 border border-border/40">
                 <h3 class="text-xs font-black uppercase tracking-widest text-dark/40 mb-4">System Health</h3>
                 <p class="text-h2 text-primary">100%</p>
             </div>
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-dark/5 border border-border/40">
+            <div class="bg-white p-8 rounded-xl shadow-xl shadow-dark/5 border border-border/40">
                 <h3 class="text-xs font-black uppercase tracking-widest text-dark/40 mb-4">Audit Logs</h3>
                 <p class="text-h2 text-dark">View All</p>
             </div>

@@ -1,132 +1,120 @@
 @extends('features.admin.dashboard')
+
 @section('dashboard_admin')
-<main class="font-poppins">
-    <div class="form-register-fields w-full pr-[5rem] mx-[10px]">
-        <form action="{{ route('admin.store') }}" class="flex flex-col space-y-[24px]" method="POST">
-            @csrf
-            <div class="flex flex-row space-x-[45px]">
-                <div class="text-gray-500 w-1/2">
-                    <label for="fullName">Full Name*</label>
-                    <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('fullName')@enderror"
-                        name="fullName" required value="{{ old('fullName') }}">
+<div class="bg-white rounded-[2.5rem] shadow-xl shadow-dark/5 border border-border/50 p-12 lg:p-16 animate-on-scroll">
+    <form action="{{ route('admin.store') }}" class="space-y-12" method="POST">
+        @csrf
+        
+        <!-- Personal Information Section -->
+        <div class="space-y-8">
+            <div class="flex items-center space-x-4 border-b border-border/30 pb-4">
+                <div class="w-2 h-8 bg-primary rounded-full"></div>
+                <h6 class="text-h6 text-dark tracking-tight">Personal Information</h6>
+            </div>
 
-                    @error('fullName')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-2">
+                    <label for="fullName" class="text-xs font-black uppercase tracking-widest text-dark/40 ml-1">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required value="{{ old('fullName') }}"
+                           class="w-full px-6 py-4 bg-dark/5 border border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 font-bold text-dark placeholder:text-dark/20"
+                           placeholder="Enter full name">
+                    @error('fullName') <p class="text-[10px] font-bold text-red-500 ml-1 italic">{{ $message }}</p> @enderror
+                </div>
 
-                <div class="text-gray-500 w-1/2">
-                    <label for="username">Username*</label>
-                    <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('username')@enderror"
-                        name="username" required value="{{ old('username') }}">
+                <div class="space-y-2">
+                    <label for="username" class="text-xs font-black uppercase tracking-widest text-dark/40 ml-1">Username</label>
+                    <input type="text" id="username" name="username" required value="{{ old('username') }}"
+                           class="w-full px-6 py-4 bg-dark/5 border border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 font-bold text-dark placeholder:text-dark/20"
+                           placeholder="Choose username">
+                    @error('username') <p class="text-[10px] font-bold text-red-500 ml-1 italic">{{ $message }}</p> @enderror
+                </div>
+            </div>
 
-                    @error('username')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-            </div> <!-- form-register-flex -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-2">
+                    <label for="email" class="text-xs font-black uppercase tracking-widest text-dark/40 ml-1">Email Address</label>
+                    <input type="email" id="email" name="email" required value="{{ old('email') }}"
+                           class="w-full px-6 py-4 bg-dark/5 border border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 font-bold text-dark placeholder:text-dark/20"
+                           placeholder="example@mail.com">
+                    @error('email') <p class="text-[10px] font-bold text-red-500 ml-1 italic">{{ $message }}</p> @enderror
+                </div>
 
-            <div class="flex flex-row space-x-[45px]">
-                <div class="text-gray-500 w-1/2">
-                    <label for="email">Email*</label>
-                    <input type="email"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('email')@enderror"
-                        name="email" required value="{{ old('email') }}">
+                <div class="space-y-2">
+                    <label for="phoneNumber" class="text-xs font-black uppercase tracking-widest text-dark/40 ml-1">Phone Number</label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" required value="{{ old('phoneNumber') }}"
+                           class="w-full px-6 py-4 bg-dark/5 border border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 font-bold text-dark placeholder:text-dark/20"
+                           placeholder="+62 ...">
+                    @error('phoneNumber') <p class="text-[10px] font-bold text-red-500 ml-1 italic">{{ $message }}</p> @enderror
+                </div>
+            </div>
 
-                    @error('email')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-2">
+                    <label for="age" class="text-xs font-black uppercase tracking-widest text-dark/40 ml-1">Age (Years)</label>
+                    <input type="number" id="age" name="age" required value="{{ old('age') }}"
+                           class="w-full px-6 py-4 bg-dark/5 border border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 font-bold text-dark placeholder:text-dark/20"
+                           placeholder="e.g. 25">
+                    @error('age') <p class="text-[10px] font-bold text-red-500 ml-1 italic">{{ $message }}</p> @enderror
+                </div>
 
-                <div class="text-gray-500 w-1/2">
-                    <label for="phoneNumber">Phone Number*</label>
-                    <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('phoneNumber')@enderror"
-                        name="phoneNumber" required value="{{ old('phoneNumber') }}">
-
-                    @error('phoneNumber')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-            </div> <!-- form-register-flex -->
-
-            <div class="flex flex-row space-x-[45px]">
-                <div class="text-gray-500 w-1/2">
-                    <label for="age">Age (yr)*</label>
-                    <input type="number"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('age')@enderror" name="age"
-                        required value="{{ old('age') }}">
-
-                    @error('age')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-
-                <div class="text-gray-500 w-1/2">
-                    <label for="role">Register as*</label>
-                    <select
-                        class="w-full bg-[#FFFCF0] border border-gray-400 text-gray-500 py-2 px-3 input pr-8 leading-tight focus:outline-none focus:bg-[#FFFCF0] focus:border-gray-500 @error('role')@enderror"
-                        id="role" name="role" required value="{{ old('role') }}" >
-                        <option value="member">member</option>
-                        <option value="volunteer">volunteer</option>
-                        <option value="caregiver">caregiver</option>
-                        <option value="partner">partner</option>
+                <div class="space-y-2">
+                    <label for="role" class="text-xs font-black uppercase tracking-widest text-dark/40 ml-1">User Role</label>
+                    <select id="role" name="role" required
+                            class="w-full px-6 py-4 bg-dark/5 border border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 font-bold text-dark appearance-none cursor-pointer">
+                        <option value="member" {{ old('role') == 'member' ? 'selected' : '' }}>Member</option>
+                        <option value="volunteer" {{ old('role') == 'volunteer' ? 'selected' : '' }}>Volunteer</option>
+                        <option value="caregiver" {{ old('role') == 'caregiver' ? 'selected' : '' }}>Caregiver</option>
+                        <option value="partner" {{ old('role') == 'partner' ? 'selected' : '' }}>Partner</option>
                     </select>
+                    @error('role') <p class="text-[10px] font-bold text-red-500 ml-1 italic">{{ $message }}</p> @enderror
+                </div>
+            </div>
 
-                    @error('role')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-            </div> <!-- form-register-flex -->
+            <div class="space-y-2">
+                <label for="address" class="text-xs font-black uppercase tracking-widest text-dark/40 ml-1">Living Address</label>
+                <textarea id="address" name="address" required rows="3"
+                          class="w-full px-6 py-4 bg-dark/5 border border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 font-bold text-dark placeholder:text-dark/20"
+                          placeholder="Full street address">{{ old('address') }}</textarea>
+                @error('address') <p class="text-[10px] font-bold text-red-500 ml-1 italic">{{ $message }}</p> @enderror
+            </div>
+        </div>
 
-            <div class="flex flex-row space-x-[45px]">
-                <div class="text-gray-500 w-full">
-                    <label for="address">Address*</label>
-                    <input type="text"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('address')@enderror"
-                        name="address" required value="{{ old('address') }}">
+        <!-- Security Section -->
+        <div class="space-y-8 pt-6">
+            <div class="flex items-center space-x-4 border-b border-border/30 pb-4">
+                <div class="w-2 h-8 bg-accent rounded-full"></div>
+                <h6 class="text-h6 text-dark tracking-tight">Security Credentials</h6>
+            </div>
 
-                    @error('address')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-            </div> <!-- form-register-flex -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-2">
+                    <label for="password" class="text-xs font-black uppercase tracking-widest text-dark/40 ml-1">Password</label>
+                    <input type="password" id="password" name="password" required
+                           class="w-full px-6 py-4 bg-dark/5 border border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 font-bold text-dark placeholder:text-dark/20"
+                           placeholder="••••••••">
+                    @error('password') <p class="text-[10px] font-bold text-red-500 ml-1 italic">{{ $message }}</p> @enderror
+                </div>
 
-            <div class="flex flex-row space-x-[45px]">
-                <div class="text-gray-500 w-1/2">
-                    <label for="password">Password*</label>
-                    <input type="password"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('password')@enderror"
-                        name="password" required value="{{ old('password') }}">
+                <div class="space-y-2">
+                    <label for="password_confirmation" class="text-xs font-black uppercase tracking-widest text-dark/40 ml-1">Confirm Password</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" required
+                           class="w-full px-6 py-4 bg-dark/5 border border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 font-bold text-dark placeholder:text-dark/20"
+                           placeholder="••••••••">
+                </div>
+            </div>
+        </div>
 
-                    @error('password')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-
-                <div class="text-gray-500 w-1/2">
-                    <label for="confirmPassword">Confirm Password*</label>
-                    <input type="password"
-                        class="bg-[#FFFCF0] border border-gray-400 w-full py-2 px-3 input @error('confirmPassword')@enderror"
-                        name='password_confirmation' required value="{{ old('confirmPassword') }}">
-
-                    @error('confirmPassword')
-                    <p class="text-red-500">{{ $message }}</p>
-                    @enderror
-                </div> <!-- text -->
-            </div> <!-- form-register-flex -->
-
-            <div class="flex justify-end">
-                <a role="button" href="{{ route('admin.index') }}"
-                    class="mt-[30px] mr-5 h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500 flex justify-center items-center">
-                    Back
-                </a>
-                <button type="submit"
-                    class="mt-[30px] h-[35px] w-[180px] border-2 border-[#A07C00] bg-[#FFFCF0] font-medium text-[16px] text-[#A07C00] hover:scale-105 duration-500">Create User</button>
-            </div> <!-- button-flex -->
-        </form>
-    </div> <!-- form-register-fields -->
-</main>
+        <!-- Form Actions -->
+        <div class="flex flex-col md:flex-row items-center justify-end gap-6 pt-12 border-t border-border/30">
+            <a href="{{ route('admin.index') }}" 
+               class="flex items-center justify-center w-full md:w-auto px-10 py-4 bg-dark/5 text-dark font-black rounded-2xl hover:bg-dark hover:text-white transition-all duration-500 italic uppercase tracking-widest text-xs">
+                Cancel
+            </a>
+            <button type="submit" 
+                    class="w-full md:w-auto px-12 py-4 bg-primary text-dark font-black rounded-2xl hover:scale-105 transition-all duration-500 shadow-xl shadow-primary/20 uppercase tracking-widest text-xs">
+                Create Account
+            </button>
+        </div>
+    </form>
+</div>
 @endsection
