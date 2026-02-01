@@ -2,36 +2,42 @@
     <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
             <thead>
-                <tr class="bg-dark/5 border-b border-border/50">
-                    <th class="px-8 py-6 text-h6 text-dark tracking-tight">No</th>
-                    <th class="px-8 py-6 text-h6 text-dark tracking-tight">Donator Name</th>
-                    <th class="px-8 py-6 text-h6 text-dark tracking-tight">Amount</th>
-                    <th class="px-8 py-6 text-h6 text-dark tracking-tight">E-mail</th>
-                    <th class="px-8 py-6 text-h6 text-dark tracking-tight">Contact</th>
-                    <th class="px-8 py-6 text-h6 text-dark tracking-tight">Message</th>
+                <tr class="bg-dark/[0.02]">
+                    <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-dark/40 border-b border-border/40">No</th>
+                    <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-dark/40 border-b border-border/40">Donator Name</th>
+                    <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-dark/40 border-b border-border/40">Amount</th>
+                    <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-dark/40 border-b border-border/40">E-mail</th>
+                    <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-dark/40 border-b border-border/40">Contact</th>
+                    <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-dark/40 border-b border-border/40">Message</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-border/30">
-                @foreach ($donators as $donator)
-                <tr class="hover:bg-primary/5 transition-colors duration-300">
-                    <td class="px-8 py-6 text-p font-bold text-dark/40">{{ $loop->iteration }}</td>
+            <tbody class="divide-y divide-border/40">
+                @forelse ($donators as $donator)
+                <tr class="hover:bg-dark/[0.01] transition-colors group">
+                    <td class="px-8 py-6 text-xs font-black text-dark/40">{{ $loop->iteration }}</td>
                     <td class="px-8 py-6">
-                        <span class="text-p font-bold text-dark tracking-tight">{{ $donator->donatorName }}</span>
+                        <span class="text-sm font-black text-dark tracking-tight">{{ $donator->donatorName }}</span>
                     </td>
                     <td class="px-8 py-6">
-                        <span class="px-4 py-2 bg-green-500/10 text-green-600 text-sm font-black rounded-xl border border-green-500/20">
+                        <span class="px-3 py-1.5 bg-green-500/10 text-green-600 text-[10px] font-black uppercase rounded-lg tracking-widest">
                             ${{ number_format($donator->donationAmount, 2) }}
                         </span>
                     </td>
-                    <td class="px-8 py-6 text-p font-medium text-dark/60 italic underline decoration-primary/30">{{ $donator->donatorEmail }}</td>
-                    <td class="px-8 py-6 text-p font-medium text-dark/60">{{ $donator->donatorPhone }}</td>
                     <td class="px-8 py-6">
-                        <p class="text-p text-dark/40 leading-relaxed italic max-w-xs truncate" title="{{ $donator->description }}">
+                        <span class="text-xs font-bold text-dark/60 italic underline decoration-primary/30 underline-offset-4">{{ $donator->donatorEmail }}</span>
+                    </td>
+                    <td class="px-8 py-6 text-xs font-bold text-dark/60">{{ $donator->donatorPhone }}</td>
+                    <td class="px-8 py-6">
+                        <p class="text-[11px] font-medium text-dark/40 leading-relaxed italic max-w-xs truncate group-hover:text-dark/60 transition-colors" title="{{ $donator->description }}">
                             "{{ $donator->description }}"
                         </p>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="6" class="px-8 py-12 text-center text-dark/20 uppercase font-black text-sm tracking-widest">No donations found</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

@@ -17,7 +17,7 @@
             <input id="username" type="text" name="username" :value="old('username')" required autocomplete="username"
                 class="w-full px-6 py-4 bg-background-soft border border-border/40 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-dark font-medium placeholder:text-foreground/20"
                 placeholder="johndoe123" />
-            <x-input-error :messages="$errors->get('username')" class="mt-2 text-xs font-bold text-red-500" />
+            <x-form.input-error :messages="$errors->get('username')" class="mt-2 text-xs font-bold text-red-500" />
         </div>
     </div>
 
@@ -27,7 +27,7 @@
         <input id="email" type="email" name="email" :value="old('email')" required autocomplete="username"
             class="w-full px-6 py-4 bg-background-soft border border-border/40 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-dark font-medium placeholder:text-foreground/20"
             placeholder="name@company.com" />
-        <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs font-bold text-red-500" />
+        <x-form.input-error :messages="$errors->get('email')" class="mt-2 text-xs font-bold text-red-500" />
     </div>
 
     <!-- Phone -->
@@ -36,7 +36,7 @@
         <input id="phone" type="text" name="phone" :value="old('phone')" required autocomplete="tel"
             class="w-full px-6 py-4 bg-background-soft border border-border/40 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-dark font-medium placeholder:text-foreground/20"
             placeholder="+62 812 3456 7890" />
-        <x-input-error :messages="$errors->get('phone')" class="mt-2 text-xs font-bold text-red-500" />
+        <x-form.input-error :messages="$errors->get('phone')" class="mt-2 text-xs font-bold text-red-500" />
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -46,7 +46,7 @@
             <input id="password" type="password" name="password" required autocomplete="new-password"
                 class="w-full px-6 py-4 bg-background-soft border border-border/40 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-dark font-medium placeholder:text-foreground/20"
                 placeholder="••••••••" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2 text-xs font-bold text-red-500" />
+            <x-form.input-error :messages="$errors->get('password')" class="mt-2 text-xs font-bold text-red-500" />
         </div>
 
         <!-- Confirm Password -->
@@ -55,7 +55,7 @@
             <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password"
                 class="w-full px-6 py-4 bg-background-soft border border-border/40 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-dark font-medium placeholder:text-foreground/20"
                 placeholder="••••••••" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-xs font-bold text-red-500" />
+            <x-form.input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-xs font-bold text-red-500" />
         </div>
     </div>
 

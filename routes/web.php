@@ -51,6 +51,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/update/{id}', [UserManagementController::class, 'update'])->name('admin.update');
         Route::delete('/destroy/{id}', [UserManagementController::class, 'destroy'])->name('admin.destroy');
         Route::get('/donator-list', [UserManagementController::class, 'donatorList'])->name('donator.list');
+
+        // New Partner Management
+        Route::get('/partners', [\App\Http\Controllers\Admin\PartnerController::class, 'index'])->name('admin.partners.index');
+        Route::post('/partners/approve/{id}', [\App\Http\Controllers\Admin\PartnerController::class, 'approve'])->name('admin.partners.approve');
+        Route::post('/partners/reject/{id}', [\App\Http\Controllers\Admin\PartnerController::class, 'reject'])->name('admin.partners.reject');
+        Route::delete('/partners/destroy/{id}', [\App\Http\Controllers\Admin\PartnerController::class, 'destroy'])->name('admin.partners.destroy');
+
+        // New Order Oversight
+        Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.orders.index');
+        Route::post('/orders/assign/{id}', [\App\Http\Controllers\Admin\OrderController::class, 'assignRider'])->name('admin.orders.assign');
+        Route::post('/orders/status/{id}', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('admin.orders.status');
+
+        // New Reports & Analytics
+        Route::get('/reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');
     });
 
     // Member Routes

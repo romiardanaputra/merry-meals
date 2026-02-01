@@ -25,6 +25,7 @@ class Partner extends Model
         'restaurantContact',
         'restaurantImage',
         'foodType',
+        'status',
     ];
 
     protected $guarded = [

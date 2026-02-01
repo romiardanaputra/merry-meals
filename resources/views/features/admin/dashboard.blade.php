@@ -8,15 +8,7 @@
         .text-h6 { font-size: 1.25rem; font-weight: 800; }
         .text-p  { font-size: 1rem; font-weight: 500; line-height: 1.6; }
         
-        .pill-nav {
-            @apply px-6 py-2 rounded-full font-black text-xs transition-all duration-500 whitespace-nowrap;
-        }
-        .pill-nav-active {
-            @apply bg-dark text-white shadow-lg shadow-dark/20;
-        }
-        .pill-nav-inactive {
-            @apply text-dark/40 hover:text-dark hover:bg-dark/5;
-        }
+        .text-p  { font-size: 1rem; font-weight: 500; line-height: 1.6; }
     </style>
 @endsection
 
@@ -36,7 +28,7 @@
              @click.away="mobileMenuOpen = false">
             <div class="flex items-center justify-between mb-12">
                 <div class="flex items-center space-x-3">
-                    <img src="/images/MerryMealLogo-02.png" alt="Logo" class="w-8 h-8 object-contain">
+                    <img src="{{ asset('storage/images/merry-meal-logo-2.png') }}" alt="Logo" class="w-8 h-8 object-contain">
                     <span class="font-black text-dark uppercase tracking-tighter">Merry Meals</span>
                 </div>
                 <button @click="mobileMenuOpen = false" class="text-dark/40 hover:text-dark">
@@ -48,14 +40,20 @@
                 <a href="{{ route('admin.index') }}" class="flex items-center px-4 py-3 rounded-xl {{ Request::routeIs('admin.index') ? 'bg-dark text-white' : 'text-dark/40 hover:bg-dark/5' }} font-bold text-sm transition-all">
                     User Management
                 </a>
+                <a href="{{ route('admin.partners.index') }}" class="flex items-center px-4 py-3 rounded-xl {{ Request::routeIs('admin.partners.index') ? 'bg-dark text-white' : 'text-dark/40 hover:bg-dark/5' }} font-bold text-sm transition-all">
+                    Partner Management
+                </a>
                 <a href="{{ route('donator.list') }}" class="flex items-center px-4 py-3 rounded-xl {{ Request::routeIs('donator.list') ? 'bg-dark text-white' : 'text-dark/40 hover:bg-dark/5' }} font-bold text-sm transition-all">
                     Donation History
+                </a>
+                <a href="{{ route('admin.orders.index') }}" class="flex items-center px-4 py-3 rounded-xl {{ Request::routeIs('admin.orders.index') ? 'bg-dark text-white' : 'text-dark/40 hover:bg-dark/5' }} font-bold text-sm transition-all">
+                    Order Oversight
                 </a>
                 <a href="{{ route('meal.index') }}" class="flex items-center px-4 py-3 rounded-xl {{ Request::routeIs('meal.index') ? 'bg-dark text-white' : 'text-dark/40 hover:bg-dark/5' }} font-bold text-sm transition-all">
                     Meal Inventory
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 rounded-xl text-dark/40 hover:bg-dark/5 font-bold text-sm transition-all">
-                    Operations
+                <a href="{{ route('admin.reports.index') }}" class="flex items-center px-4 py-3 rounded-xl {{ Request::routeIs('admin.reports.index') ? 'bg-dark text-white' : 'text-dark/40 hover:bg-dark/5' }} font-bold text-sm transition-all">
+                    Reports & Analytics
                 </a>
             </nav>
 
@@ -84,7 +82,7 @@
         <div class="flex items-center justify-between w-full lg:w-auto">
             <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm p-2">
-                    <img src="/images/MerryMealLogo-02.png" alt="Logo" class="w-full h-full object-contain">
+                    <img src="{{ asset('storage/images/merry-meal-logo-2.png') }}" alt="Logo" class="w-full h-full object-contain">
                 </div>
                 <div>
                     <h1 class="text-xl font-black tracking-tight text-dark uppercase leading-none">Merry Meals</h1>
@@ -104,12 +102,48 @@
         </div>
 
         <!-- Pill Navigation - Hidden on Mobile -->
-        <nav class="hidden lg:flex items-center bg-white p-1.5 rounded-xl lg:rounded-full shadow-sm border border-black/5">
+        <nav x-data="{ 
+                activeIndex: {{ [
+                    'admin.index' => 0,
+                    'admin.partners.index' => 1,
+                    'donator.list' => 2,
+                    'admin.orders.index' => 3,
+                    'meal.index' => 4,
+                    'admin.reports.index' => 5
+                ][Route::currentRouteName()] ?? 0 }},
+                get sliderStyle() {
+                    const el = this.$refs['navItem' + this.activeIndex];
+                    if (!el) return '';
+                    return `left: ${el.offsetLeft}px; width: ${el.offsetWidth}px;`;
+                }
+             }" 
+             x-init="window.addEventListener('resize', () => { $data.activeIndex = $data.activeIndex })"
+             class="hidden lg:flex items-center bg-white p-1.5 rounded-full shadow-sm border border-black/5 relative overflow-hidden h-12">
+            
+            <div class="absolute top-1.5 bottom-1.5 bg-dark rounded-full shadow-lg shadow-dark/20 transition-all duration-500 ease-out z-0" 
+                 :style="sliderStyle"></div>
+            
             <div class="flex items-center space-x-1 min-w-max px-1">
-                <a href="{{ route('admin.index') }}" class="pill-nav {{ Request::routeIs('admin.index') ? 'pill-nav-active' : 'pill-nav-inactive' }}">User Management</a>
-                <a href="{{ route('donator.list') }}" class="pill-nav {{ Request::routeIs('donator.list') ? 'pill-nav-active' : 'pill-nav-inactive' }}">Donation History</a>
-                <a href="{{ route('meal.index') }}" class="pill-nav {{ Request::routeIs('meal.index') ? 'pill-nav-active' : 'pill-nav-inactive' }}">Meal Inventory</a>
-                <a href="#" class="pill-nav pill-nav-inactive">Operations</a>
+                @php
+                    $navLinks = [
+                        ['route' => 'admin.index', 'label' => 'Users', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z'],
+                        ['route' => 'admin.partners.index', 'label' => 'Partners', 'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'],
+                        ['route' => 'donator.list', 'label' => 'Donations', 'icon' => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+                        ['route' => 'admin.orders.index', 'label' => 'Orders', 'icon' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z'],
+                        ['route' => 'meal.index', 'label' => 'Inventory', 'icon' => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'],
+                        ['route' => 'admin.reports.index', 'label' => 'Reports', 'icon' => 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'],
+                    ];
+                @endphp
+
+                @foreach($navLinks as $index => $link)
+                    <a href="{{ route($link['route']) }}" 
+                       x-ref="navItem{{ $index }}"
+                       class="flex items-center space-x-2 px-6 py-2 rounded-full font-black text-[11px] uppercase tracking-wider transition-all duration-500 whitespace-nowrap relative z-10 
+                       {{ Request::routeIs($link['route']) ? 'text-white' : 'text-dark/40 hover:text-dark' }}">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="{{ $link['icon'] }}" /></svg>
+                        <span>{{ $link['label'] }}</span>
+                    </a>
+                @endforeach
             </div>
         </nav>
 
