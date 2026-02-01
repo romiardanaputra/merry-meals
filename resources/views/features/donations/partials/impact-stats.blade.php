@@ -3,10 +3,10 @@
     <div class="space-y-4">
         <div class="flex justify-between items-end">
             <div class="space-y-1">
-                <p class="text-xs font-black uppercase tracking-widest text-primary">Monthly Goal</p>
-                <h4 class="text-h4 text-dark tracking-tighter">73% <span class="text-lg text-foreground/40 font-medium">Pledged</span></h4>
+                <p class="text-xs font-white uppercase tracking-widest text-primary">Monthly Goal</p>
+                <h4 class="text-h4 text-primary tracking-tighter">73% <span class="text-lg text-secondary font-medium">Pledged</span></h4>
             </div>
-            <p class="text-sm font-bold text-foreground/60">$3,650 / $5,000</p>
+            <p class="text-sm font-bold text-secondary">$3,650 / $5,000</p>
         </div>
         <div class="w-full h-4 bg-dark/5 rounded-full overflow-hidden">
             <div class="h-full bg-primary rounded-full shadow-[0_0_20px_rgba(255,206,1,0.2)]" style="width: 73%"></div>
