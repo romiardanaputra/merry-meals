@@ -37,13 +37,50 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return redirect(RouteServiceProvider::MEMBER_DASHBOARD);
     })->name('dashboard');
 
-    // Superadmin Routes
-    Route::middleware('roles:superadmin')->prefix('superadmin')->group(function () {
-        Route::get('/dashboard', function () { return view('features.superadmin.dashboard'); })->name('superadmin.dashboard');
+    // Superadmin Routes - Complete namespace isolation
+    Route::middleware('roles:superadmin')->prefix('superadmin')->name('superadmin.')->group(function () {
+        // Dashboard
+        Route::get('/dashboard', [\App\Http\Controllers\Superadmin\SuperadminController::class, 'index'])->name('dashboard');
+        
+        // User Management
+        Route::resource('users', \App\Http\Controllers\Superadmin\UserController::class);
+        
+        // Partner Management
+        Route::get('/partners', [\App\Http\Controllers\Superadmin\PartnerController::class, 'index'])->name('partners.index');
+        Route::get('/partners/{partner}', [\App\Http\Controllers\Superadmin\PartnerController::class, 'show'])->name('partners.show');
+        Route::post('/partners/{partner}/approve', [\App\Http\Controllers\Superadmin\PartnerController::class, 'approve'])->name('partners.approve');
+        Route::post('/partners/{partner}/reject', [\App\Http\Controllers\Superadmin\PartnerController::class, 'reject'])->name('partners.reject');
+        Route::post('/partners/{partner}/suspend', [\App\Http\Controllers\Superadmin\PartnerController::class, 'suspend'])->name('partners.suspend');
+        Route::delete('/partners/{partner}', [\App\Http\Controllers\Superadmin\PartnerController::class, 'destroy'])->name('partners.destroy');
+        
+        // Order Management
+        Route::get('/orders', [\App\Http\Controllers\Superadmin\OrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}', [\App\Http\Controllers\Superadmin\OrderController::class, 'show'])->name('orders.show');
+        Route::post('/orders/{order}/assign', [\App\Http\Controllers\Superadmin\OrderController::class, 'assignDriver'])->name('orders.assign');
+        Route::patch('/orders/{order}/status', [\App\Http\Controllers\Superadmin\OrderController::class, 'updateStatus'])->name('orders.status');
+        Route::post('/orders/{order}/cancel', [\App\Http\Controllers\Superadmin\OrderController::class, 'cancel'])->name('orders.cancel');
+        
+        // Donation Management
+        Route::get('/donations', [\App\Http\Controllers\Superadmin\DonationController::class, 'index'])->name('donations.index');
+        Route::get('/donations/export', [\App\Http\Controllers\Superadmin\DonationController::class, 'export'])->name('donations.export');
+        Route::get('/donations/{donation}', [\App\Http\Controllers\Superadmin\DonationController::class, 'show'])->name('donations.show');
+        
+        // Reports & Analytics
+        Route::get('/reports', [\App\Http\Controllers\Superadmin\ReportController::class, 'index'])->name('reports.index');
+        
+        // Profile Management
+        Route::get('/profile', [\App\Http\Controllers\Superadmin\ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [\App\Http\Controllers\Superadmin\ProfileController::class, 'update'])->name('profile.update');
+        Route::patch('/profile/password', [\App\Http\Controllers\Superadmin\ProfileController::class, 'updatePassword'])->name('profile.password');
+        
+        // Settings
+        Route::get('/settings', [\App\Http\Controllers\Superadmin\SuperadminController::class, 'settings'])->name('settings');
+        Route::put('/settings', [\App\Http\Controllers\Superadmin\SuperadminController::class, 'updateSettings'])->name('settings.update');
     });
 
-    // Admin Routes
-    Route::middleware('roles:admin')->prefix('admin')->group(function () {
+
+    // Admin Routes (accessible by superadmin and admin)
+    Route::middleware('roles:superadmin,admin')->prefix('admin')->group(function () {
         Route::get('/', [UserManagementController::class, 'index'])->name('admin.index');
         Route::get('/create', [UserManagementController::class, 'create'])->name('admin.create');
         Route::post('/store', [UserManagementController::class, 'store'])->name('admin.store');
@@ -89,7 +126,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Driver Routes
     Route::middleware('roles:driver')->prefix('driver')->group(function () {
-        Route::get('/dashboard', function () { return view('features.rider.dashboard'); })->name('driver.dashboard');
+        Route::get('/dashboard', [\App\Http\Controllers\Rider\RiderController::class, 'index'])->name('driver.dashboard');
+        Route::post('/availability', [\App\Http\Controllers\Rider\RiderController::class, 'toggleAvailability'])->name('driver.availability.toggle');
+        Route::patch('/delivery/{id}/status', [\App\Http\Controllers\Rider\RiderController::class, 'updateDeliveryStatus'])->name('driver.delivery.status');
     });
 
     // Profile Routes

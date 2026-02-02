@@ -5,14 +5,96 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Enhanced Role-Based Access Control Middleware
+ * Based on ACCESS_CONTROL.md specifications
+ */
 class Roles
 {
-  public function handle(Request $request, Closure $next, ...$roles)
-  {
-    if (!Auth::check()) {
-      abort(403);
+    /**
+     * Role hierarchy: higher roles can access lower role routes
+     * Superadmin inherits access to all other roles
+     */
+    protected array $roleHierarchy = [
+        'superadmin' => ['admin', 'member', 'partner', 'driver'],
+        'admin' => [],
+        'member' => [],
+        'partner' => [],
+        'driver' => [],
+    ];
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  mixed  ...$roles
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function handle(Request $request, Closure $next, ...$roles): Response
+    {
+        // Check authentication
+        if (!Auth::check()) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'error' => 'Unauthenticated',
+                    'message' => 'You must be logged in to access this resource.'
+                ], 401);
+            }
+            return redirect()->route('login')
+                ->with('error', 'Please log in to continue.');
+        }
+
+        $user = auth()->user();
+
+        // Check if user has access via direct role or hierarchy
+        if ($this->hasAccess($user->role, $roles)) {
+            return $next($request);
+        }
+
+        // Handle unauthorized access
+        if ($request->expectsJson()) {
+            return response()->json([
+                'error' => 'Unauthorized',
+                'message' => 'You do not have permission to access this resource.'
+            ], 403);
+        }
+
+        // Flash error message and abort
+        abort(403, 'You do not have permission to access this resource.');
     }
-    return collect($roles)->contains(auth()->user()->role) ? $next($request) : back();
-  }
+
+    /**
+     * Check if user role has access to any of the allowed roles
+     *
+     * @param  string  $userRole
+     * @param  array  $allowedRoles
+     * @return bool
+     */
+    protected function hasAccess(string $userRole, array $allowedRoles): bool
+    {
+        // Direct role match
+        if (in_array($userRole, $allowedRoles)) {
+            return true;
+        }
+
+        // Check role hierarchy (superadmin can access all)
+        if (isset($this->roleHierarchy[$userRole])) {
+            // If user is superadmin, they can access ANY role's routes
+            if ($userRole === 'superadmin') {
+                return true;
+            }
+
+            // Check if allowed role is in inherited roles
+            foreach ($allowedRoles as $role) {
+                if (in_array($role, $this->roleHierarchy[$userRole])) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

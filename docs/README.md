@@ -15,20 +15,39 @@ Platform pengiriman makanan berbasis Laravel untuk program Meals on Wheels yang 
 
 ## Quick Links
 
+### Core Documentation
+
 - [Installation Guide](INSTALLATION.md)
 - [Architecture Overview](ARCHITECTURE.md)
 - [Database Schema](DATABASE.md)
 - [API Documentation](API.md)
 - [Features](FEATURES.md)
 
+### Business Documentation
+
+- [Business Flow](BUSINESS_FLOW.md) - Complete platform flow diagrams
+- [Delivery Flow](DELIVERY_FLOW.md) - Partner-Driver coordination
+- [Risk Mitigation](RISK_MITIGATION.md) - Platform risks & solutions
+- [Dashboard Architecture](DASHBOARD_ARCHITECTURE.md) - Reusable layout guide
+- [Access Control](ACCESS_CONTROL.md) - RBAC implementation guide
+
+### Role Documentation
+
+- [Super Admin](ROLE_SUPERADMIN.md) - Full platform management
+- [Admin](ROLE_ADMIN.md) - Operations management
+- [Member](ROLE_MEMBER.md) - Meal recipients
+- [Driver](ROLE_DRIVER.md) - Volunteer delivery
+- [Partner](ROLE_PARTNER.md) - Restaurant management
+
 ## User Roles
 
-| Role        | Description                               |
-| ----------- | ----------------------------------------- |
-| **Admin**   | System administration                     |
-| **Member**  | Penerima makanan (lansia/disabilitas)     |
-| **Partner** | Pemilik restoran yang menyediakan makanan |
-| **Rider**   | Volunteer yang mengantarkan makanan       |
+| Role            | Description                               |
+| --------------- | ----------------------------------------- |
+| **Super Admin** | Platform owner, full system access        |
+| **Admin**       | Operations, user & donation management    |
+| **Member**      | Penerima makanan (lansia/disabilitas)     |
+| **Partner**     | Pemilik restoran yang menyediakan makanan |
+| **Driver**      | Volunteer yang mengantarkan makanan       |
 
 ## Key Features
 

@@ -9,12 +9,26 @@ class Partner extends Model
 {
     use HasFactory;
 
-    public function user(){
-        return $this->hasOne(User::class, 'userID', 'id');
+    /**
+     * Get the user that owns this partner profile
+     * Partner.userID -> User.id
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userID', 'id');
     }
 
     public function geolocation(){
         return $this->hasOne(Geolocation::class, 'partnerID', 'id');
+    }
+
+    /**
+     * Get all orders for this partner
+     * Order.partnerID -> Partner.id
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'partnerID', 'id');
     }
 
     protected $fillable = [
