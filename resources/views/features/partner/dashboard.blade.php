@@ -84,7 +84,7 @@
             <!-- Stats Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                 <!-- Total Orders -->
-                <div class="bg-white rounded-[2rem] p-8 border border-black/5 shadow-sm hover:shadow-xl transition-all duration-500 group">
+                <div class="bg-white rounded-xl p-8 border border-black/5 shadow-sm hover:shadow-xl transition-all duration-500 group">
                     <div class="flex justify-between items-start mb-6">
                         <div class="space-y-1">
                             <span class="text-[10px] font-black uppercase tracking-wider text-dark/30">Total Orders</span>
@@ -97,7 +97,7 @@
                 </div>
 
                 <!-- Preparing -->
-                <div class="bg-primary text-dark rounded-[2rem] p-8 border border-black/5 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all duration-500 relative overflow-hidden group">
+                <div class="bg-primary text-dark rounded-xl p-8 border border-black/5 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all duration-500 relative overflow-hidden group">
                     <div class="flex justify-between items-start mb-6 relative z-10">
                         <div class="space-y-1">
                             <span class="text-[10px] font-black uppercase tracking-wider opacity-60">Preparing Now</span>
@@ -111,7 +111,7 @@
                 </div>
 
                 <!-- Completed -->
-                 <div class="bg-white rounded-[2rem] p-8 border border-black/5 shadow-sm hover:shadow-xl transition-all duration-500 group">
+                 <div class="bg-white rounded-xl p-8 border border-black/5 shadow-sm hover:shadow-xl transition-all duration-500 group">
                     <div class="flex justify-between items-start mb-6">
                         <div class="space-y-1">
                             <span class="text-[10px] font-black uppercase tracking-wider text-dark/30">Completed</span>
@@ -125,7 +125,7 @@
             </div>
 
             <!-- Recent Orders Table -->
-            <div class="bg-white rounded-[2.5rem] p-8 md:p-10 border border-black/5 shadow-sm">
+            <div class="bg-white rounded-xl p-8 md:p-10 border border-black/5 shadow-sm">
                 <div class="flex justify-between items-center mb-8">
                     <div>
                         <h4 class="text-2xl font-black text-dark tracking-tighter">Incoming Orders</h4>

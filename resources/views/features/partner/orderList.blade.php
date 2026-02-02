@@ -73,7 +73,7 @@
             @endif
 
             <!-- Orders Table -->
-            <div class="bg-white rounded-[2.5rem] p-8 md:p-10 border border-black/5 shadow-sm">
+            <div class="bg-white rounded-xl p-8 md:p-10 border border-black/5 shadow-sm">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>

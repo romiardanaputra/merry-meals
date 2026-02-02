@@ -1,5 +1,3 @@
-@props(['label', 'value', 'percentage', 'color' => 'primary', 'trend' => 'up'])
-
 @php
     $colorClass = match($color) {
         'primary' => 'text-[#FF7B54]',
@@ -8,12 +6,11 @@
         default => 'text-[#FF7B54]'
     };
     
-    $bgGauge = match($color) {
-        'primary' => 'bg-[#FF7B54]/10',
-        'black' => 'bg-[#222222]/10',
-        'green' => 'bg-[#4CAF3C]/10',
-        default => 'bg-[#FF7B54]/10'
-    };
+    // Pre-calculate style string to avoid Blade/Linter parsing issues with inline style braces
+    $clipPathStyle = "clip-path: inset(0 " . (100 - $percentage) . "% 0 0); transform-origin: bottom center;";
+    $borderColorClass = str_replace('text-', 'border-', $colorClass);
+    // Create the full style attribute to prevent "at-rule or selector expected" IDE errors
+    $styleAttribute = 'style="' . $clipPathStyle . '"';
 @endphp
 
 <div class="bg-white rounded-xl p-10 shadow-sm border border-black/5 hover:shadow-xl transition-all duration-500 group animate-on-scroll">
@@ -29,8 +26,8 @@
         <!-- Gauge Visual -->
         <div class="relative w-24 h-12 overflow-hidden">
             <div class="absolute inset-0 border-[8px] border-dark/5 rounded-t-full"></div>
-            <div class="absolute inset-0 border-[8px] {{ str_replace('text-', 'border-', $colorClass) }} rounded-t-full transition-all duration-1000" 
-                 style="clip-path: inset(0 {{ 100 - $percentage }}% 0 0); transform-origin: bottom center;"></div>
+            <div class="absolute inset-0 border-[8px] {{ $borderColorClass }} rounded-t-full transition-all duration-1000" 
+                 {!! $styleAttribute !!}></div>
             <div class="absolute bottom-0 w-full text-center">
                 <span class="{{ $colorClass }} text-[12px] font-black italic">+{{ $percentage }}% ↑</span>
             </div>

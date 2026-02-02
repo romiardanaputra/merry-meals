@@ -60,7 +60,7 @@
             </div>
 
             <!-- Meals Table -->
-            <div class="bg-white rounded-[2.5rem] p-8 md:p-10 border border-black/5 shadow-sm">
+            <div class="bg-white rounded-xl p-8 md:p-10 border border-black/5 shadow-sm">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>
@@ -76,7 +76,7 @@
                             <tr class="group hover:bg-dark/5 transition-all">
                                 <td class="py-8 pl-2">
                                     <div class="flex items-center space-x-4">
-                                        <div class="w-16 h-16 rounded-2xl bg-dark/5 flex items-center justify-center overflow-hidden border border-black/5">
+                                        <div class="w-16 h-16 rounded-xl bg-dark/5 flex items-center justify-center overflow-hidden border border-black/5">
                                             @if($meal->mealImage)
                                                 <img src="{{ asset('storage/'.$meal->mealImage) }}" class="w-full h-full object-cover">
                                             @else

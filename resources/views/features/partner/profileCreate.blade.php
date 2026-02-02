@@ -38,7 +38,7 @@
         </div>
 
         <!-- Form Card -->
-        <div class="bg-white rounded-[2.5rem] p-8 md:p-12 border border-black/5 shadow-xl shadow-dark/5">
+        <div class="bg-white rounded-xl p-8 md:p-12 border border-black/5 shadow-xl shadow-dark/5">
             <form action="{{ route('partner.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
                 @csrf
                 
