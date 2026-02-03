@@ -119,7 +119,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/', [MemberManagementController::class, 'menuMealShow'])->name('menu');
             Route::get('/{id}', [MemberManagementController::class, 'menuDetailShow'])->name('detail');
             Route::get('/{id}/package', [MemberManagementController::class, 'packageFood'])->name('package');
-            Route::post('/order', [MemberManagementController::class, 'store'])->name('order');
+            Route::post('/order', [MemberManagementController::class, 'store'])->middleware('throttle:orders')->name('order');
             Route::get('/order/success', function () { return view('features.member.meals.success'); })->name('order.success');
         });
     });

@@ -3,37 +3,34 @@
 namespace App\Http\Controllers\Rider;
 
 use App\Models\Order;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Rider\UpdateDeliveryStatusRequest;
+use App\Services\DashboardCacheService;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Rider (Driver) Controller
+ * Handles driver dashboard, deliveries, and status updates
+ */
 class RiderController extends Controller
 {
+    public function __construct(
+        protected DashboardCacheService $cacheService
+    ) {}
+
     /**
-     * Display the driver dashboard with statistics and active deliveries.
+     * Display the driver dashboard with optimized statistics
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $driver = Auth::user();
         $driverId = $driver->id;
         
-        // Get statistics for the driver
-        $stats = [
-            'assigned_today' => Order::where('volunteerID', $driverId)
-                ->whereDate('created_at', today())
-                ->count(),
-            'in_transit' => Order::where('volunteerID', $driverId)
-                ->whereIn('status', ['assigned', 'picked_up', 'in_transit'])
-                ->count(),
-            'completed_today' => Order::where('volunteerID', $driverId)
-                ->where('status', 'delivered')
-                ->whereDate('updated_at', today())
-                ->count(),
-            'total_deliveries' => Order::where('volunteerID', $driverId)
-                ->where('status', 'delivered')
-                ->count(),
-        ];
+        // Get cached stats (single optimized query instead of 4 separate queries)
+        $stats = $this->cacheService->getDriverStats($driverId);
         
         // Build active deliveries query with filters
         $query = Order::with(['meal', 'partner', 'user'])
@@ -61,7 +58,7 @@ class RiderController extends Controller
             ->paginate(6)
             ->withQueryString();
         
-        // Get recent completed deliveries
+        // Get recent completed deliveries with eager loading
         $recentDeliveries = Order::with(['meal', 'partner', 'user'])
             ->where('volunteerID', $driverId)
             ->where('status', 'delivered')
@@ -69,7 +66,7 @@ class RiderController extends Controller
             ->limit(5)
             ->get();
         
-        // Check if driver is available (you can store this in user table or session)
+        // Check if driver is available
         $isAvailable = session('driver_available', true);
         
         return view('features.rider.dashboard', [
@@ -85,30 +82,34 @@ class RiderController extends Controller
     }
 
     /**
-     * Toggle driver availability status.
+     * Toggle driver availability status
      */
-    public function toggleAvailability(Request $request)
+    public function toggleAvailability(Request $request): RedirectResponse
     {
         $currentStatus = session('driver_available', true);
         session(['driver_available' => !$currentStatus]);
         
-        return back()->with('success', !$currentStatus ? 'You are now available for deliveries.' : 'You are now offline.');
+        return back()->with(
+            'success', 
+            !$currentStatus ? 'You are now available for deliveries.' : 'You are now offline.'
+        );
     }
 
     /**
-     * Update delivery status (picked_up, in_transit, delivered).
+     * Update delivery status with validated request
      */
-    public function updateDeliveryStatus(Request $request, $id)
+    public function updateDeliveryStatus(UpdateDeliveryStatusRequest $request, int $id): RedirectResponse
     {
-        $request->validate([
-            'status' => 'required|in:picked_up,in_transit,delivered'
-        ]);
+        $validated = $request->validated();
         
         $order = Order::where('id', $id)
             ->where('volunteerID', Auth::id())
             ->firstOrFail();
         
-        $order->update(['status' => $request->status]);
+        $order->update(['status' => $validated['status']]);
+        
+        // Clear cache after status update
+        $this->cacheService->clearOrderRelatedCaches($order);
         
         $messages = [
             'picked_up' => 'Order picked up! Head to the delivery location.',
@@ -116,26 +117,33 @@ class RiderController extends Controller
             'delivered' => 'Delivery completed! Great job!',
         ];
         
-        return back()->with('success', $messages[$request->status] ?? 'Status updated.');
+        return back()->with('success', $messages[$validated['status']] ?? 'Status updated.');
     }
 
     /**
-     * Update order (legacy method - kept for backward compatibility).
+     * Update order (legacy method - kept for backward compatibility)
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
-        $order['volunteerID'] = $request->volunteerID;
-        $order['status'] = $request->orderStatus;
-        Order::where('id', $id)->update($order);
-        return back();
+        $request->validate([
+            'volunteerID' => ['nullable', 'integer', 'exists:users,id'],
+            'orderStatus' => ['required', 'string'],
+        ]);
+        
+        Order::where('id', $id)->update([
+            'volunteerID' => $request->volunteerID,
+            'status' => $request->orderStatus,
+        ]);
+        
+        return back()->with('success', 'Order updated.');
     }
 
     /**
-     * Delete an order.
+     * Delete an order
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         Order::where('id', $id)->delete();
-        return back();
+        return back()->with('success', 'Order deleted.');
     }
 }

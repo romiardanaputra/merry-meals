@@ -2,9 +2,15 @@
 
 namespace App\Models;
 
+use App\Services\DashboardCacheService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Order Model
+ * Represents meal delivery orders with state machine transitions
+ */
 class Order extends Model
 {
     use HasFactory;
@@ -25,7 +31,7 @@ class Order extends Model
     /**
      * Valid status transitions map
      */
-    protected static $validTransitions = [
+    protected static array $validTransitions = [
         self::STATUS_PENDING => [self::STATUS_PREPARATION, self::STATUS_CANCELLED],
         self::STATUS_PREPARATION => [self::STATUS_READY, self::STATUS_CANCELLED],
         self::STATUS_READY => [self::STATUS_ASSIGNED],
@@ -35,6 +41,156 @@ class Order extends Model
         self::STATUS_DELIVERED => [], // final state
         self::STATUS_CANCELLED => [], // final state
     ];
+
+    /**
+     * The attributes that are mass assignable.
+     */
+    protected $fillable = [
+        'userID',
+        'partnerID',
+        'mealID',
+        'volunteerID',
+        'mealPackage',
+        'range',
+        'foodTemperature',
+        'status',
+        'deliveryNotes',
+        'pickupTime',
+        'deliveryTime',
+        'pickupTemperature',
+        'deliveryTemperature',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'pickupTime' => 'datetime',
+        'deliveryTime' => 'datetime',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     */
+    protected $appends = [
+        'statusLabel',
+        'statusColor',
+    ];
+
+    /**
+     * Boot the model and register event listeners
+     */
+    protected static function booted(): void
+    {
+        // Clear related caches when order is created/updated/deleted
+        static::saved(function (Order $order) {
+            app(DashboardCacheService::class)->clearOrderRelatedCaches($order);
+        });
+
+        static::deleted(function (Order $order) {
+            app(DashboardCacheService::class)->clearOrderRelatedCaches($order);
+        });
+    }
+
+    // ==========================================
+    // RELATIONSHIPS
+    // ==========================================
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userID', 'id');
+    }
+
+    public function meal()
+    {
+        return $this->belongsTo(Meal::class, 'mealID', 'id');
+    }
+
+    public function partner()
+    {
+        return $this->belongsTo(Partner::class, 'partnerID', 'id');
+    }
+
+    public function volunteer()
+    {
+        return $this->belongsTo(User::class, 'volunteerID', 'id');
+    }
+
+    // ==========================================
+    // LOCAL SCOPES
+    // ==========================================
+
+    /**
+     * Scope: Active orders (assigned, picked_up, in_transit)
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->whereIn('status', [
+            self::STATUS_ASSIGNED,
+            self::STATUS_PICKED_UP,
+            self::STATUS_IN_TRANSIT
+        ]);
+    }
+
+    /**
+     * Scope: Orders for a specific driver
+     */
+    public function scopeForDriver(Builder $query, int $driverId): Builder
+    {
+        return $query->where('volunteerID', $driverId);
+    }
+
+    /**
+     * Scope: Orders for a specific partner
+     */
+    public function scopeForPartner(Builder $query, int $partnerId): Builder
+    {
+        return $query->where('partnerID', $partnerId);
+    }
+
+    /**
+     * Scope: Orders for a specific user
+     */
+    public function scopeForUser(Builder $query, int $userId): Builder
+    {
+        return $query->where('userID', $userId);
+    }
+
+    /**
+     * Scope: Orders created today
+     */
+    public function scopeToday(Builder $query): Builder
+    {
+        return $query->whereDate('created_at', today());
+    }
+
+    /**
+     * Scope: Orders with specific status
+     */
+    public function scopeWithStatus(Builder $query, string $status): Builder
+    {
+        return $query->where('status', $status);
+    }
+
+    /**
+     * Scope: Delivered orders
+     */
+    public function scopeDelivered(Builder $query): Builder
+    {
+        return $query->where('status', self::STATUS_DELIVERED);
+    }
+
+    /**
+     * Scope: Pending orders
+     */
+    public function scopePending(Builder $query): Builder
+    {
+        return $query->where('status', self::STATUS_PENDING);
+    }
+
+    // ==========================================
+    // STATE MACHINE METHODS
+    // ==========================================
 
     /**
      * Get all available statuses
@@ -93,6 +249,10 @@ class Order extends Model
         return in_array($this->status, [self::STATUS_DELIVERED, self::STATUS_CANCELLED]);
     }
 
+    // ==========================================
+    // ACCESSORS
+    // ==========================================
+
     /**
      * Get status label for display
      */
@@ -128,56 +288,4 @@ class Order extends Model
             default => 'gray'
         };
     }
-
-    // Relationships
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'userID', 'id');
-    }
-
-    public function meal()
-    {
-        return $this->belongsTo(Meal::class, 'mealID', 'id');
-    }
-
-    public function partner()
-    {
-        return $this->belongsTo(Partner::class, 'partnerID', 'id');
-    }
-
-    public function volunteer()
-    {
-        return $this->belongsTo(User::class, 'volunteerID', 'id');
-    }
-
-    protected $fillable = [
-        'userID',
-        'partnerID',
-        'mealID',
-        'volunteerID',
-        'mealPackage',
-        'range',
-        'foodTemperature',
-        'status',
-        'deliveryNotes',
-        // Delivery tracking fields
-        'pickupTime',
-        'deliveryTime',
-        'pickupTemperature',
-        'deliveryTemperature',
-    ];
-
-    protected $casts = [
-        'pickupTime' => 'datetime',
-        'deliveryTime' => 'datetime',
-    ];
-
-    protected $guarded = [
-        'id',
-    ];
-
-    protected $appends = [
-        'statusLabel',
-        'statusColor',
-    ];
 }

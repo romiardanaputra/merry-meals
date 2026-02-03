@@ -6,8 +6,11 @@
 @extends('layouts.main')
 
 @php
+    use App\Helpers\RoleNavigation;
+    
     $role = auth()->user()->role ?? 'member';
-    $navItems = config("dashboard.navigation.{$role}", []);
+    // Use RoleNavigation helper to filter items based on accessibility
+    $navItems = RoleNavigation::getNavigation($role);
     $features = config("dashboard.features.{$role}", []);
 @endphp
 
@@ -58,6 +61,17 @@
             @if(session('error'))
                 <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-6 py-4 rounded-xl text-sm font-medium">
                     {{ session('error') }}
+                </div>
+            @endif
+
+            {{-- Validation Errors --}}
+            @if($errors->any())
+                <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-6 py-4 rounded-xl text-sm">
+                    <ul class="list-disc list-inside space-y-1">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
 

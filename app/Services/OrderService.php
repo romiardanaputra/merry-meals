@@ -5,61 +5,93 @@ namespace App\Services;
 use App\Interfaces\OrderRepositoryInterface;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
+/**
+ * Order Service
+ * Handles business logic for order operations with transaction management
+ */
 class OrderService
 {
     public function __construct(
-        protected OrderRepositoryInterface $orderRepository
-    ) {
-    }
+        protected OrderRepositoryInterface $orderRepository,
+        protected DashboardCacheService $cacheService
+    ) {}
 
     /**
-     * Get all orders
+     * Get all orders with optional relationships
      */
-    public function getAllOrders(): Collection
+    public function getAllOrders(array $relations = []): Collection
     {
-        return $this->orderRepository->all();
+        return $this->orderRepository->all($relations);
     }
 
     /**
-     * Get order by ID
+     * Get order by ID with optional relationships
      */
-    public function getOrderById(int $id): ?Order
+    public function getOrderById(int $id, array $relations = []): ?Order
     {
-        return $this->orderRepository->find($id);
+        $order = $this->orderRepository->find($id);
+        
+        if ($order && !empty($relations)) {
+            $order->load($relations);
+        }
+        
+        return $order;
     }
 
     /**
-     * Place new order
+     * Place new order with transaction management
      */
     public function placeOrder(array $data): Order
     {
-        $data['status'] = 'pending';
-        return $this->orderRepository->create($data);
+        return DB::transaction(function () use ($data) {
+            $data['status'] = Order::STATUS_PENDING;
+            $order = $this->orderRepository->create($data);
+            
+            // Log order creation
+            Log::info('Order placed', [
+                'order_id' => $order->id,
+                'user_id' => $data['userID'] ?? null,
+                'meal_id' => $data['mealID'] ?? null,
+            ]);
+            
+            return $order;
+        });
     }
 
     /**
-     * Get orders for a user (member)
+     * Get orders for a user (member) with relationships
      */
-    public function getOrdersByUser(int $userId): Collection
+    public function getOrdersByUser(int $userId, array $relations = ['meal', 'partner']): Collection
     {
-        return $this->orderRepository->getByUser($userId);
+        return Order::with($relations)
+            ->forUser($userId)
+            ->latest()
+            ->get();
     }
 
     /**
      * Get orders for a partner (restaurant)
      */
-    public function getOrdersByPartner(int $partnerId): Collection
+    public function getOrdersByPartner(int $partnerId, array $relations = ['user', 'meal']): Collection
     {
-        return $this->orderRepository->getByPartner($partnerId);
+        return Order::with($relations)
+            ->forPartner($partnerId)
+            ->latest()
+            ->get();
     }
 
     /**
-     * Get orders for a volunteer (rider)
+     * Get orders for a volunteer (driver)
      */
-    public function getOrdersByVolunteer(int $volunteerId): Collection
+    public function getOrdersByVolunteer(int $volunteerId, array $relations = ['user', 'meal', 'partner']): Collection
     {
-        return $this->orderRepository->getByVolunteer($volunteerId);
+        return Order::with($relations)
+            ->forDriver($volunteerId)
+            ->latest()
+            ->get();
     }
 
     /**
@@ -67,18 +99,40 @@ class OrderService
      */
     public function assignVolunteer(int $orderId, int $volunteerId): bool
     {
-        return $this->orderRepository->update($orderId, [
+        $order = Order::findOrFail($orderId);
+        
+        if (!$order->canTransitionTo(Order::STATUS_ASSIGNED)) {
+            return false;
+        }
+        
+        $result = $order->update([
             'volunteerID' => $volunteerId,
-            'status' => 'assigned'
+            'status' => Order::STATUS_ASSIGNED
         ]);
+        
+        // Clear affected caches
+        $this->cacheService->clearOrderRelatedCaches($order);
+        
+        return $result;
     }
 
     /**
-     * Update order status
+     * Update order status with state machine validation
      */
     public function updateStatus(int $orderId, string $status): bool
     {
-        return $this->orderRepository->updateStatus($orderId, $status);
+        $order = Order::findOrFail($orderId);
+        
+        if (!$order->transitionTo($status)) {
+            Log::warning('Invalid order status transition', [
+                'order_id' => $orderId,
+                'from' => $order->status,
+                'to' => $status,
+            ]);
+            return false;
+        }
+        
+        return true;
     }
 
     /**
@@ -86,22 +140,44 @@ class OrderService
      */
     public function markAsDelivered(int $orderId): bool
     {
-        return $this->updateStatus($orderId, 'delivered');
+        return $this->updateStatus($orderId, Order::STATUS_DELIVERED);
     }
 
     /**
      * Get pending orders
      */
-    public function getPendingOrders(): Collection
+    public function getPendingOrders(array $relations = ['user', 'partner', 'meal']): Collection
     {
-        return $this->orderRepository->getByStatus('pending');
+        return Order::with($relations)
+            ->pending()
+            ->latest()
+            ->get();
     }
 
     /**
-     * Get in-progress orders
+     * Get in-progress/active orders
      */
-    public function getInProgressOrders(): Collection
+    public function getActiveOrders(array $relations = ['user', 'partner', 'meal', 'volunteer']): Collection
     {
-        return $this->orderRepository->getByStatus('assigned');
+        return Order::with($relations)
+            ->active()
+            ->latest()
+            ->get();
+    }
+
+    /**
+     * Cancel an order
+     */
+    public function cancelOrder(int $orderId): bool
+    {
+        $order = Order::findOrFail($orderId);
+        
+        if ($order->isFinalState()) {
+            return false;
+        }
+        
+        $order->update(['status' => Order::STATUS_CANCELLED]);
+        
+        return true;
     }
 }

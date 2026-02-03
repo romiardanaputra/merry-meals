@@ -1,9 +1,10 @@
 {{--
     Mobile Drawer Component
-    Slide-in mobile navigation
+    Slide-in mobile navigation with role-aware filtering
     Based on DASHBOARD_ARCHITECTURE.md specifications
 --}}
 @php
+    use App\Helpers\RoleNavigation;
     $icons = config('dashboard.icons', []);
 @endphp
 
@@ -54,23 +55,29 @@
     <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
         @foreach($navItems as $item)
             @php
-                $isActive = request()->routeIs($item['route']);
+                $routeName = $item['route'] ?? '';
+                // Check route accessibility
+                $isAccessible = Route::has($routeName) && RoleNavigation::isRouteAccessible($routeName);
+                $isActive = request()->routeIs($routeName . '*');
                 $iconPath = $icons[$item['icon']] ?? '';
             @endphp
-            <a 
-                href="{{ route($item['route']) }}" 
-                @click="mobileMenuOpen = false"
-                class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300
-                    {{ $isActive 
-                        ? 'bg-[#FF7B54] text-[#222222]' 
-                        : 'text-white/60 hover:bg-white/5 hover:text-white' }}"
-            >
-                <svg class="w-5 h-5 {{ $isActive ? 'text-[#222222]' : 'text-white/40' }}" 
-                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {!! $iconPath !!}
-                </svg>
-                <span class="text-[10px] font-black uppercase tracking-widest">{{ $item['label'] }}</span>
-            </a>
+            
+            @if($isAccessible)
+                <a 
+                    href="{{ route($routeName) }}" 
+                    @click="mobileMenuOpen = false"
+                    class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300
+                        {{ $isActive 
+                            ? 'bg-[#FF7B54] text-[#222222]' 
+                            : 'text-white/60 hover:bg-white/5 hover:text-white' }}"
+                >
+                    <svg class="w-5 h-5 {{ $isActive ? 'text-[#222222]' : 'text-white/40' }}" 
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {!! $iconPath !!}
+                    </svg>
+                    <span class="text-[10px] font-black uppercase tracking-widest">{{ $item['label'] }}</span>
+                </a>
+            @endif
         @endforeach
     </nav>
 

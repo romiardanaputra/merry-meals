@@ -4,11 +4,24 @@ namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use Illuminate\Http\Request;
+use App\Services\DashboardCacheService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
+/**
+ * Partner Dashboard Controller
+ * Provides optimized dashboard with cached stats
+ */
 class PartnerDashboardController extends Controller
 {
-    public function index()
+    public function __construct(
+        protected DashboardCacheService $cacheService
+    ) {}
+
+    /**
+     * Display partner dashboard with optimized queries
+     */
+    public function index(): View|RedirectResponse
     {
         $user = auth()->user();
         $partner = $user->partner;
@@ -18,27 +31,13 @@ class PartnerDashboardController extends Controller
             return redirect()->route('partner.create');
         }
 
-        // Stats
-        $stats = [
-            'total_orders' => Order::where('partnerID', $partner->id)->count(),
-            'preparing' => Order::where('partnerID', $partner->id)->where('status', 'preparation')->count(),
-            'completed' => Order::where('partnerID', $partner->id)->where('status', 'delivered')->count(),
-            // Revenue calc could be added here later if price exists
-        ];
+        // Get cached stats (single optimized query instead of 3 separate queries)
+        $stats = $this->cacheService->getPartnerStats($partner->id);
 
-        // Trend Data (Last 7 Days)
-        $trends = [];
-        for ($i = 6; $i >= 0; $i--) {
-            $date = now()->subDays($i);
-            $trends[] = [
-                'day' => $date->format('D'),
-                'count' => Order::where('partnerID', $partner->id)
-                    ->whereDate('created_at', $date->toDateString())
-                    ->count()
-            ];
-        }
+        // Get cached trends (single optimized query instead of 7 separate queries)
+        $trends = $this->cacheService->getPartnerTrends($partner->id);
 
-        // Recent Orders
+        // Recent Orders with eager loading
         $orders = Order::with(['user', 'meal'])
             ->where('partnerID', $partner->id)
             ->latest()

@@ -4,6 +4,7 @@
     Based on DASHBOARD_ARCHITECTURE.md specifications
 --}}
 @php
+    use App\Helpers\RoleNavigation;
     $icons = config('dashboard.icons', []);
 @endphp
 
@@ -38,27 +39,33 @@
     <nav class="flex-1 p-6 space-y-2 overflow-y-auto">
         @foreach($navItems as $item)
             @php
-                $isActive = request()->routeIs($item['route'] . '*');
+                $routeName = $item['route'] ?? '';
+                // Double-check route accessibility (items should already be filtered but this is a safety check)
+                $isAccessible = Route::has($routeName) && RoleNavigation::isRouteAccessible($routeName);
+                $isActive = request()->routeIs($routeName . '*');
                 $iconPath = $icons[$item['icon']] ?? '';
             @endphp
-            <a 
-                href="{{ route($item['route']) }}" 
-                class="flex items-center space-x-4 px-5 py-4 rounded-xl transition-all duration-300 group
-                    {{ $isActive 
-                        ? 'bg-[#FF7B54] text-[#222222] shadow-lg shadow-[#FF7B54]/20' 
-                        : 'text-white/60 hover:bg-white/5 hover:text-white' }}"
-            >
-                <svg class="w-5 h-5 {{ $isActive ? 'text-[#222222]' : 'text-white/40 group-hover:text-white' }}" 
-                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {!! $iconPath !!}
-                </svg>
-                <span class="text-[11px] font-black uppercase tracking-widest">{{ $item['label'] }}</span>
-                @if(isset($item['badge']))
-                    <span class="ml-auto bg-red-500 text-white text-[9px] font-bold px-2 py-1 rounded-full">
-                        {{ $item['badge'] }}
-                    </span>
-                @endif
-            </a>
+            
+            @if($isAccessible)
+                <a 
+                    href="{{ route($routeName) }}" 
+                    class="flex items-center space-x-4 px-5 py-4 rounded-xl transition-all duration-300 group
+                        {{ $isActive 
+                            ? 'bg-[#FF7B54] text-[#222222] shadow-lg shadow-[#FF7B54]/20' 
+                            : 'text-white/60 hover:bg-white/5 hover:text-white' }}"
+                >
+                    <svg class="w-5 h-5 {{ $isActive ? 'text-[#222222]' : 'text-white/40 group-hover:text-white' }}" 
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {!! $iconPath !!}
+                    </svg>
+                    <span class="text-[11px] font-black uppercase tracking-widest">{{ $item['label'] }}</span>
+                    @if(isset($item['badge']))
+                        <span class="ml-auto bg-red-500 text-white text-[9px] font-bold px-2 py-1 rounded-full">
+                            {{ $item['badge'] }}
+                        </span>
+                    @endif
+                </a>
+            @endif
         @endforeach
     </nav>
 

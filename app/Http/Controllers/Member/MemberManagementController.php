@@ -4,120 +4,157 @@ namespace App\Http\Controllers\Member;
 
 use App\Models\Meal;
 use App\Models\Order;
-use App\Models\Geolocation;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Member\StoreOrderRequest;
+use App\Http\Requests\Member\StoreSurveyRequest;
+use App\Services\DashboardCacheService;
+use App\Services\OrderService;
 
+/**
+ * Member Management Controller
+ * Handles member dashboard, meals browsing, orders, and surveys
+ */
 class MemberManagementController extends Controller
 {
-    // display member dashboard
-    public function index()
+    public function __construct(
+        protected DashboardCacheService $cacheService,
+        protected OrderService $orderService
+    ) {}
+
+    /**
+     * Display member dashboard with optimized queries
+     */
+    public function index(): View
     {
         $user = auth()->user();
-        $orders = Order::where('userID', $user->id)->latest()->get();
         
-        $stats = [
-            'total_orders' => $orders->count(),
-            'active_deliveries' => $orders->whereIn('status', ['assigned', 'picked_up'])->count(),
-            'delivered_orders' => $orders->where('status', 'delivered')->count(),
-            'pending_surveys' => $orders->where('status', 'delivered')->count() - \App\Models\Survey::where('userID', $user->id)->count(),
-        ];
+        // Get cached stats (single optimized query)
+        $stats = $this->cacheService->getMemberStats($user->id);
+        
+        // Eager load relationships to prevent N+1
+        $orders = Order::with(['meal', 'partner'])
+            ->where('userID', $user->id)
+            ->latest()
+            ->take(5)
+            ->get();
 
         return view('features.member.dashboard', [
             'title_page' => 'Member Dashboard',
             'dashboard_info' => 'Your Activity Overview',
-            'orders' => $orders->take(5),
+            'orders' => $orders,
             'stats' => $stats,
         ]);
     }
 
-    // store order
-    public function store(Request $request)
+    /**
+     * Store new order with validated request
+     */
+    public function store(StoreOrderRequest $request): RedirectResponse
     {
-        $order['userID'] = auth()->user()->id;
-        $order['mealID'] = $request->mealID;
-        $order['partnerID'] = $request->partnerID;
-        $order['mealPackage'] = $request->package;
+        $validated = $request->validated();
         
-        // Calculate range and temperature using Member\OrderController
-        $order['range'] = \App\Http\Controllers\Member\OrderController::range($request->partnerID);
-        $order['foodTemperature'] = \App\Http\Controllers\Member\OrderController::foodTemperature($order['range']);
+        $this->orderService->placeOrder([
+            'userID' => auth()->id(),
+            'mealID' => $validated['mealID'],
+            'partnerID' => $validated['partnerID'],
+            'mealPackage' => $validated['package'],
+            'range' => OrderController::range($validated['partnerID']),
+            'foodTemperature' => OrderController::foodTemperature(
+                OrderController::range($validated['partnerID'])
+            ),
+        ]);
         
-        Order::create($order);
         return to_route('member.meals.order.success');
     }
 
-    // update order when cancelled
-    public function update(Request $request, $id)
+    /**
+     * Update order status
+     */
+    public function update(Request $request, int $id): RedirectResponse
     {
-        $order['status'] = $request->orderStatus;
-        Order::where('id', $id)->update($order);
-        return back();
+        $request->validate([
+            'orderStatus' => ['required', 'string'],
+        ]);
+        
+        Order::where('id', $id)
+            ->where('userID', auth()->id())
+            ->update(['status' => $request->orderStatus]);
+            
+        return back()->with('success', 'Order status updated.');
     }
 
-    // detail meal
-    public function menuDetailShow($id)
+    /**
+     * Display meal detail
+     */
+    public function menuDetailShow(int $id): View
     {
         return view('features.member.meals.detail', [
             'title_page' => 'Meal Detail',
-            'meal' => Meal::findOrFail($id),
+            'meal' => Meal::with('partner')->findOrFail($id),
         ]);
     }
 
-    // packaging meal
-    public function packageFood($id)
+    /**
+     * Display package selection
+     */
+    public function packageFood(int $id): View
     {
         return view('features.member.meals.package', [
             'title_page' => 'Select Package',
-            'meal' => Meal::findOrFail($id),
+            'meal' => Meal::with('partner')->findOrFail($id),
         ]);
     }
-    // display menu member
-    public function menuMealShow()
+
+    /**
+     * Display meals menu with eager loaded partner
+     */
+    public function menuMealShow(): View
     {
         return view('features.member.meals.menu', [
             'title_page' => 'Browse Meals',
             'dashboard_info' => 'Explore Nutritious Meals',
-            'meals' => Meal::where('mealAvailability', 'available')->latest()->paginate(9),
+            'meals' => Meal::with('partner')
+                ->where('mealAvailability', 'available')
+                ->latest()
+                ->paginate(9),
         ]);
     }
 
-    // display survey form
-    public function surveyShow()
+    /**
+     * Display survey form
+     */
+    public function surveyShow(): View
     {
         return view('features.member.survey', [
             'title_page' => 'Service Feedback',
         ]);
     }
 
-    // store survey
-    public function surveyStore(Request $request)
+    /**
+     * Store survey with validated request
+     */
+    public function surveyStore(StoreSurveyRequest $request): RedirectResponse
     {
-        $request->validate([
-            'q1' => 'required|string',
-            'q2' => 'required|string',
-            'q3' => 'required|string',
-            'q4' => 'required|string',
-            'q5' => 'required|string',
-            'q6' => 'required|string',
-            'q7' => 'required|string',
-            'q8' => 'required|string',
-            'overall' => 'required|integer|min:1|max:5',
-        ]);
-
+        $validated = $request->validated();
+        
         \App\Models\Survey::create([
             'userID' => auth()->id(),
-            'questionOne' => $request->q1,
-            'questionTwo' => $request->q2,
-            'questionThree' => $request->q3,
-            'questionFour' => $request->q4,
-            'questionFive' => $request->q5,
-            'questionSix' => $request->q6,
-            'questionSeven' => $request->q7,
-            'questionEight' => $request->q8,
-            'overall' => $request->overall,
+            'questionOne' => $validated['q1'],
+            'questionTwo' => $validated['q2'],
+            'questionThree' => $validated['q3'],
+            'questionFour' => $validated['q4'],
+            'questionFive' => $validated['q5'],
+            'questionSix' => $validated['q6'],
+            'questionSeven' => $validated['q7'],
+            'questionEight' => $validated['q8'],
+            'overall' => $validated['overall'],
         ]);
 
-        return redirect()->route('member.dashboard')->with('success', 'Thank you for your feedback! It helps us improve Merry Meals.');
+        return redirect()
+            ->route('member.dashboard')
+            ->with('success', 'Thank you for your feedback! It helps us improve Merry Meals.');
     }
 }
