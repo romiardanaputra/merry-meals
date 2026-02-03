@@ -64,5 +64,9 @@
         </div>
         @endforelse
     </div>
+
+    <div class="mt-8 px-4">
+        {{ $donators->links('partials.custom-pagination') }}
+    </div>
 </div>
 

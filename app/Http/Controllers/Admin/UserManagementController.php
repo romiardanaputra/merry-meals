@@ -66,7 +66,7 @@ class UserManagementController extends Controller
         return view('features.admin.donationList', [
             'title_page' => 'donator list',
             'dashboard_info' => 'all list donator',
-            'donators' => Donation::all(),
+            'donators' => Donation::paginate(10),
         ]);
     }
 }
