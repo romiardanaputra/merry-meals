@@ -75,7 +75,65 @@ class Order extends Model
     protected $appends = [
         'statusLabel',
         'statusColor',
+        'statusMeta',
     ];
+
+    /**
+     * Get comprehensive status metadata for UI
+     */
+    public function getStatusMetaAttribute(): array
+    {
+        return match($this->status) {
+            self::STATUS_PENDING => [
+                'bg' => 'bg-yellow-500/10', 
+                'text' => 'text-yellow-600', 
+                'label' => 'Processing',
+                'description' => 'Awaiting kitchen preparation'
+            ],
+            self::STATUS_PREPARATION => [
+                'bg' => 'bg-blue-500/10', 
+                'text' => 'text-blue-600', 
+                'label' => 'Preparing',
+                'description' => 'Chefs are crafting your meal'
+            ],
+            self::STATUS_READY => [
+                'bg' => 'bg-indigo-500/10', 
+                'text' => 'text-indigo-600', 
+                'label' => 'Ready',
+                'description' => 'Waiting for driver pickup'
+            ],
+            self::STATUS_ASSIGNED => [
+                'bg' => 'bg-primary/10', 
+                'text' => 'text-primary', 
+                'label' => 'Out for Delivery',
+                'description' => 'Driver has been assigned'
+            ],
+            self::STATUS_PICKED_UP, self::STATUS_IN_TRANSIT => [
+                'bg' => 'bg-purple-500/10', 
+                'text' => 'text-purple-600', 
+                'label' => 'In Transit',
+                'description' => 'Meal is on the way'
+            ],
+            self::STATUS_DELIVERED => [
+                'bg' => 'bg-green-500/10', 
+                'text' => 'text-green-600', 
+                'label' => 'Success',
+                'description' => 'Meal safely delivered'
+            ],
+            self::STATUS_CANCELLED => [
+                'bg' => 'bg-red-500/10', 
+                'text' => 'text-red-600', 
+                'label' => 'Cancelled',
+                'description' => 'Order could not be fulfilled'
+            ],
+            default => [
+                'bg' => 'bg-dark/5', 
+                'text' => 'text-dark/40', 
+                'label' => str_replace('_', ' ', $this->status),
+                'description' => 'Status unknown'
+            ],
+        };
+    }
 
     /**
      * Boot the model and register event listeners

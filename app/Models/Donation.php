@@ -17,5 +17,19 @@ class Donation extends Model
         'donatorPhone',
         'description'
     ];
+
+    /**
+     * Boot the model and register event listeners
+     */
+    protected static function booted(): void
+    {
+        static::saved(function () {
+            app(\App\Services\DashboardCacheService::class)->clearAdminCache();
+        });
+
+        static::deleted(function () {
+            app(\App\Services\DashboardCacheService::class)->clearAdminCache();
+        });
+    }
     protected $guarded = ['donationID'];
 }

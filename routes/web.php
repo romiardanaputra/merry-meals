@@ -161,21 +161,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::group(['middleware' => 'web'], function () {
-  Route::get('/', [IndexController::class, 'index'])->name('index');
-  Route::get('/about', [AboutController::class, 'index'])->name('about');
-  Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-  Route::get('/docs', [DocsController::class, 'index'])->name('docs');
+    Route::get('/', [IndexController::class, 'index'])->name('index');
+    Route::get('/about', [AboutController::class, 'index'])->name('about');
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+    Route::get('/docs', [DocsController::class, 'index'])->name('docs');
+    Route::get('/term', function() { return view('term'); })->name('term');
 
-  Route::group(['prefix' => 'donation'], function () {
-    Route::get('/', [DonationController::class, 'index'])->name('donation');
-    Route::get('/create', [DonationController::class, 'create'])->name('donation.create');
-  });
+    // SEO
+    Route::get('/sitemap.xml', [\App\Http\Controllers\SeoController::class, 'sitemap'])->name('sitemap');
 
-  Route::group(['prefix' => 'blog'], function(){
-    Route::get('/', [BlogController::class, 'index'])->name('blog');
-  });
+    Route::group(['prefix' => 'donation'], function () {
+        Route::get('/', [DonationController::class, 'index'])->name('donation');
+        Route::get('/create', [DonationController::class, 'create'])->name('donation.create');
+    });
+
+    Route::group(['prefix' => 'blog'], function () {
+        Route::get('/', [BlogController::class, 'index'])->name('blog');
+    });
 });
-
 
 require __DIR__ . '/auth.php';

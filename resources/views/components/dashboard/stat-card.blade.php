@@ -1,14 +1,6 @@
 {{--
     Stat Card Component
-    Reusable statistics card with color variants
-    Based on DASHBOARD_ARCHITECTURE.md specifications
-
-    Props:
-    - $label: Card label text
-    - $value: Main value to display
-    - $icon: SVG icon slot or path
-    - $color: Color variant (primary, success, warning, dark, default)
-    - $subtitle: Optional subtitle text
+    Unified statistics card with color variants, icon support, or gauge visual
 --}}
 @props([
     'label',
@@ -16,6 +8,7 @@
     'icon' => null,
     'color' => 'default',
     'subtitle' => null,
+    'percentage' => null, // If set, displays the Gauge visual instead of icon
 ])
 
 @php
@@ -35,36 +28,60 @@
         default => 'bg-[#FF7B54]/10',
     };
 
-    // Handle icon - could be a slot (ComponentSlot), a config key, or direct SVG content
+    $gaugeColorClass = match($color) {
+        'primary' => 'border-[#222222]',
+        'success' => 'border-white',
+        'warning' => 'border-[#222222]',
+        'dark' => 'border-[#FF7B54]',
+        default => 'border-[#FF7B54]'
+    };
+
+    // Handle icon
     $icons = config('dashboard.icons', []);
     
-    // If $icon is a ComponentSlot (passed via x-slot:icon), use it directly
     if ($icon instanceof \Illuminate\View\ComponentSlot) {
         $iconContent = $icon;
     } elseif (is_string($icon)) {
-        // Lookup icon from config if it's a known key
         $iconContent = $icons[$icon] ?? $icon;
     } else {
         $iconContent = null;
     }
+
+    $clipPathStyle = $percentage !== null ? "clip-path: inset(0 " . (100 - (min(100, max(0, $percentage)))) . "% 0 0); transform-origin: bottom center;" : "";
 @endphp
 
-<div {{ $attributes->merge(['class' => "rounded-xl p-6 md:p-8 shadow-lg transition-all duration-500 hover:scale-[1.02] hover:shadow-xl {$colorClasses}"]) }}>
-    <div class="flex items-start justify-between">
-        <div class="space-y-1 flex-1">
-            <span class="text-[10px] font-black uppercase tracking-wider opacity-60">{{ $label }}</span>
-            <h2 class="text-3xl md:text-4xl font-black tracking-tighter">{{ $value }}</h2>
-            @if($subtitle)
-                <p class="text-[11px] font-bold opacity-60">{{ $subtitle }}</p>
-            @endif
+<div {{ $attributes->merge(['class' => "rounded-2xl p-8 shadow-lg transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl {$colorClasses} animate-on-scroll"]) }}>
+    <div class="flex items-start justify-between min-h-[90px]">
+        <div class="space-y-4 flex-1">
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] opacity-50">{{ $label }}</span>
+            <div class="space-y-1">
+                <h2 class="text-4xl font-black tracking-tighter">{{ $value }}</h2>
+                @if($subtitle)
+                    <p class="text-[11px] font-bold opacity-60 italic">{{ $subtitle }}</p>
+                @endif
+            </div>
         </div>
-        @if($iconContent)
-            <div class="w-12 h-12 {{ $iconBg }} rounded-2xl flex items-center justify-center flex-shrink-0">
+
+        @if($percentage !== null)
+            {{-- Gauge Visual --}}
+            <div class="relative w-24 h-12 overflow-hidden flex-shrink-0 mt-2">
+                <div class="absolute inset-0 border-[8px] opacity-10 border-current rounded-t-full"></div>
+                @php
+                    $gaugeStyle = 'style="' . $clipPathStyle . '"';
+                @endphp
+                <div class="absolute inset-0 border-[8px] {{ $gaugeColorClass }} rounded-t-full transition-all duration-1000" 
+                     {!! $gaugeStyle !!}></div>
+                <div class="absolute bottom-0 w-full text-center">
+                    <span class="text-[11px] font-black italic">+{{ $percentage }}% ↑</span>
+                </div>
+            </div>
+        @elseif($iconContent)
+            {{-- Icon Visual --}}
+            <div class="w-14 h-14 {{ $iconBg }} rounded-2xl flex items-center justify-center flex-shrink-0">
                 @if($iconContent instanceof \Illuminate\View\ComponentSlot)
-                    {{-- Render slot content directly --}}
                     {{ $iconContent }}
                 @elseif(is_string($iconContent) && str_contains($iconContent, '<'))
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         {!! $iconContent !!}
                     </svg>
                 @else
@@ -72,5 +89,10 @@
                 @endif
             </div>
         @endif
+    </div>
+    
+    <div class="mt-8 flex items-center space-x-2 opacity-30">
+        <div class="w-2 h-2 rounded-full bg-current animate-pulse"></div>
+        <span class="text-[9px] font-black uppercase tracking-widest">Live Updates Active</span>
     </div>
 </div>

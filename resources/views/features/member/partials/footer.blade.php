@@ -1,49 +1,54 @@
-<footer class="font-poppins bg-footer h-[754px] bg-[#282222] flex flex-col w-full">
+{{--
+    Merry Meals Footer Component
+    Refactored for responsiveness and performance
+--}}
+<footer class="bg-dark text-white pt-20 pb-10 mt-auto border-t border-white/5 font-poppins">
+    <div class="container mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mb-16 items-start">
+            
+            {{-- Branding Section --}}
+            <div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-8">
+                <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl p-6 flex-shrink-0">
+                    <img src="{{ asset('/images/MerryMealLogo-02.png') }}" alt="Merry Meals Logo" class="w-full h-auto object-contain">
+                </div>
+                <div class="space-y-4">
+                    <h1 class="text-3xl md:text-4xl font-black tracking-[0.2em] leading-tight">MERRY MEAL</h1>
+                    <h2 class="text-xl md:text-2xl font-bold tracking-[0.1em] text-white/60">MEALS ON WHEELS</h2>
+                    <p class="text-sm text-white/40 max-w-md leading-relaxed">Providing nutritious meals and compassionate care to those who need it most. Together, we can make a difference in our community.</p>
+                </div>
+            </div>
 
-    <div class="footer px-[90px] py-[334px] bg-[#282222]">
-       <div class="footer-content flex flex-row h-[245px] w-full justify-between items-center">
- 
-          <div class="footer-content-logo flex flex-row space-x-[20px] items-center p-[57px]">
-             <div class="f-c-logo-image h-[125px] w-[125px] bg-[#FFFDF6] flex items-center justify-center rounded-[50%]">
-                <img src="{{ asset('/images/MerryMealLogo-02.png')}}" alt="logo_image" class="h-[64px] w-[64px]">
-             </div> <!-- f-c-logo-image -->
- 
-             <div
-                class="f-c-logo-name flex flex-col text-[#FFFDF6] font-semibold h-[73px] w-[500px] space-y-[10px] py-[15px]">
-                <h1 class="text-[36px] tracking-[10px] w-full">MERRY MEAL</h1>
-                <h2 class="text-[24px] tracking-[7px] w-full">MEALS ON WHEELS</h2>
-             </div> <!-- f-c-logo-name -->
-          </div> <!-- footer-content-logo -->
- 
-          <div class="footer-content-navigation flex flex-row p-[57px] space-x-[57px] items-center">
-             <div class="footer-content-company flex flex-col text-[#FFFDF6] text-[16px] space-y-[17px]">
-                <h1 class="font-bold">Company</h1>
-                <a href="{{ route('about') }}" class="hover:scale-105 duration-500">About Us</a>
-                <a href="{{ route('contact') }}" class="hover:scale-105 duration-500">Contact Us</a>
-                <a href="{{ route('term') }}" class="hover:scale-105 duration-500">Terms & Conditions</a>
-             </div> <!-- footer-content-company -->
- 
-             <div class="vertical-line border-[1px] h-[245px] border-[#FFFDF6]"></div>
- 
-             @guest
-             <div class="footer-content-register flex flex-col space-y-[26px]">
-                <div class="footer-content-register-heading">
-                   <h1 class="font-bold">Sign up to be a member <br /> or a volunteer</h1>
-                </div> <!-- footer-content-register-heading -->
- 
-                <div class="footer-content-register-button">
-                   <a href="{{ route('register.index') }}"><button
-                         class="h-[44px] w-[195px] bg-[#282222] text-[#FFFDF6] text-[16px] hover:scale-105 duration-500">Register</button></a>
-                </div> <!-- footer-content-register-button -->
-             </div> <!-- footer-content-register -->
-             @endguest
-          </div> <!-- footer-content-navigation -->
- 
-       </div> <!-- footer-content -->
-    </div> <!-- footer -->
- 
-    <div class="footer-copyright w-full px-[290px] mt-[-70px] text-[#FFFDF6] border-t-2 border-[#FFFDF6]">
-       <h1 class="mt-[15px]">&copy; 2022 All Rights Reserved | Merry Meal</h1>
-    </div> <!-- footer-copyright -->
- 
- </footer>
+            {{-- Navigation & Registration --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 items-start">
+                {{-- Quick Links --}}
+                <div class="flex flex-col space-y-4 text-center sm:text-left">
+                    <h3 class="text-lg font-bold text-primary border-b border-primary/20 pb-2 mb-2 inline-block sm:table">Company</h3>
+                    <a href="{{ route('about') }}" class="text-white/60 hover:text-primary transition-colors duration-300">About Us</a>
+                    <a href="{{ route('contact') }}" class="text-white/60 hover:text-primary transition-colors duration-300">Contact Us</a>
+                    <a href="{{ route('term') }}" class="text-white/60 hover:text-primary transition-colors duration-300">Terms & Conditions</a>
+                </div>
+
+                {{-- Action Section --}}
+                @guest
+                <div class="flex flex-col space-y-6 text-center sm:text-left">
+                    <h3 class="text-lg font-bold">Join Our Mission</h3>
+                    <p class="text-sm text-white/60">Sign up today to be a member <br class="hidden lg:block" /> or join our volunteer team.</p>
+                    <a href="{{ route('register.index') }}" 
+                       class="px-8 py-4 bg-primary text-dark font-black rounded-2xl hover:scale-105 active:scale-95 transition-all text-center uppercase tracking-widest text-xs shadow-lg shadow-primary/20">
+                        Register Now
+                    </a>
+                </div>
+                @endguest
+            </div>
+        </div>
+
+        {{-- Bottom Footer --}}
+        <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-xs text-white/30 font-bold uppercase tracking-widest">&copy; {{ date('Y') }} Merry Meals Project. All Rights Reserved.</p>
+            <div class="flex items-center space-x-6">
+                {{-- Social Icons could go here --}}
+                <span class="text-[10px] text-white/20 font-black uppercase tracking-widest">Designed for Community Impact</span>
+            </div>
+        </div>
+    </div>
+</footer>

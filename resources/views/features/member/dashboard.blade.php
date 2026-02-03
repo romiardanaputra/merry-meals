@@ -92,17 +92,8 @@
                                 <span class="text-xs font-bold text-dark/60">{{ $order->partner->restaurantName }}</span>
                             </td>
                             <td class="py-8">
-                                @php
-                                    $statusConfig = [
-                                        'pending' => ['bg' => 'bg-yellow-500/10', 'text' => 'text-yellow-600', 'label' => 'Processing'],
-                                        'assigned' => ['bg' => 'bg-primary/10', 'text' => 'text-primary', 'label' => 'Out for Delivery'],
-                                        'picked_up' => ['bg' => 'bg-purple-500/10', 'text' => 'text-purple-600', 'label' => 'Picked Up'],
-                                        'delivered' => ['bg' => 'bg-green-500/10', 'text' => 'text-green-600', 'label' => 'Received'],
-                                        'completed' => ['bg' => 'bg-green-500/10', 'text' => 'text-green-600', 'label' => 'Completed'],
-                                    ][$order->status] ?? ['bg' => 'bg-dark/5', 'text' => 'text-dark/40', 'label' => str_replace('_', ' ', $order->status)];
-                                @endphp
-                                <span class="px-4 py-2 {{ $statusConfig['bg'] }} {{ $statusConfig['text'] }} rounded-full text-[9px] font-black uppercase tracking-widest">
-                                    {{ $statusConfig['label'] }}
+                                <span class="px-4 py-2 {{ $order->status_meta['bg'] }} {{ $order->status_meta['text'] }} rounded-full text-[9px] font-black uppercase tracking-widest">
+                                    {{ $order->status_meta['label'] }}
                                 </span>
                             </td>
                             <td class="py-8 pr-2 text-right">

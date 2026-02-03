@@ -1,14 +1,15 @@
-<div class="bg-white rounded-xl p-12 shadow-sm border border-black/5 animate-on-scroll">
-    <div class="flex justify-between items-center mb-12">
-        <div>
-            <h6 class="text-h6 text-dark tracking-tight">Active Analytics</h6>
-            <p class="text-[12px] font-bold text-dark/30 italic">Real-time donation flow</p>
-        </div>
-        <select class="px-4 py-2 bg-dark/5 border-none rounded-xl text-xs font-black uppercase tracking-widest text-dark focus:ring-primary">
-            <option>Monthly</option>
-            <option>Weekly</option>
+<div class="flex justify-between items-center mb-8">
+    <div>
+        <h6 class="text-xl font-black text-dark tracking-tight">Financial Trends</h6>
+        <p class="text-[10px] font-bold text-dark/30 uppercase tracking-widest mt-1">Donation volume over time</p>
+    </div>
+    <div class="hidden md:block">
+        <select class="px-5 py-2.5 bg-dark/5 border-none rounded-2xl text-[10px] font-black uppercase tracking-widest text-dark focus:ring-primary">
+            <option>Last 7 Days</option>
+            <option>This Month</option>
         </select>
     </div>
+</div>
 
     <!-- Real Bar Chart -->
     <div class="h-64 relative">

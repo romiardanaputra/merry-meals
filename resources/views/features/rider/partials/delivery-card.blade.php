@@ -1,21 +1,11 @@
 @props(['order'])
 
-@php
-    $statusColors = [
-        'assigned' => ['bg' => 'bg-blue-500/10', 'text' => 'text-blue-600', 'label' => 'Assigned'],
-        'picked_up' => ['bg' => 'bg-amber-500/10', 'text' => 'text-amber-600', 'label' => 'Picked Up'],
-        'in_transit' => ['bg' => 'bg-purple-500/10', 'text' => 'text-purple-600', 'label' => 'In Transit'],
-        'delivered' => ['bg' => 'bg-green-500/10', 'text' => 'text-green-600', 'label' => 'Delivered'],
-    ];
-    $status = $statusColors[$order->status] ?? $statusColors['assigned'];
-@endphp
-
 <div class="bg-white rounded-[2.5rem] p-10 border border-black/5 shadow-sm hover:shadow-2xl transition-all duration-700 group flex flex-col h-full">
     {{-- Header --}}
     <div class="flex items-center justify-between mb-8">
         <span class="text-[10px] font-black text-dark/20 uppercase tracking-wider">#{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}</span>
-        <span class="px-5 py-2.5 rounded-2xl text-[9px] font-black uppercase tracking-widest {{ $status['bg'] }} {{ $status['text'] }} shadow-sm">
-            {{ $status['label'] }}
+        <span class="px-5 py-2.5 rounded-2xl text-[9px] font-black uppercase tracking-widest {{ $order->status_meta['bg'] }} {{ $order->status_meta['text'] }} shadow-sm">
+            {{ $order->status_meta['label'] }}
         </span>
     </div>
     
@@ -24,7 +14,7 @@
         <div class="w-16 h-16 bg-dark/5 rounded-[1.2rem] overflow-hidden flex-shrink-0 shadow-inner group-hover:scale-110 transition-transform duration-700">
             @if($order->meal && $order->meal->mealImage)
                 <img src="{{ Str::startsWith($order->meal->mealImage, 'http') ? $order->meal->mealImage : asset('storage/' . $order->meal->mealImage) }}" 
-                     class="w-full h-full object-cover">
+                     class="w-full h-full object-cover" loading="lazy">
             @else
                 <div class="w-full h-full flex items-center justify-center text-dark/10">
                     <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>

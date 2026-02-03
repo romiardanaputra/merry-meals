@@ -131,13 +131,8 @@
                             <span class="text-xs font-bold text-dark/60">{{ $order->user->name }}</span>
                         </td>
                         <td class="py-6">
-                            <span class="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest 
-                                {{ $order->status === 'preparation' ? 'bg-yellow-500/10 text-yellow-600' : '' }}
-                                {{ $order->status === 'cooking' ? 'bg-orange-500/10 text-orange-600' : '' }}
-                                {{ $order->status === 'ready' ? 'bg-blue-500/10 text-blue-600' : '' }}
-                                {{ $order->status === 'picked_up' ? 'bg-purple-500/10 text-purple-600' : '' }}
-                                {{ $order->status === 'delivered' || $order->status === 'completed' ? 'bg-green-500/10 text-green-600' : '' }}">
-                                {{ str_replace('_', ' ', $order->status) }}
+                            <span class="px-4 py-2 {{ $order->status_meta['bg'] }} {{ $order->status_meta['text'] }} rounded-full text-[9px] font-black uppercase tracking-widest">
+                                {{ $order->status_meta['label'] }}
                             </span>
                         </td>
                         <td class="py-6 pr-2 text-right">

@@ -1,10 +1,14 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import throttle from 'lodash/throttle';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/**
+ * Performance-optimized animations for Merry Meals
+ */
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Hero Animation
+  // 1. Hero Animation (runs once)
   const heroTl = gsap.timeline();
   heroTl
     .from('.hero-title', {
@@ -34,28 +38,25 @@ document.addEventListener('DOMContentLoaded', () => {
       '-=0.4',
     );
 
-  // 2. Section Staggered Animations
+  // 2. Section Staggered Animations with ScrollTrigger (efficient by default)
   gsap.utils.toArray('.doc-section').forEach((section) => {
-    // Skip scroll animations for specifically marked sections
     if (section.classList.contains('no-animate')) return;
 
-    // Find elements to animate within the section
     const title = section.querySelector('h2');
-    // Select .animate-on-scroll elements that are NOT the already selected title
     const content = Array.from(section.querySelectorAll('.animate-on-scroll')).filter((el) => el !== title);
     const cards = section.querySelectorAll('.doc-card');
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: 'top 85%', // Trigger slightly earlier
+        start: 'top 85%',
         toggleActions: 'play none none reverse',
       },
     });
 
     if (title) {
       tl.from(title, {
-        autoAlpha: 0, // Using autoAlpha for visibility + opacity
+        autoAlpha: 0,
         x: -30,
         duration: 0.8,
         ease: 'power2.out',
@@ -92,25 +93,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 3. Sidebar active states on scroll
+  // 3. Optimized Sidebar active states on scroll
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.sidebar-link');
 
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if (pageYOffset >= sectionTop - 100) {
-        current = section.getAttribute('id');
-      }
-    });
+  if (sections.length > 0 && navLinks.length > 0) {
+    const updateActiveState = () => {
+      let current = '';
+      const offset = 120; // Improved offset calculation
 
-    navLinks.forEach((link) => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
-    });
-  });
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (window.pageYOffset >= sectionTop - offset) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    };
+
+    // Use lodash throttle to prevent layout thrashing (100ms interval)
+    window.addEventListener('scroll', throttle(updateActiveState, 100));
+
+    // Initial call
+    updateActiveState();
+  }
 });

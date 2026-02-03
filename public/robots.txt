@@ -1,2 +1,10 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /partner/
+Disallow: /member/
+Disallow: /volunteer/
+Disallow: /api/
+Disallow: /draft/
+
+Sitemap: https://merry-meals.test/sitemap.xml

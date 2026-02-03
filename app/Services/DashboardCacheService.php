@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Order;
+use App\Models\User;
+use App\Models\Donation;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -16,6 +18,18 @@ class DashboardCacheService
      * Cache TTL in seconds (5 minutes)
      */
     protected const CACHE_TTL = 300;
+
+    /**
+     * Get admin dashboard stats with caching
+     */
+    public function getAdminStats(): array
+    {
+        return Cache::remember(
+            'admin.stats',
+            self::CACHE_TTL,
+            fn() => $this->calculateAdminStats()
+        );
+    }
 
     /**
      * Get partner dashboard stats with caching
@@ -51,6 +65,21 @@ class DashboardCacheService
             self::CACHE_TTL,
             fn() => $this->calculateMemberStats($userId)
         );
+    }
+
+    /**
+     * Calculate admin stats in a single optimized block
+     */
+    protected function calculateAdminStats(): array
+    {
+        return [
+            'total_users' => User::count(),
+            'total_donations' => Donation::sum('donationAmount'),
+            'total_orders' => Order::count(),
+            'delivered_orders' => Order::where('status', 'delivered')->count(),
+            'active_volunteers' => User::where('role', 'volunteer')->count(),
+            'today_orders' => Order::whereDate('created_at', today())->count(),
+        ];
     }
 
     /**
@@ -154,6 +183,14 @@ class DashboardCacheService
     }
 
     /**
+     * Clear all admin caches
+     */
+    public function clearAdminCache(): void
+    {
+        Cache::forget('admin.stats');
+    }
+
+    /**
      * Clear partner cache
      */
     public function clearPartnerCache(int $partnerId): void
@@ -183,6 +220,8 @@ class DashboardCacheService
      */
     public function clearOrderRelatedCaches(Order $order): void
     {
+        $this->clearAdminCache();
+        
         if ($order->partnerID) {
             $this->clearPartnerCache($order->partnerID);
         }
