@@ -22,6 +22,8 @@ class PartnerProfileReq extends FormRequest
             'restaurantImage' => ['required','image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
             'restaurantAddress' => ['required'],
             'restaurantContact' => ['required', 'unique:partners'],
+            'opening_time' => ['required', 'date_format:H:i'],
+            'closing_time' => ['required', 'date_format:H:i'],
         ];
     }
 }

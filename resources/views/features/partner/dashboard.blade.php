@@ -9,10 +9,17 @@
             <p class="text-dark/40 font-bold text-xs uppercase tracking-[0.3em] mt-2">Partner Dashboard • Overview</p>
         </div>
         <div class="flex items-center space-x-4">
+            @if($partner->isOpen())
             <span class="px-4 py-2 bg-green-500/10 text-green-600 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
                 <span class="block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                 Kitchen Open
             </span>
+            @else
+            <span class="px-4 py-2 bg-red-500/10 text-red-600 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
+                <span class="block w-2 h-2 rounded-full bg-red-500"></span>
+                Kitchen Closed
+            </span>
+            @endif
         </div>
     </div>
 
@@ -154,11 +161,16 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const ctx = document.getElementById('orderTrendChart').getContext('2d');
+        const chartElement = document.getElementById('orderTrendChart');
+        if (!chartElement) return;
+
+        const ctx = chartElement.getContext('2d');
         const trends = @json($trends);
         
+        // Create premium gradient
         const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, 'rgba(255, 123, 84, 0.2)');
+        gradient.addColorStop(0, 'rgba(255, 123, 84, 0.4)');
+        gradient.addColorStop(0.5, 'rgba(255, 123, 84, 0.1)');
         gradient.addColorStop(1, 'rgba(255, 123, 84, 0)');
 
         new Chart(ctx, {
@@ -172,9 +184,12 @@
                     borderWidth: 4,
                     pointBackgroundColor: '#FF7B54',
                     pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
+                    pointBorderWidth: 3,
                     pointRadius: 6,
-                    pointHoverRadius: 8,
+                    pointHoverRadius: 9,
+                    pointHoverBackgroundColor: '#222',
+                    pointHoverBorderColor: '#fff',
+                    pointHoverBorderWidth: 3,
                     tension: 0.4,
                     fill: true,
                     backgroundColor: gradient
@@ -183,26 +198,45 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
                 plugins: {
                     legend: { display: false },
                     tooltip: {
                         backgroundColor: '#222',
-                        titleFont: { family: 'Inter', weight: 'bold' },
-                        bodyFont: { family: 'Inter' },
-                        padding: 12,
-                        cornerRadius: 12,
-                        displayColors: false
+                        titleFont: { family: 'Inter', size: 12, weight: '800' },
+                        bodyFont: { family: 'Inter', size: 12, weight: '600' },
+                        padding: 16,
+                        cornerRadius: 16,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' Orders';
+                            }
+                        }
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
-                        grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false },
-                        ticks: { font: { family: 'Inter', weight: 'bold', size: 10 } }
+                        grid: { 
+                            color: 'rgba(0,0,0,0.03)', 
+                            drawBorder: false 
+                        },
+                        ticks: { 
+                            stepSize: 1,
+                            font: { family: 'Inter', weight: '700', size: 10 },
+                            color: 'rgba(0,0,0,0.3)'
+                        }
                     },
                     x: {
                         grid: { display: false },
-                        ticks: { font: { family: 'Inter', weight: 'bold', size: 10 } }
+                        ticks: { 
+                            font: { family: 'Inter', weight: '700', size: 10 },
+                            color: 'rgba(0,0,0,0.3)'
+                        }
                     }
                 }
             }

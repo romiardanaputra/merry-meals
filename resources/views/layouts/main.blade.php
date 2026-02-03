@@ -21,5 +21,6 @@
     @yield('component_content')
     
     @yield('js_custom')
+    @stack('scripts')
 </body>
 </html>

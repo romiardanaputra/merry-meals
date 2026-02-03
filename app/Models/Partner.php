@@ -31,6 +31,21 @@ class Partner extends Model
         return $this->hasMany(Order::class, 'partnerID', 'id');
     }
 
+    public function isOpen()
+    {
+        $now = now();
+        $opening = \Carbon\Carbon::createFromFormat('H:i:s', $this->opening_time);
+        $closing = \Carbon\Carbon::createFromFormat('H:i:s', $this->closing_time);
+
+        if ($opening->lessThan($closing)) {
+            // Standard case: 08:00 to 20:00
+            return $now->between($opening, $closing);
+        } else {
+            // Overnight case: 22:00 to 02:00
+            return $now->greaterThanOrEqualTo($opening) || $now->lessThanOrEqualTo($closing);
+        }
+    }
+
     protected $fillable = [
         'userID',
         'ownerName',
@@ -40,6 +55,8 @@ class Partner extends Model
         'restaurantImage',
         'foodType',
         'status',
+        'opening_time',
+        'closing_time',
     ];
 
     protected $guarded = [

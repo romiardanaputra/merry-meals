@@ -23,10 +23,19 @@
                         </span>
                     </div>
                     @if($meal->mealType)
-                    <div class="absolute bottom-6 left-6">
+                    <div class="absolute bottom-6 left-6 flex gap-2">
                          <span class="px-4 py-2 bg-primary text-dark rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg">
                             {{ $meal->mealType }}
                         </span>
+                        @if($meal->partner->isOpen())
+                            <span class="px-4 py-2 bg-green-500 text-white rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg animate-pulse">
+                                Open
+                            </span>
+                        @else
+                            <span class="px-4 py-2 bg-red-500 text-white rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg">
+                                Closed
+                            </span>
+                        @endif
                     </div>
                     @endif
                 </div>

@@ -33,6 +33,8 @@ class PartnerFactory extends Factory
             'restaurantContact' => fake()->phoneNumber(),
             'restaurantImage' => fake()->randomElement($restaurantImages),
             'foodType' => fake()->randomElement(['Healthy', 'Vegetarian', 'Non-Vegetarian', 'Diabetic-Friendly']),
+            'opening_time' => '08:00',
+            'closing_time' => '20:00',
         ];
     }
 }

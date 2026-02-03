@@ -19,7 +19,9 @@ class PartnerUpdateProfile extends FormRequest
             'foodType' => [''],
             'restaurantImage' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'file', 'max:1000'],
             'restaurantAddress' => [''],
-            'restaurantContact' => ['', 'unique:partners'],
+            'restaurantContact' => ['', 'unique:partners,restaurantContact,' . auth()->user()->partner->id],
+            'opening_time' => ['required', 'date_format:H:i'],
+            'closing_time' => ['required', 'date_format:H:i'],
         ];
     }
 }
