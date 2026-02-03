@@ -56,36 +56,114 @@
     </div>
 
     {{-- Active Deliveries Section --}}
-    <div class="space-y-8">
-        <div class="flex items-center justify-between">
+    <div class="space-y-6" x-data="{ lastRefresh: new Date(), refreshing: false }">
+        {{-- Section Header --}}
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h4 class="text-2xl font-black text-dark tracking-tighter">Active Queue</h4>
-                <p class="text-[10px] font-bold text-dark/40 uppercase tracking-widest mt-1">Real-time delivery fulfillment</p>
+                <p class="text-[10px] font-bold text-dark/40 uppercase tracking-widest mt-1">
+                    Real-time delivery fulfillment 
+                    <span class="inline-flex items-center ml-2">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="ml-1 text-green-600">Updated {{ now()->format('H:i') }}</span>
+                    </span>
+                </p>
             </div>
-            @if(isset($activeDeliveries) && count($activeDeliveries) > 0)
-                <span class="px-4 py-2 bg-primary/10 text-primary rounded-xl text-[10px] font-black uppercase tracking-widest">
-                    {{ count($activeDeliveries) }} Orders
-                </span>
-            @endif
+            <div class="flex items-center space-x-3">
+                {{-- Refresh Button --}}
+                <button @click="refreshing = true; window.location.reload()" 
+                        :class="refreshing ? 'animate-spin' : ''"
+                        class="p-2 bg-dark/5 hover:bg-dark text-dark hover:text-white rounded-xl transition-all"
+                        title="Refresh Queue">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                </button>
+                @if(isset($activeDeliveries) && $activeDeliveries->total() > 1)
+                    @php
+                        $allDeliveries = $activeDeliveries->getCollection();
+                        $addresses = $allDeliveries->map(fn($o) => $o->user->address ?? '')->filter()->values();
+                        $mapsUrl = 'https://www.google.com/maps/dir/' . $addresses->map(fn($a) => urlencode($a))->join('/');
+                    @endphp
+                    <a href="{{ $mapsUrl }}" target="_blank"
+                       class="hidden md:flex px-4 py-2 bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-blue-500/20 items-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+                        <span>Optimize</span>
+                    </a>
+                @endif
+                @if(isset($activeDeliveries))
+                    <span class="px-4 py-2 bg-primary/10 text-primary rounded-xl text-[10px] font-black uppercase tracking-widest">
+                        {{ $activeDeliveries->total() }} Total
+                    </span>
+                @endif
+            </div>
         </div>
 
+        {{-- Filter & Search Bar --}}
+        <form action="{{ route('driver.dashboard') }}" method="GET" class="bg-white rounded-2xl p-4 border border-black/5 shadow-sm">
+            <div class="flex flex-col md:flex-row gap-3">
+                {{-- Search Input --}}
+                <div class="flex-1 relative">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dark/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <input type="text" name="search" value="{{ $search ?? '' }}" 
+                           placeholder="Search member name or address..."
+                           class="w-full pl-11 pr-4 py-3 bg-dark/5 border-none rounded-xl text-sm font-medium text-dark placeholder:text-dark/30 focus:ring-2 focus:ring-primary/20">
+                </div>
+                
+                {{-- Status Filter --}}
+                <select name="status" onchange="this.form.submit()"
+                        class="px-4 py-3 bg-dark/5 border-none rounded-xl text-sm font-bold text-dark focus:ring-2 focus:ring-primary/20 min-w-[150px]">
+                    <option value="all" {{ ($statusFilter ?? 'all') === 'all' ? 'selected' : '' }}>All Status</option>
+                    <option value="assigned" {{ ($statusFilter ?? '') === 'assigned' ? 'selected' : '' }}>🔵 Assigned</option>
+                    <option value="picked_up" {{ ($statusFilter ?? '') === 'picked_up' ? 'selected' : '' }}>🟡 Picked Up</option>
+                    <option value="in_transit" {{ ($statusFilter ?? '') === 'in_transit' ? 'selected' : '' }}>🟠 In Transit</option>
+                </select>
+                
+                {{-- Search Button (Mobile) --}}
+                <button type="submit" class="md:hidden px-6 py-3 bg-dark text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all">
+                    Search
+                </button>
+                
+                {{-- Clear Filters --}}
+                @if(($search ?? null) || (($statusFilter ?? 'all') !== 'all'))
+                    <a href="{{ route('driver.dashboard') }}" class="px-4 py-3 bg-red-50 text-red-500 rounded-xl text-xs font-bold hover:bg-red-100 transition-all text-center">
+                        Clear
+                    </a>
+                @endif
+            </div>
+        </form>
+
+        {{-- Delivery Cards Grid --}}
         @if(isset($activeDeliveries) && count($activeDeliveries) > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 @foreach($activeDeliveries as $order)
                     @include('features.rider.partials.delivery-card', ['order' => $order])
                 @endforeach
             </div>
+            
+            {{-- Pagination --}}
+            <div class="mt-8">
+                {{ $activeDeliveries->links('partials.custom-pagination') }}
+            </div>
         @else
-            <div class="bg-white p-20 rounded-[3rem] border border-black/5 text-center shadow-sm">
-                <div class="w-24 h-24 bg-dark/5 rounded-full flex items-center justify-center text-dark/10 mx-auto mb-8">
-                    <svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="bg-white p-16 rounded-[2rem] border border-black/5 text-center shadow-sm">
+                <div class="w-20 h-20 bg-dark/5 rounded-full flex items-center justify-center text-dark/10 mx-auto mb-6">
+                    <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0zM13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1" />
                     </svg>
                 </div>
-                <h3 class="text-2xl font-black text-dark tracking-tight mb-3">Your Queue is Empty</h3>
-                <p class="text-dark/40 font-bold uppercase tracking-widest text-xs max-w-sm mx-auto leading-relaxed">
-                    {{ ($isAvailable ?? true) ? 'Waiting for new heritage meal assignments from partners 🍳' : 'Set your status to online to start receiving delivery requests.' }}
-                </p>
+                @if(($search ?? null) || (($statusFilter ?? 'all') !== 'all'))
+                    <h3 class="text-xl font-black text-dark tracking-tight mb-2">No Results Found</h3>
+                    <p class="text-dark/40 font-medium text-sm mb-4">Try adjusting your filters or search terms</p>
+                    <a href="{{ route('driver.dashboard') }}" class="inline-block px-6 py-3 bg-dark text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all">
+                        Clear Filters
+                    </a>
+                @else
+                    <h3 class="text-xl font-black text-dark tracking-tight mb-2">Your Queue is Empty</h3>
+                    <p class="text-dark/40 font-bold uppercase tracking-widest text-xs max-w-sm mx-auto leading-relaxed">
+                        {{ ($isAvailable ?? true) ? 'Waiting for new heritage meal assignments from partners 🍳' : 'Set your status to online to start receiving delivery requests.' }}
+                    </p>
+                @endif
             </div>
         @endif
     </div>

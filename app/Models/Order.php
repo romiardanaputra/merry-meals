@@ -159,6 +159,7 @@ class Order extends Model
         'range',
         'foodTemperature',
         'status',
+        'deliveryNotes',
         // Delivery tracking fields
         'pickupTime',
         'deliveryTime',

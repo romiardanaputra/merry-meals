@@ -35,9 +35,18 @@
         default => 'bg-[#FF7B54]/10',
     };
 
-    // Lookup icon from config if it's a known key
+    // Handle icon - could be a slot (ComponentSlot), a config key, or direct SVG content
     $icons = config('dashboard.icons', []);
-    $iconContent = $icons[$icon] ?? $icon;
+    
+    // If $icon is a ComponentSlot (passed via x-slot:icon), use it directly
+    if ($icon instanceof \Illuminate\View\ComponentSlot) {
+        $iconContent = $icon;
+    } elseif (is_string($icon)) {
+        // Lookup icon from config if it's a known key
+        $iconContent = $icons[$icon] ?? $icon;
+    } else {
+        $iconContent = null;
+    }
 @endphp
 
 <div {{ $attributes->merge(['class' => "rounded-xl p-6 md:p-8 shadow-lg transition-all duration-500 hover:scale-[1.02] hover:shadow-xl {$colorClasses}"]) }}>
@@ -51,7 +60,10 @@
         </div>
         @if($iconContent)
             <div class="w-12 h-12 {{ $iconBg }} rounded-2xl flex items-center justify-center flex-shrink-0">
-                @if(is_string($iconContent) && str_contains($iconContent, '<'))
+                @if($iconContent instanceof \Illuminate\View\ComponentSlot)
+                    {{-- Render slot content directly --}}
+                    {{ $iconContent }}
+                @elseif(is_string($iconContent) && str_contains($iconContent, '<'))
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         {!! $iconContent !!}
                     </svg>

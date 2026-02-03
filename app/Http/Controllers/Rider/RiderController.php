@@ -13,7 +13,7 @@ class RiderController extends Controller
     /**
      * Display the driver dashboard with statistics and active deliveries.
      */
-    public function index()
+    public function index(Request $request)
     {
         $driver = Auth::user();
         $driverId = $driver->id;
@@ -35,12 +35,31 @@ class RiderController extends Controller
                 ->count(),
         ];
         
-        // Get active deliveries (not yet delivered)
-        $activeDeliveries = Order::with(['meal', 'partner', 'user'])
-            ->where('volunteerID', $driverId)
-            ->whereIn('status', ['assigned', 'picked_up', 'in_transit'])
-            ->orderBy('created_at', 'desc')
-            ->get();
+        // Build active deliveries query with filters
+        $query = Order::with(['meal', 'partner', 'user'])
+            ->where('volunteerID', $driverId);
+        
+        // Status filter
+        $statusFilter = $request->get('status', 'all');
+        if ($statusFilter && $statusFilter !== 'all') {
+            $query->where('status', $statusFilter);
+        } else {
+            $query->whereIn('status', ['assigned', 'picked_up', 'in_transit']);
+        }
+        
+        // Search filter (by member name or address)
+        $search = $request->get('search');
+        if ($search) {
+            $query->whereHas('user', function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('address', 'like', "%{$search}%");
+            });
+        }
+        
+        // Paginate results (6 per page for mobile-friendly view)
+        $activeDeliveries = $query->orderBy('created_at', 'desc')
+            ->paginate(6)
+            ->withQueryString();
         
         // Get recent completed deliveries
         $recentDeliveries = Order::with(['meal', 'partner', 'user'])
@@ -60,6 +79,8 @@ class RiderController extends Controller
             'activeDeliveries' => $activeDeliveries,
             'recentDeliveries' => $recentDeliveries,
             'isAvailable' => $isAvailable,
+            'statusFilter' => $statusFilter,
+            'search' => $search,
         ]);
     }
 
