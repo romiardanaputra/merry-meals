@@ -39,10 +39,9 @@ class MemberManagementController extends Controller
         $order['partnerID'] = $request->partnerID;
         $order['mealPackage'] = $request->package;
         
-        // Ensure OrderController exists or handle logic here
-        // For now, let's assume it works or fix if it fails
-        $order['range'] = \App\Http\Controllers\OrderController::range($request->partnerID);
-        $order['foodTemperature'] = \App\Http\Controllers\OrderController::foodTemperature($order['range']);
+        // Calculate range and temperature using Member\OrderController
+        $order['range'] = \App\Http\Controllers\Member\OrderController::range($request->partnerID);
+        $order['foodTemperature'] = \App\Http\Controllers\Member\OrderController::foodTemperature($order['range']);
         
         Order::create($order);
         return to_route('member.meals.order.success');
@@ -61,7 +60,7 @@ class MemberManagementController extends Controller
     {
         return view('features.member.meals.detail', [
             'title_page' => 'Meal Detail',
-            'meal' => Meal::find($id),
+            'meal' => Meal::findOrFail($id),
         ]);
     }
 
@@ -70,7 +69,7 @@ class MemberManagementController extends Controller
     {
         return view('features.member.meals.package', [
             'title_page' => 'Select Package',
-            'meal' => Meal::find($id),
+            'meal' => Meal::findOrFail($id),
         ]);
     }
     // display menu member
