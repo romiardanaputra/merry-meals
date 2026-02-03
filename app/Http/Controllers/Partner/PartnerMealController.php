@@ -14,9 +14,9 @@ class PartnerMealController extends Controller
     {
         $user = auth()->user();
         if ($user->role === 'admin' || $user->role === 'superadmin') {
-            $meals = Meal::all();
+            $meals = Meal::paginate(10);
         } else {
-            $meals = Meal::where('partnerID', $user->partner->id)->get();
+            $meals = Meal::where('partnerID', $user->partner->id)->paginate(10);
         }
 
         return view('features.partner.meals.index', [

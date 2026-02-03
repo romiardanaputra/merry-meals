@@ -79,7 +79,7 @@ class MemberManagementController extends Controller
         return view('features.member.meals.menu', [
             'title_page' => 'Browse Meals',
             'dashboard_info' => 'Explore Nutritious Meals',
-            'meals' => Meal::where('mealAvailability', 'available')->get(),
+            'meals' => Meal::where('mealAvailability', 'available')->latest()->paginate(9),
         ]);
     }
 

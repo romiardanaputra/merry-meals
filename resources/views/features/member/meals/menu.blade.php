@@ -78,5 +78,12 @@
             </div>
         @endforelse
     </div>
+
+    {{-- Pagination --}}
+    @if(isset($meals) && method_exists($meals, 'hasPages') && $meals->hasPages())
+        <div class="mt-12">
+            {{ $meals->links('partials.custom-pagination') }}
+        </div>
+    @endif
 </div>
 @endsection
