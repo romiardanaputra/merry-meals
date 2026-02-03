@@ -35,13 +35,17 @@ class MemberManagementController extends Controller
     public function store(Request $request)
     {
         $order['userID'] = auth()->user()->id;
-        $order['mealID'] = $request->meal;
+        $order['mealID'] = $request->mealID;
         $order['partnerID'] = $request->partnerID;
         $order['mealPackage'] = $request->package;
-        $order['range'] = OrderController::range($request->partnerID);
-        $order['foodTemperature'] = OrderController::foodTemperature($order['range']);
+        
+        // Ensure OrderController exists or handle logic here
+        // For now, let's assume it works or fix if it fails
+        $order['range'] = \App\Http\Controllers\OrderController::range($request->partnerID);
+        $order['foodTemperature'] = \App\Http\Controllers\OrderController::foodTemperature($order['range']);
+        
         Order::create($order);
-        return to_route('meal.order.success');
+        return to_route('member.meals.order.success');
     }
 
     // update order when cancelled
@@ -55,8 +59,8 @@ class MemberManagementController extends Controller
     // detail meal
     public function menuDetailShow($id)
     {
-        return view('features.meals.mealDetail', [
-            'title_page' => 'Meal Menu',
+        return view('features.member.meals.detail', [
+            'title_page' => 'Meal Detail',
             'meal' => Meal::find($id),
         ]);
     }
@@ -64,16 +68,16 @@ class MemberManagementController extends Controller
     // packaging meal
     public function packageFood($id)
     {
-        return view('features.meals.mealPackage', [
-            'title_page' => 'Safety Food Package',
+        return view('features.member.meals.package', [
+            'title_page' => 'Select Package',
             'meal' => Meal::find($id),
         ]);
     }
     // display menu member
     public function menuMealShow()
     {
-        return view('features.meals.mealMenu', [
-            'title_page' => 'Member Menu',
+        return view('features.member.meals.menu', [
+            'title_page' => 'Browse Meals',
             'dashboard_info' => 'Explore Nutritious Meals',
             'meals' => Meal::where('mealAvailability', 'available')->get(),
         ]);

@@ -11,7 +11,7 @@ class User extends Authenticatable
 
   protected $table = 'users';
   protected $primaryKey = 'id';
-  protected $guarded = 'id';
+  protected $guarded = ['id'];
 
   const ROLE_SUPERADMIN = 'superadmin';
   const ROLE_ADMIN = 'admin';
@@ -24,8 +24,10 @@ class User extends Authenticatable
     'username',
     'email',
     'phone',
+    'address',
     'password',
     'role',
+    'age',
   ];
 
   public function isSuperAdmin()

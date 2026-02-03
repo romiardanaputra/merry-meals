@@ -90,7 +90,7 @@
 
         <!-- Form Actions -->
         <div class="flex flex-col md:flex-row items-center justify-end gap-6 pt-12 border-t border-border/30">
-            <a href="{{ route('admin.index') }}" 
+            <a href="{{ route('admin.users.index') }}" 
                class="flex items-center justify-center w-full md:w-auto px-10 py-4 bg-dark/5 text-dark font-black rounded-2xl hover:bg-dark hover:text-white transition-all duration-500 italic uppercase tracking-widest text-xs">
                 Back to List
             </a>

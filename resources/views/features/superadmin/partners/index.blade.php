@@ -119,7 +119,7 @@
     {{-- Pagination --}}
     @if($partners->hasPages())
         <div class="mt-8">
-            {{ $partners->withQueryString()->links() }}
+            {{ $partners->withQueryString()->links('partials.custom-pagination') }}
         </div>
     @endif
 @endsection

@@ -12,12 +12,14 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable()->index();
             $table->string('username')->index();
-            $table->string('email');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('phone');
             $table->string('address')->nullable();
             $table->string('password');
             $table->string('role')->nullable();
             $table->bigInteger('age')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

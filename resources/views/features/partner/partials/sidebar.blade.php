@@ -24,8 +24,8 @@
                 <span class="text-[9px] font-black uppercase tracking-[0.2em] text-white/20">Kitchen</span>
             </div>
 
-            <a href="{{ route('meal.index') }}" 
-               class="flex items-center px-6 py-3.5 rounded-xl transition-all duration-300 {{ Request::routeIs('meal.index') ? 'bg-primary text-dark font-black shadow-lg shadow-primary/20' : 'text-white/60 hover:text-white hover:bg-white/5 font-bold' }}">
+            <a href="{{ route('partner.meals.index') }}" 
+               class="flex items-center px-6 py-3.5 rounded-xl transition-all duration-300 {{ Request::routeIs('partner.meals.index') ? 'bg-primary text-dark font-black shadow-lg shadow-primary/20' : 'text-white/60 hover:text-white hover:bg-white/5 font-bold' }}">
                 <span class="text-xs tracking-tight uppercase">Meals</span>
             </a>
 

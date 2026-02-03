@@ -6,7 +6,7 @@
 @extends('layouts.dashboard.base')
 
 @section('dashboard_content')
-    @if(Request::routeIs('admin.index'))
+    @if(Request::routeIs('admin.dashboard'))
     {{-- Stat Cards Row - Only on main admin page --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
         <x-dashboard.stat-card 

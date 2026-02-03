@@ -47,7 +47,7 @@
                 
                 <nav class="space-y-2 flex-1">
                     <a href="{{ route('partner.index') }}" class="block px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl font-bold text-sm tracking-tight">Dashboard</a>
-                    <a href="{{ route('meal.index') }}" class="block px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl font-bold text-sm tracking-tight">Meals</a>
+                    <a href="{{ route('partner.meals.index') }}" class="block px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl font-bold text-sm tracking-tight">Meals</a>
                     <a href="{{ route('partner.orders.index') }}" class="block px-4 py-3 bg-primary text-dark rounded-xl font-bold text-sm tracking-tight">Orders</a>
                     <a href="{{ route('profile.edit') }}" class="block px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl font-bold text-sm tracking-tight">Profile</a>
                 </nav>
@@ -150,7 +150,7 @@
 
                 <!-- Pagination -->
                 <div class="mt-8">
-                    {{ $orders->links() }}
+                    {{ $orders->links('partials.custom-pagination') }}
                 </div>
             </div>
         </div>

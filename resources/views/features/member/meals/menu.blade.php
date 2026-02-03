@@ -1,3 +1,4 @@
+{{-- Member Meal Menu View --}}
 @extends('layouts.main')
 
 @section('css_custom')
@@ -10,7 +11,7 @@
 
 @section('component_content')
 <main class="min-h-screen bg-[#F8F8F8] font-inter p-4 sm:p-8 lg:p-12 overflow-x-hidden">
-    <!-- Mobile-First Header -->
+    {{-- Mobile-First Header --}}
     @include('features.member.partials.header')
 
     <div class="max-w-[1800px] mx-auto">
@@ -19,11 +20,11 @@
             <p class="text-dark/40 font-bold text-xs uppercase tracking-[0.3em] mt-2 italic">Nutritious packages prepared with care</p>
         </div>
 
-        <!-- Menu Grid -->
+        {{-- Menu Grid --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             @foreach($meals as $meal)
             <div class="bg-white rounded-[2.5rem] overflow-hidden border border-black/5 shadow-sm hover:shadow-2xl transition-all duration-700 group flex flex-col h-full">
-                <!-- Image Section -->
+                {{-- Image Section --}}
                 <div class="relative h-64 overflow-hidden">
                     <img src="{{ asset('storage/' . $meal->mealImage) }}" 
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
@@ -35,7 +36,7 @@
                     </div>
                 </div>
 
-                <!-- Content Section -->
+                {{-- Content Section --}}
                 <div class="p-10 flex flex-col flex-1 space-y-6">
                     <div class="space-y-2">
                         <h3 class="text-2xl font-black text-dark tracking-tighter leading-tight group-hover:text-primary transition-colors">
@@ -59,7 +60,7 @@
                         </div>
                         
                         @if($meal->mealAvailability == 'available')
-                            <a href="{{ route('meal.detail', $meal->id) }}" 
+                            <a href="{{ route('member.meals.detail', $meal->id) }}" 
                                class="px-8 py-4 bg-dark text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-dark/10 hover:bg-primary hover:text-dark hover:scale-105 transition-all">
                                 Select Package
                             </a>

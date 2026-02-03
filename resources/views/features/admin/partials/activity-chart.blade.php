@@ -10,24 +10,63 @@
         </select>
     </div>
 
-    <!-- Mock Bar Chart -->
-    <div class="flex items-end justify-between h-48 gap-4 px-2">
-        @foreach([20, 35, 25, 60, 45, 30, 40] as $height)
-            <div class="flex-1 group relative">
-                <div class="bg-dark/5 rounded-t-2xl w-full h-48 absolute bottom-0"></div>
-                <div class="bg-primary hover:bg-dark transition-all duration-500 rounded-t-2xl w-full absolute bottom-0 shadow-lg shadow-primary/20" 
-                     style="height: {{ $height }}%">
-                    <div class="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-dark text-white text-[10px] font-black px-3 py-1.5 rounded-lg transition-opacity">
-                        {{ $height }}k
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-    
-    <div class="flex justify-between mt-6 px-2">
-        @foreach(['1 Sep', '2 Sep', '3 Sep', '4 Sep', '5 Sep', '6 Sep', '7 Sep'] as $label)
-            <span class="text-[10px] font-black uppercase tracking-widest text-dark/20">{{ $label }}</span>
-        @endforeach
+    <!-- Real Bar Chart -->
+    <div class="h-64 relative">
+        <canvas id="activityBarChart"></canvas>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const activityCanvas = document.getElementById('activityBarChart');
+        if (activityCanvas) {
+            const ctx = activityCanvas.getContext('2d');
+            
+            // Dynamic data from PHP
+            const chartData = {!! json_encode($donationStats->pluck('total')) !!};
+            const chartLabels = {!! json_encode($donationStats->pluck('date')) !!};
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'Donation Volume',
+                        data: chartData,
+                        backgroundColor: '#FF7B54',
+                        hoverBackgroundColor: '#222222',
+                        borderRadius: 8,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#222222',
+                            titleFont: { size: 10, weight: 'bold' },
+                            bodyFont: { size: 12, weight: 'black' },
+                            padding: 12,
+                            cornerRadius: 12,
+                            displayColors: false,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false },
+                            ticks: { font: { size: 10, weight: 'bold' }, color: 'rgba(0,0,0,0.2)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10, weight: 'bold' }, color: 'rgba(0,0,0,0.2)' }
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>

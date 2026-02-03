@@ -95,7 +95,7 @@
                         <h4 class="text-h4 text-dark tracking-tighter">Recent Deliveries</h4>
                         <p class="text-dark/40 text-xs font-bold uppercase tracking-widest mt-1 italic">Tracking your nutrition</p>
                     </div>
-                    <a href="{{ route('meal.menu') }}" class="px-6 py-3 bg-dark/5 hover:bg-dark hover:text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">New Order</a>
+                    <a href="{{ route('member.meals.menu') }}" class="px-6 py-3 bg-dark/5 hover:bg-dark hover:text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">New Order</a>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -149,7 +149,7 @@
                             <tr>
                                 <td colspan="5" class="py-20 text-center">
                                     <p class="text-dark/20 text-xs font-black uppercase tracking-[0.4em]">No recent orders found</p>
-                                    <a href="{{ route('meal.menu') }}" class="mt-4 inline-block text-primary font-bold hover:underline italic">Start ordering today →</a>
+                                    <a href="{{ route('member.meals.menu') }}" class="mt-4 inline-block text-primary font-bold hover:underline italic">Start ordering today →</a>
                                 </td>
                             </tr>
                             @endforelse
@@ -207,7 +207,7 @@
 
     <!-- Floating Order Button -->
     <div class="fixed bottom-8 right-8 z-[100]">
-        <a href="{{ route('meal.menu') }}" class="w-14 h-14 bg-dark text-white rounded-xl shadow-2xl hover:scale-110 transition-all flex items-center justify-center group">
+        <a href="{{ route('member.meals.menu') }}" class="w-14 h-14 bg-dark text-white rounded-xl shadow-2xl hover:scale-110 transition-all flex items-center justify-center group">
             <svg class="w-6 h-6 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4" /></svg>
         </a>
     </div>

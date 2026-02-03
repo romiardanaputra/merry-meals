@@ -81,7 +81,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Admin Routes (accessible by superadmin and admin)
     Route::middleware('roles:superadmin,admin')->prefix('admin')->group(function () {
-        Route::get('/', [UserManagementController::class, 'index'])->name('admin.index');
+        // Dashboard Overview
+        Route::get('/', [\App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+        // User Management
+        Route::get('/users', [UserManagementController::class, 'index'])->name('admin.users.index');
         Route::get('/create', [UserManagementController::class, 'create'])->name('admin.create');
         Route::post('/store', [UserManagementController::class, 'store'])->name('admin.store');
         Route::get('/edit/{id}', [UserManagementController::class, 'edit'])->name('admin.edit');
@@ -105,52 +109,55 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Member Routes
-    Route::middleware('roles:member')->prefix('member')->group(function () {
-        Route::get('/dashboard', [MemberManagementController::class, 'index'])->name('member.dashboard');
-        Route::get('/survey', [MemberManagementController::class, 'surveyShow'])->name('member.survey');
-        Route::post('/survey', [MemberManagementController::class, 'surveyStore'])->name('member.survey.store');
+    Route::middleware('roles:member')->prefix('member')->name('member.')->group(function () {
+        Route::get('/dashboard', [MemberManagementController::class, 'index'])->name('dashboard');
+        Route::get('/survey', [MemberManagementController::class, 'surveyShow'])->name('survey');
+        Route::post('/survey', [MemberManagementController::class, 'surveyStore'])->name('survey.store');
+        
+        // Member Meals - Browse & Order
+        Route::prefix('meals')->name('meals.')->group(function () {
+            Route::get('/', [MemberManagementController::class, 'menuMealShow'])->name('menu');
+            Route::get('/{id}', [MemberManagementController::class, 'menuDetailShow'])->name('detail');
+            Route::get('/{id}/package', [MemberManagementController::class, 'packageFood'])->name('package');
+            Route::post('/order', [MemberManagementController::class, 'store'])->name('order');
+            Route::get('/order/success', function () { return view('features.member.meals.success'); })->name('order.success');
+        });
     });
 
     // Partner Routes
-    Route::middleware('roles:partner')->prefix('partner')->group(function () {
-        Route::get('/', [\App\Http\Controllers\Partner\PartnerDashboardController::class, 'index'])->name('partner.index');
-        Route::get('/orders', [\App\Http\Controllers\Partner\PartnerOrderController::class, 'index'])->name('partner.orders.index');
-        Route::post('/orders/status/{id}', [\App\Http\Controllers\Partner\PartnerOrderController::class, 'update'])->name('partner.orders.update');
+    Route::middleware('roles:partner')->prefix('partner')->name('partner.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Partner\PartnerDashboardController::class, 'index'])->name('index');
+        Route::get('/orders', [\App\Http\Controllers\Partner\PartnerOrderController::class, 'index'])->name('orders.index');
+        Route::post('/orders/status/{id}', [\App\Http\Controllers\Partner\PartnerOrderController::class, 'update'])->name('orders.update');
         
         // Partner Profile
-        Route::get('/partner-profile/create', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'create'])->name('partner.create');
-        Route::post('/partner-profile/store', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'store'])->name('partner.store');
-        Route::get('/partner-profile', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'edit'])->name('partner.profile.edit');
-        Route::put('/partner-profile', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'update'])->name('partner.profile.update');
+        Route::get('/partner-profile/create', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'create'])->name('create');
+        Route::post('/partner-profile/store', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'store'])->name('store');
+        Route::get('/partner-profile', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/partner-profile', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'update'])->name('profile.update');
+        
+        // Partner Meals - CRUD Management
+        Route::prefix('meals')->name('meals.')->group(function () {
+            Route::get('/', [PartnerMealController::class, 'index'])->name('index');
+            Route::get('/create', [PartnerMealController::class, 'create'])->name('create');
+            Route::post('/', [PartnerMealController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [PartnerMealController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [PartnerMealController::class, 'update'])->name('update');
+            Route::delete('/{id}', [PartnerMealController::class, 'destroy'])->name('destroy');
+        });
     });
 
     // Driver Routes
-    Route::middleware('roles:driver')->prefix('driver')->group(function () {
-        Route::get('/dashboard', [\App\Http\Controllers\Rider\RiderController::class, 'index'])->name('driver.dashboard');
-        Route::post('/availability', [\App\Http\Controllers\Rider\RiderController::class, 'toggleAvailability'])->name('driver.availability.toggle');
-        Route::patch('/delivery/{id}/status', [\App\Http\Controllers\Rider\RiderController::class, 'updateDeliveryStatus'])->name('driver.delivery.status');
+    Route::middleware('roles:driver')->prefix('driver')->name('driver.')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Rider\RiderController::class, 'index'])->name('dashboard');
+        Route::post('/availability', [\App\Http\Controllers\Rider\RiderController::class, 'toggleAvailability'])->name('availability.toggle');
+        Route::patch('/delivery/{id}/status', [\App\Http\Controllers\Rider\RiderController::class, 'updateDeliveryStatus'])->name('delivery.status');
     });
 
-    // Profile Routes
+    // Profile Routes (shared across roles)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // Meal & Menu Routes
-    Route::name('meal.')->group(function () {
-        Route::get('/menu', [MemberManagementController::class, 'menuMealShow'])->name('menu');
-        Route::get('/meal/{id}', [MemberManagementController::class, 'menuDetailShow'])->name('detail');
-        Route::get('/package/{id}', [MemberManagementController::class, 'packageFood'])->name('package');
-        Route::get('/order-success', function () { return view('features.meals.orderSuccess'); })->name('order.success');
-        
-        // Meal Management (Partner/Admin)
-        Route::get('/meals', [PartnerMealController::class, 'index'])->name('index');
-        Route::get('/meals/create', [PartnerMealController::class, 'create'])->name('create');
-        Route::post('/meals/store', [PartnerMealController::class, 'store'])->name('store');
-        Route::get('/meals/edit/{id}', [PartnerMealController::class, 'edit'])->name('edit');
-        Route::put('/meals/update/{id}', [PartnerMealController::class, 'update'])->name('update');
-        Route::delete('/meals/destroy/{id}', [PartnerMealController::class, 'destroy'])->name('destroy');
-    });
 });
 
 Route::group(['middleware' => 'web'], function () {

@@ -3,31 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Donation;
-use App\Models\Order;
-use App\Models\Survey;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class ReportController extends Controller
+class AdminDashboardController extends Controller
 {
+    //
     public function index()
     {
-        return view('features.admin.reports.index', [
-            'title_page' => 'Reports & Analytics',
+        return view('features.admin.dashboard', [
+            'title_page' => 'Admin Dashboard',
+            'dashboard_info' => 'Overview Analytics',
             'donationStats' => $this->getLast7DaysDonations(),
-            'orderStats' => Order::select('status', DB::raw('count(*) as count'))
-                ->groupBy('status')
-                ->get(),
-            'surveys' => Survey::with('user')->latest()->paginate(10),
         ]);
     }
 
     private function getLast7DaysDonations()
     {
-        $stats = Donation::select(
-            DB::raw('DATE(created_at) as date'),
-            DB::raw('SUM(donationAmount) as total')
+        $stats = \App\Models\Donation::select(
+            \Illuminate\Support\Facades\DB::raw('DATE(created_at) as date'),
+            \Illuminate\Support\Facades\DB::raw('SUM(donationAmount) as total')
         )
         ->where('created_at', '>=', now()->subDays(6)->startOfDay())
         ->groupBy('date')

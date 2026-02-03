@@ -13,7 +13,7 @@ class OrderController extends Controller
     {
         return view('features.admin.orders.index', [
             'title_page' => 'Order Oversight',
-            'orders' => Order::with(['user', 'partner', 'meal', 'volunteer'])->latest()->get(),
+            'orders' => Order::with(['user', 'partner', 'meal', 'volunteer'])->latest()->paginate(10),
             'volunteers' => User::where('role', User::ROLE_DRIVER)->get(),
         ]);
     }

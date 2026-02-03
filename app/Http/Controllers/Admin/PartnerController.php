@@ -12,7 +12,7 @@ class PartnerController extends Controller
     {
         return view('features.admin.partners.index', [
             'title_page' => 'Partner Management',
-            'partners' => Partner::with('user')->get(),
+            'partners' => Partner::with('user')->paginate(10),
         ]);
     }
 

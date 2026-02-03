@@ -23,17 +23,17 @@ return [
         ],
 
         'admin' => [
-            ['route' => 'admin.index', 'label' => 'Dashboard', 'icon' => 'home'],
-            ['route' => 'admin.index', 'label' => 'All Users', 'icon' => 'users'],
-            ['route' => 'admin.partners.index', 'label' => 'Partners', 'icon' => 'building'],
-            ['route' => 'admin.orders.index', 'label' => 'Orders', 'icon' => 'shopping-bag'],
+            ['route' => 'admin.dashboard', 'label' => 'Dashboard', 'icon' => 'home'],
+            ['route' => 'admin.users.index', 'label' => 'User Management', 'icon' => 'users'],
+            ['route' => 'admin.partners.index', 'label' => 'Partner Management', 'icon' => 'building'],
+            ['route' => 'admin.orders.index', 'label' => 'Order Queue', 'icon' => 'shopping-bag'],
             ['route' => 'donator.list', 'label' => 'Donations', 'icon' => 'heart'],
-            ['route' => 'admin.reports.index', 'label' => 'Reports', 'icon' => 'chart'],
+            ['route' => 'admin.reports.index', 'label' => 'Operations Report', 'icon' => 'chart'],
         ],
 
         'member' => [
             ['route' => 'member.dashboard', 'label' => 'Dashboard', 'icon' => 'home'],
-            ['route' => 'meal.menu', 'label' => 'Browse Meals', 'icon' => 'food'],
+            ['route' => 'member.meals.menu', 'label' => 'Browse Meals', 'icon' => 'food'],
             ['route' => 'member.orders', 'label' => 'My Orders', 'icon' => 'shopping-bag'],
             ['route' => 'profile.edit', 'label' => 'Profile', 'icon' => 'user'],
         ],
@@ -46,7 +46,7 @@ return [
 
         'partner' => [
             ['route' => 'partner.index', 'label' => 'Dashboard', 'icon' => 'home'],
-            ['route' => 'meal.index', 'label' => 'Meals', 'icon' => 'food'],
+            ['route' => 'partner.meals.index', 'label' => 'Meals', 'icon' => 'food'],
             ['route' => 'partner.orders.index', 'label' => 'Orders', 'icon' => 'shopping-bag'],
             ['route' => 'partner.profile.edit', 'label' => 'Restaurant', 'icon' => 'building'],
         ],

@@ -14,7 +14,6 @@ class Donation extends Model
         'donatorName',
         'donatorEmail',
         'donationAmount',
-        // 'address',
         'donatorPhone',
         'description'
     ];

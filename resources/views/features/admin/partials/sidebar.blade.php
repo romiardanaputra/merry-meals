@@ -15,8 +15,8 @@
 
         <!-- Navigation Links -->
         <nav class="flex flex-col space-y-3 w-full">
-            <a href="{{ route('admin.index') }}" 
-               class="flex items-center px-6 py-4 rounded-xl transition-all duration-300 {{ Request::routeIs('admin.index') ? 'bg-primary text-dark font-black shadow-lg shadow-primary/20' : 'text-white/60 hover:text-white hover:bg-white/5 font-bold' }}">
+            <a href="{{ route('admin.dashboard') }}" 
+               class="flex items-center px-6 py-4 rounded-xl transition-all duration-300 {{ Request::routeIs('admin.dashboard') ? 'bg-primary text-dark font-black shadow-lg shadow-primary/20' : 'text-white/60 hover:text-white hover:bg-white/5 font-bold' }}">
                 <span class="text-sm tracking-tight">Manage Users</span>
             </a>
             
@@ -30,8 +30,8 @@
                 <span class="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Operations</span>
             </div>
 
-            <a href="{{ route('meal.index') }}" 
-               class="flex items-center px-6 py-4 rounded-xl transition-all duration-300 {{ Request::routeIs('meal.index') ? 'bg-primary text-dark font-black shadow-lg shadow-primary/20' : 'text-white/60 hover:text-white hover:bg-white/5 font-bold' }}">
+            <a href="{{ route('partner.meals.index') }}" 
+               class="flex items-center px-6 py-4 rounded-xl transition-all duration-300 {{ Request::routeIs('partner.meals.index') ? 'bg-primary text-dark font-black shadow-lg shadow-primary/20' : 'text-white/60 hover:text-white hover:bg-white/5 font-bold' }}">
                 <span class="text-sm tracking-tight">Meal Management</span>
             </a>
         </nav>

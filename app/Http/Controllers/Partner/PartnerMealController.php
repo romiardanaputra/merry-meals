@@ -19,7 +19,7 @@ class PartnerMealController extends Controller
             $meals = Meal::where('partnerID', $user->partner->id)->get();
         }
 
-        return view('features.meals.mealList', [
+        return view('features.partner.meals.index', [
             'meals' => $meals,
             'dashboard_info' => 'Meal Lists',
             'title_page' => 'Meal Management',
@@ -28,7 +28,7 @@ class PartnerMealController extends Controller
     // display for form partner profile
     public function create()
     {
-        return view('features.meals.mealCreate', [
+        return view('features.partner.meals.create', [
             'title_page' => 'Create Meal',
             'dashboard_info' => 'Create Meal'
         ]);
@@ -43,7 +43,7 @@ class PartnerMealController extends Controller
             ?  $request->file('mealImage')->store('meal-images')
             : back();
         Meal::create($meal);
-        return to_route('meal.index');
+        return to_route('partner.meals.index');
     }
 
     // show spesific meal based mealID
@@ -57,10 +57,10 @@ class PartnerMealController extends Controller
     // show edit form meal based meal id 
     public function edit($id)
     {
-        return view('features.meals.mealEdit', [
+        return view('features.partner.meals.edit', [
             'meal' => Meal::find($id),
-            'title_page' => 'Meal Edit',
-            'dashboard_info' => 'Meal Edit'
+            'title_page' => 'Edit Meal',
+            'dashboard_info' => 'Edit Meal'
         ]);
     }
 
@@ -73,7 +73,7 @@ class PartnerMealController extends Controller
             ?  $request->file('mealImage')->store('meal-images')
             : back();
         Meal::where('id', $id)->update($meal);
-        return to_route('meal.index');
+        return to_route('partner.meals.index');
     }
 
     // delete meal based on meal id

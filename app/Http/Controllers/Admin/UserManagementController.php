@@ -16,7 +16,7 @@ class UserManagementController extends Controller
     public function index()
     {
         return view('features.admin.UserList', [
-            'data_users' => User::all(),
+            'data_users' => User::paginate(10),
             'title_page' => 'User List',
             'dashboard_info' => 'Users Data',
         ]);
@@ -36,7 +36,7 @@ class UserManagementController extends Controller
         $users['password'] = Hash::make($request['password']);
         $dataUsers = User::create($users);
         RegisterController::userLocation($dataUsers, $request, $reqLoc);
-        return to_route('admin.index');
+        return to_route('admin.users.index');
     }
 
     public function edit($id)
@@ -52,7 +52,7 @@ class UserManagementController extends Controller
     {
         $users_data = $req->validated();
         User::where('id', $id)->update($users_data);
-        return to_route('admin.index');
+        return to_route('admin.users.index');
     }
 
     public function destroy($id)

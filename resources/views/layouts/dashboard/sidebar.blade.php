@@ -38,7 +38,7 @@
     <nav class="flex-1 p-6 space-y-2 overflow-y-auto">
         @foreach($navItems as $item)
             @php
-                $isActive = request()->routeIs($item['route']);
+                $isActive = request()->routeIs($item['route'] . '*');
                 $iconPath = $icons[$item['icon']] ?? '';
             @endphp
             <a 

@@ -19,7 +19,7 @@
 
         @if (!Request::path('survey'))
         <div class="bg-nav-homepage flex items-center justify-center">
-            <a href="{!! route('meal.menu') !!}">
+            <a href="{!! route('member.meals.menu') !!}">
                 <button class="text-[#FFFDF6] border-2 border-[#FFFDF6] p-[24px] duration-700 hover:scale-105">Back to
                     Homepage</button>
             </a>

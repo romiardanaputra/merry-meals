@@ -12,9 +12,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('partnerID')->constrained('partners', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->string('mealName');
-            $table->string('mealIngredient');
+            $table->text('mealIngredient');
             $table->string('mealImage');
-            $table->string('mealDescription');
+            $table->text('mealDescription');
             $table->string('mealType');
             $table->string('mealAvailability');
             $table->timestamps();
