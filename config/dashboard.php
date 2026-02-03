@@ -34,21 +34,20 @@ return [
         'member' => [
             ['route' => 'member.dashboard', 'label' => 'Dashboard', 'icon' => 'home'],
             ['route' => 'member.meals.menu', 'label' => 'Browse Meals', 'icon' => 'food'],
-            ['route' => 'member.orders', 'label' => 'My Orders', 'icon' => 'shopping-bag'],
+            ['route' => 'member.survey', 'label' => 'Service Feedback', 'icon' => 'heart'],
             ['route' => 'profile.edit', 'label' => 'Profile', 'icon' => 'user'],
         ],
 
         'driver' => [
             ['route' => 'driver.dashboard', 'label' => 'Dashboard', 'icon' => 'home'],
-            ['route' => 'driver.dashboard', 'label' => 'Deliveries', 'icon' => 'truck'],
-            ['route' => 'profile.edit', 'label' => 'Profile', 'icon' => 'user'],
+            ['route' => 'profile.edit', 'label' => 'My Profile', 'icon' => 'user'],
         ],
 
         'partner' => [
             ['route' => 'partner.index', 'label' => 'Dashboard', 'icon' => 'home'],
             ['route' => 'partner.meals.index', 'label' => 'Meals', 'icon' => 'food'],
-            ['route' => 'partner.orders.index', 'label' => 'Orders', 'icon' => 'shopping-bag'],
-            ['route' => 'partner.profile.edit', 'label' => 'Restaurant', 'icon' => 'building'],
+            ['route' => 'partner.orders.index', 'label' => 'Orders List', 'icon' => 'shopping-bag'],
+            ['route' => 'partner.profile.edit', 'label' => 'Restaurant Profile', 'icon' => 'building'],
         ],
     ],
 
@@ -67,6 +66,7 @@ return [
         'truck' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-6 0V3a2 2 0 012-2h2a2 2 0 012 2v4m-6 0h6"/>',
         'food' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>',
         'clock' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+        'check-circle' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
     ],
 
     /**

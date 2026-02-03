@@ -34,6 +34,10 @@
         'success', 'info', 'danger', 'dark' => 'bg-white/20',
         default => 'bg-[#FF7B54]/10',
     };
+
+    // Lookup icon from config if it's a known key
+    $icons = config('dashboard.icons', []);
+    $iconContent = $icons[$icon] ?? $icon;
 @endphp
 
 <div {{ $attributes->merge(['class' => "rounded-xl p-6 md:p-8 shadow-lg transition-all duration-500 hover:scale-[1.02] hover:shadow-xl {$colorClasses}"]) }}>
@@ -45,12 +49,14 @@
                 <p class="text-[11px] font-bold opacity-60">{{ $subtitle }}</p>
             @endif
         </div>
-        @if($icon)
+        @if($iconContent)
             <div class="w-12 h-12 {{ $iconBg }} rounded-2xl flex items-center justify-center flex-shrink-0">
-                @if(is_string($icon) && str_contains($icon, '<'))
-                    {!! $icon !!}
+                @if(is_string($iconContent) && str_contains($iconContent, '<'))
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {!! $iconContent !!}
+                    </svg>
                 @else
-                    {{ $icon }}
+                    {{ $iconContent }}
                 @endif
             </div>
         @endif

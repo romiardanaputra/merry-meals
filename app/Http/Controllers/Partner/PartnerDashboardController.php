@@ -26,6 +26,18 @@ class PartnerDashboardController extends Controller
             // Revenue calc could be added here later if price exists
         ];
 
+        // Trend Data (Last 7 Days)
+        $trends = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $trends[] = [
+                'day' => $date->format('D'),
+                'count' => Order::where('partnerID', $partner->id)
+                    ->whereDate('created_at', $date->toDateString())
+                    ->count()
+            ];
+        }
+
         // Recent Orders
         $orders = Order::with(['user', 'meal'])
             ->where('partnerID', $partner->id)
@@ -37,7 +49,8 @@ class PartnerDashboardController extends Controller
             'title_page' => 'Partner Dashboard',
             'stats' => $stats,
             'orders' => $orders,
-            'partner' => $partner
+            'partner' => $partner,
+            'trends' => $trends
         ]);
     }
 }

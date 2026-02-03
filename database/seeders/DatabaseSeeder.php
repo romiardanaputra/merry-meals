@@ -51,10 +51,10 @@ class DatabaseSeeder extends Seeder
         }
         $partners = collect($partners);
 
-        // 3. Meals (100)
-        for ($i = 0; $i < 100; $i++) {
-            Meal::factory()->create([
-                'partnerID' => $partners->random()->id
+        // 3. Meals (20 per Partner = 2,000 Total)
+        foreach ($partners as $partner) {
+            Meal::factory()->count(20)->create([
+                'partnerID' => $partner->id
             ]);
         }
         $meals = Meal::all();
@@ -63,21 +63,33 @@ class DatabaseSeeder extends Seeder
         $members = User::factory(100)->member()->create();
         $drivers = User::factory(50)->driver()->create();
 
-        // 5. Orders (100)
-        for ($i = 0; $i < 100; $i++) {
-            $member = $members->random();
-            $partner = $partners->random();
-            $meal = $meals->where('partnerID', $partner->id);
-            
-            // If partner has no meals, fallback to any meal
-            $selectedMeal = $meal->isEmpty() ? $meals->random() : $meal->random();
+        // 5. Orders (20 per Member distributed across all Drivers = 2,000 Total)
+        $driverIndex = 0;
+        foreach ($members as $member) {
+            for ($i = 0; $i < 20; $i++) {
+                $partner = $partners->random();
+                $partnerMeals = $meals->where('partnerID', $partner->id);
+                $selectedMeal = $partnerMeals->isEmpty() ? $meals->random() : $partnerMeals->random();
+                
+                // Pick a driver in rotation to ensure even distribution
+                $driver = $drivers[$driverIndex % $drivers->count()];
+                $driverIndex++;
 
-            Order::factory()->create([
-                'userID' => $member->id,
-                'partnerID' => $partner->id,
-                'mealID' => $selectedMeal->id,
-                'volunteerID' => $drivers->random()->id,
-            ]);
+                Order::factory()->create([
+                    'userID' => $member->id,
+                    'partnerID' => $partner->id,
+                    'mealID' => $selectedMeal->id,
+                    'volunteerID' => $driver->id,
+                    'status' => collect([
+                        Order::STATUS_PREPARATION,
+                        Order::STATUS_READY,
+                        Order::STATUS_ASSIGNED,
+                        Order::STATUS_PICKED_UP,
+                        Order::STATUS_IN_TRANSIT,
+                        Order::STATUS_DELIVERED,
+                    ])->random(),
+                ]);
+            }
         }
 
         // 6. Generic Data (100 each)
@@ -98,5 +110,8 @@ class DatabaseSeeder extends Seeder
                 'partnerID' => $partners->random()->id,
             ]);
         }
+
+        // 7. Partner Suite Specific Data
+        $this->call(PartnerSuiteSeeder::class);
     }
 }
