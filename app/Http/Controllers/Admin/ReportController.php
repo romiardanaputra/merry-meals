@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Donation;
 use App\Models\Order;
 use App\Models\Survey;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
@@ -29,17 +28,17 @@ class ReportController extends Controller
             DB::raw('DATE(created_at) as date'),
             DB::raw('SUM(donationAmount) as total')
         )
-        ->where('created_at', '>=', now()->subDays(6)->startOfDay())
-        ->groupBy('date')
-        ->get()
-        ->pluck('total', 'date');
+            ->where('created_at', '>=', now()->subDays(6)->startOfDay())
+            ->groupBy('date')
+            ->get()
+            ->pluck('total', 'date');
 
         $data = collect();
         for ($i = 6; $i >= 0; $i--) {
             $date = now()->subDays($i)->format('Y-m-d');
             $data->push([
                 'date' => now()->subDays($i)->format('d M'),
-                'total' => $stats->get($date, 0)
+                'total' => $stats->get($date, 0),
             ]);
         }
 

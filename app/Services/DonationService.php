@@ -10,8 +10,7 @@ class DonationService
 {
     public function __construct(
         protected DonationRepositoryInterface $donationRepository
-    ) {
-    }
+    ) {}
 
     /**
      * Get all donations

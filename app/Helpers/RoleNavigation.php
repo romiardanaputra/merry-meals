@@ -2,8 +2,8 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Role-Aware Navigation Helper
@@ -17,19 +17,19 @@ class RoleNavigation
     public static function isRouteAccessible(string $routeName): bool
     {
         // First check if route exists
-        if (!Route::has($routeName)) {
+        if (! Route::has($routeName)) {
             return false;
         }
 
         // Get current user
         $user = Auth::user();
-        if (!$user) {
+        if (! $user) {
             return false;
         }
 
         // Get route and check for role middleware
         $route = Route::getRoutes()->getByName($routeName);
-        if (!$route) {
+        if (! $route) {
             return false;
         }
 
@@ -41,17 +41,17 @@ class RoleNavigation
             // Check for roles middleware
             if (str_starts_with($m, 'roles:')) {
                 $allowedRoles = explode(',', substr($m, 6));
-                
+
                 // Superadmin has access to all
                 if ($userRole === 'superadmin') {
                     return true;
                 }
-                
+
                 // Check if user role is in allowed roles
                 if (in_array($userRole, $allowedRoles)) {
                     return true;
                 }
-                
+
                 // If not in allowed roles, route is not accessible
                 return false;
             }
@@ -77,6 +77,7 @@ class RoleNavigation
     public static function getNavigation(string $role): array
     {
         $navItems = config("dashboard.navigation.{$role}", []);
+
         return self::filterNavigation($navItems);
     }
 }

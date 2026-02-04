@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use App\Models\Donation;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\User\UserLocation;
-use App\Http\Requests\User\UserCreateRequest;
-use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Controllers\User\RegisterController;
+use App\Http\Requests\User\UserCreateRequest;
+use App\Http\Requests\User\UserLocation;
+use App\Http\Requests\User\UserUpdateRequest;
+use App\Models\Donation;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserManagementController extends Controller
 {
@@ -36,6 +36,7 @@ class UserManagementController extends Controller
         $users['password'] = Hash::make($request['password']);
         $dataUsers = User::create($users);
         RegisterController::userLocation($dataUsers, $request, $reqLoc);
+
         return to_route('admin.users.index');
     }
 
@@ -44,7 +45,7 @@ class UserManagementController extends Controller
         return view('features.admin.userEdit', [
             'title_page' => 'Edit User',
             'user' => User::find($id),
-            'dashboard_info' => 'Edit User'
+            'dashboard_info' => 'Edit User',
         ]);
     }
 
@@ -52,12 +53,14 @@ class UserManagementController extends Controller
     {
         $users_data = $req->validated();
         User::where('id', $id)->update($users_data);
+
         return to_route('admin.users.index');
     }
 
     public function destroy($id)
     {
         User::where('id', $id)->delete();
+
         return redirect()->back();
     }
 

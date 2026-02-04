@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class SurveyRepository implements SurveyRepositoryInterface
 {
-    public function __construct(protected Survey $model)
-    {
-    }
+    public function __construct(protected Survey $model) {}
 
     public function all(): Collection
     {
@@ -30,12 +28,14 @@ class SurveyRepository implements SurveyRepositoryInterface
     public function update(int $id, array $data): bool
     {
         $survey = $this->find($id);
+
         return $survey ? $survey->update($data) : false;
     }
 
     public function delete(int $id): bool
     {
         $survey = $this->find($id);
+
         return $survey ? $survey->delete() : false;
     }
 

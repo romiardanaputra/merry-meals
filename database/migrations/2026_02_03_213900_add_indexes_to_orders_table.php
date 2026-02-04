@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 /**
  * Add performance indexes to orders table
- * 
+ *
  * These indexes optimize the most common query patterns:
  * - Dashboard stats filtering by status
  * - Driver queries filtering by volunteerID + status
@@ -20,13 +20,13 @@ return new class extends Migration
         Schema::table('orders', function (Blueprint $table) {
             // Index for status filtering (very frequently queried)
             $table->index('status', 'orders_status_index');
-            
+
             // Composite index for driver dashboard queries
             $table->index(['volunteerID', 'status'], 'orders_volunteer_status_index');
-            
+
             // Composite index for partner dashboard queries
             $table->index(['partnerID', 'status'], 'orders_partner_status_index');
-            
+
             // Composite index for member order history
             $table->index(['userID', 'created_at'], 'orders_user_created_index');
         });

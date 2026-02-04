@@ -28,21 +28,19 @@ class Roles
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @param  mixed  ...$roles
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         // Check authentication
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             if ($request->expectsJson()) {
                 return response()->json([
                     'error' => 'Unauthenticated',
-                    'message' => 'You must be logged in to access this resource.'
+                    'message' => 'You must be logged in to access this resource.',
                 ], 401);
             }
+
             return redirect()->route('login')
                 ->with('error', 'Please log in to continue.');
         }
@@ -58,7 +56,7 @@ class Roles
         if ($request->expectsJson()) {
             return response()->json([
                 'error' => 'Unauthorized',
-                'message' => 'You do not have permission to access this resource.'
+                'message' => 'You do not have permission to access this resource.',
             ], 403);
         }
 
@@ -68,10 +66,6 @@ class Roles
 
     /**
      * Check if user role has access to any of the allowed roles
-     *
-     * @param  string  $userRole
-     * @param  array  $allowedRoles
-     * @return bool
      */
     protected function hasAccess(string $userRole, array $allowedRoles): bool
     {

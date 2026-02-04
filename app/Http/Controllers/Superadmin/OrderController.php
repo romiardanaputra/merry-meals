@@ -46,7 +46,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $order->load(['user', 'meal', 'partner', 'volunteer']);
-        
+
         return view('features.superadmin.orders.show', compact('order'));
     }
 
@@ -81,10 +81,10 @@ class OrderController extends Controller
     public function updateStatus(Request $request, Order $order)
     {
         $validated = $request->validate([
-            'status' => 'required|in:' . implode(',', Order::getStatuses()),
+            'status' => 'required|in:'.implode(',', Order::getStatuses()),
         ]);
 
-        if (!$order->canTransitionTo($validated['status'])) {
+        if (! $order->canTransitionTo($validated['status'])) {
             return redirect()->back()
                 ->with('error', "Cannot transition from '{$order->status}' to '{$validated['status']}'.");
         }

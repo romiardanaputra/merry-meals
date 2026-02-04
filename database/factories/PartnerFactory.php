@@ -28,7 +28,7 @@ class PartnerFactory extends Factory
         return [
             'userID' => User::factory()->partner(),
             'ownerName' => fake()->name(),
-            'restaurantName' => fake()->company() . ' Kitchen',
+            'restaurantName' => fake()->company().' Kitchen',
             'restaurantAddress' => fake()->address(),
             'restaurantContact' => fake()->phoneNumber(),
             'restaurantImage' => fake()->randomElement($restaurantImages),

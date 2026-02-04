@@ -10,22 +10,22 @@ use App\Models\Order;
 use App\Models\Partner;
 use App\Models\Survey;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 
 /**
  * Optimized DatabaseSeeder
- * 
+ *
  * Creates test data with proper foreign key relationships:
  * - 1 SuperAdmin, 1 Admin
  * - 2 Partners (each with 25 meals = 50 total)
  * - 2 Members (each places 25 orders = 50 total)
  * - 2 Drivers (each assigned 25 deliveries = 50 total)
  * - 50 Geolocations, 50 Surveys, 50 Subscriptions, 50 Subscription Items
- * 
+ *
  * Execution time: < 10 seconds
  */
 class DatabaseSeeder extends Seeder
@@ -129,10 +129,10 @@ class DatabaseSeeder extends Seeder
             foreach ($mealTemplates as $i => $mealName) {
                 $allMeals[] = Meal::create([
                     'partnerID' => $partner->id,
-                    'mealName' => $mealName . ' (' . $partner->restaurantName . ')',
+                    'mealName' => $mealName.' ('.$partner->restaurantName.')',
                     'mealIngredient' => fake()->paragraph(),
                     'mealImage' => $mealImages[$i % 3],
-                    'mealDescription' => 'Signature dish from ' . $partner->restaurantName,
+                    'mealDescription' => 'Signature dish from '.$partner->restaurantName,
                     'mealType' => $mealTypes[$i % 5],
                     'mealAvailability' => 'Available',
                 ]);
@@ -284,9 +284,9 @@ class DatabaseSeeder extends Seeder
             $subscriptionId = DB::table('subscriptions')->insertGetId([
                 'user_id' => $allUsers[$i % 4]->id,
                 'name' => $subscriptionNames[array_rand($subscriptionNames)],
-                'stripe_id' => 'sub_' . Str::random(14) . $i,
+                'stripe_id' => 'sub_'.Str::random(14).$i,
                 'stripe_status' => $stripeStatuses[array_rand($stripeStatuses)],
-                'stripe_price' => 'price_' . Str::random(14),
+                'stripe_price' => 'price_'.Str::random(14),
                 'quantity' => rand(1, 3),
                 'trial_ends_at' => rand(0, 1) ? $now->copy()->addDays(rand(7, 30)) : null,
                 'ends_at' => rand(0, 1) ? $now->copy()->addMonths(rand(1, 12)) : null,
@@ -299,9 +299,9 @@ class DatabaseSeeder extends Seeder
             // ============================================
             DB::table('subscription_items')->insert([
                 'subscription_id' => $subscriptionId,
-                'stripe_id' => 'si_' . Str::random(14) . $i,
-                'stripe_product' => 'prod_' . Str::random(14),
-                'stripe_price' => 'price_' . Str::random(14),
+                'stripe_id' => 'si_'.Str::random(14).$i,
+                'stripe_product' => 'prod_'.Str::random(14),
+                'stripe_price' => 'price_'.Str::random(14),
                 'quantity' => rand(1, 5),
                 'created_at' => $now,
                 'updated_at' => $now,

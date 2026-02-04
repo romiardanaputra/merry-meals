@@ -10,8 +10,7 @@ class MealService
 {
     public function __construct(
         protected MealRepositoryInterface $mealRepository
-    ) {
-    }
+    ) {}
 
     /**
      * Get all meals
@@ -75,12 +74,12 @@ class MealService
     public function toggleAvailability(int $id): bool
     {
         $meal = $this->mealRepository->find($id);
-        if (!$meal) {
+        if (! $meal) {
             return false;
         }
 
         return $this->mealRepository->update($id, [
-            'mealAvailability' => !$meal->mealAvailability
+            'mealAvailability' => ! $meal->mealAvailability,
         ]);
     }
 }

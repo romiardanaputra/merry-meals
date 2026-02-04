@@ -35,7 +35,7 @@ class PartnerController extends Controller
     public function show(Partner $partner)
     {
         $partner->load(['user', 'geolocation']);
-        
+
         return view('features.superadmin.partners.show', compact('partner'));
     }
 

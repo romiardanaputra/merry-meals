@@ -27,7 +27,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         $order->update([
             'volunteerID' => $request->volunteerID,
-            'status' => 'assigned'
+            'status' => 'assigned',
         ]);
 
         return back()->with('success', 'Rider assigned successfully.');

@@ -13,7 +13,9 @@
 
     <!-- Real Bar Chart -->
     <div class="h-64 relative">
-        <canvas id="activityBarChart"></canvas>
+        <canvas id="activityBarChart" 
+                data-chart-data="{{ json_encode($donationStats->pluck('total')) }}"
+                data-chart-labels="{{ json_encode($donationStats->pluck('date')) }}"></canvas>
     </div>
 </div>
 
@@ -24,9 +26,9 @@
         if (activityCanvas) {
             const ctx = activityCanvas.getContext('2d');
             
-            // Dynamic data from PHP
-            const chartData = {!! json_encode($donationStats->pluck('total')) !!};
-            const chartLabels = {!! json_encode($donationStats->pluck('date')) !!};
+            // Dynamic data from data attributes
+            const chartData = JSON.parse(activityCanvas.dataset.chartData);
+            const chartLabels = JSON.parse(activityCanvas.dataset.chartLabels);
 
             new Chart(ctx, {
                 type: 'bar',

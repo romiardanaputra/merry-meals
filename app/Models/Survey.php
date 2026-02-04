@@ -9,7 +9,8 @@ class Survey extends Model
 {
     use HasFactory;
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'userID', 'id');
     }
 
@@ -23,7 +24,7 @@ class Survey extends Model
         'questionSix',
         'questionSeven',
         'questionEight',
-        'overall'
+        'overall',
     ];
 
     protected $guarded = ['id'];

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
-use Illuminate\Http\Request;
 
 class PartnerController extends Controller
 {
@@ -20,7 +19,7 @@ class PartnerController extends Controller
     {
         $partner = Partner::findOrFail($id);
         $partner->update(['status' => 'approved']);
-        
+
         return back()->with('success', 'Partner approved successfully.');
     }
 
@@ -28,7 +27,7 @@ class PartnerController extends Controller
     {
         $partner = Partner::findOrFail($id);
         $partner->update(['status' => 'rejected']);
-        
+
         return back()->with('success', 'Partner rejected.');
     }
 
@@ -36,7 +35,7 @@ class PartnerController extends Controller
     {
         $partner = Partner::findOrFail($id);
         $partner->delete();
-        
+
         return back()->with('success', 'Partner removed successfully.');
     }
 }

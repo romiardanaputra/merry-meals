@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="h-[300px] w-full relative">
-                <canvas id="orderTrendChart"></canvas>
+                <canvas id="orderTrendChart" data-trends="{{ json_encode($trends) }}"></canvas>
             </div>
         </div>
 
@@ -160,7 +160,7 @@
         if (!chartElement) return;
 
         const ctx = chartElement.getContext('2d');
-        const trends = @json($trends);
+        const trends = JSON.parse(chartElement.dataset.trends);
         
         // Create premium gradient
         const gradient = ctx.createLinearGradient(0, 0, 0, 300);

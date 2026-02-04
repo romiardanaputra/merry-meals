@@ -8,14 +8,15 @@ use Laravel\Cashier\Billable;
 
 class Donation extends Model
 {
-    use HasFactory;
     use Billable;
-    protected $fillable=[
+    use HasFactory;
+
+    protected $fillable = [
         'donatorName',
         'donatorEmail',
         'donationAmount',
         'donatorPhone',
-        'description'
+        'description',
     ];
 
     /**
@@ -31,5 +32,6 @@ class Donation extends Model
             app(\App\Services\DashboardCacheService::class)->clearAdminCache();
         });
     }
+
     protected $guarded = ['donationID'];
 }

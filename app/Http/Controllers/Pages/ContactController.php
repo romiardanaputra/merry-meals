@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -35,7 +36,7 @@ class ContactController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Your inquiry has been sent successfully.'
+            'message' => 'Your inquiry has been sent successfully.',
         ], 200);
     }
 }

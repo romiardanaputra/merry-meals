@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class PartnerRepository implements PartnerRepositoryInterface
 {
-    public function __construct(protected Partner $model)
-    {
-    }
+    public function __construct(protected Partner $model) {}
 
     public function all(): Collection
     {
@@ -30,12 +28,14 @@ class PartnerRepository implements PartnerRepositoryInterface
     public function update(int $id, array $data): bool
     {
         $partner = $this->find($id);
+
         return $partner ? $partner->update($data) : false;
     }
 
     public function delete(int $id): bool
     {
         $partner = $this->find($id);
+
         return $partner ? $partner->delete() : false;
     }
 

@@ -27,7 +27,7 @@ class PartnerDashboardController extends Controller
         $partner = $user->partner;
 
         // Ensure user has a partner profile
-        if (!$partner) {
+        if (! $partner) {
             return redirect()->route('partner.create');
         }
 
@@ -49,7 +49,7 @@ class PartnerDashboardController extends Controller
             'stats' => $stats,
             'orders' => $orders,
             'partner' => $partner,
-            'trends' => $trends
+            'trends' => $trends,
         ]);
     }
 }

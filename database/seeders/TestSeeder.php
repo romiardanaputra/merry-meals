@@ -19,7 +19,7 @@ class TestSeeder extends Seeder
             User::factory()->create();
             echo "Success\n";
         } catch (Throwable $e) {
-            file_put_contents('seeder_error.txt', $e->getMessage() . "\n" . $e->getTraceAsString());
+            file_put_contents('seeder_error.txt', $e->getMessage()."\n".$e->getTraceAsString());
             throw $e;
         }
     }

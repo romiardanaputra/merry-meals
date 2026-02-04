@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Member;
 
-use App\Models\Meal;
-use App\Models\Order;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\StoreOrderRequest;
 use App\Http\Requests\Member\StoreSurveyRequest;
+use App\Models\Meal;
+use App\Models\Order;
 use App\Services\DashboardCacheService;
 use App\Services\OrderService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 /**
  * Member Management Controller
@@ -30,10 +30,10 @@ class MemberManagementController extends Controller
     public function index(): View
     {
         $user = auth()->user();
-        
+
         // Get cached stats (single optimized query)
         $stats = $this->cacheService->getMemberStats($user->id);
-        
+
         // Eager load relationships to prevent N+1
         $orders = Order::with(['meal', 'partner'])
             ->where('userID', $user->id)
@@ -55,7 +55,7 @@ class MemberManagementController extends Controller
     public function store(StoreOrderRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-        
+
         $this->orderService->placeOrder([
             'userID' => auth()->id(),
             'mealID' => $validated['mealID'],
@@ -66,7 +66,7 @@ class MemberManagementController extends Controller
                 OrderController::range($validated['partnerID'])
             ),
         ]);
-        
+
         return to_route('member.meals.order.success');
     }
 
@@ -78,11 +78,11 @@ class MemberManagementController extends Controller
         $request->validate([
             'orderStatus' => ['required', 'string'],
         ]);
-        
+
         Order::where('id', $id)
             ->where('userID', auth()->id())
             ->update(['status' => $request->orderStatus]);
-            
+
         return back()->with('success', 'Order status updated.');
     }
 
@@ -139,7 +139,7 @@ class MemberManagementController extends Controller
     public function surveyStore(StoreSurveyRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-        
+
         \App\Models\Survey::create([
             'userID' => auth()->id(),
             'questionOne' => $validated['q1'],

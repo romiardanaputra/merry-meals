@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Partner;
 use App\Models\Meal;
 use App\Models\Order;
+use App\Models\Partner;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class PartnerSuiteSeeder extends Seeder
@@ -63,7 +63,7 @@ class PartnerSuiteSeeder extends Seeder
                     'username' => Str::slug($pData['name']),
                     'password' => Hash::make('password'),
                     'role' => User::ROLE_PARTNER,
-                    'phone' => '+1 555-' . rand(1000, 9999),
+                    'phone' => '+1 555-'.rand(1000, 9999),
                     'address' => $pData['address'],
                     'age' => rand(30, 50),
                 ]
@@ -109,11 +109,11 @@ class PartnerSuiteSeeder extends Seeder
         foreach ($partners as $partner) {
             foreach ($mealTemplates as $index => $tpl) {
                 Meal::updateOrCreate(
-                    ['mealName' => $tpl['name'] . ' ('. $partner->restaurantName .')', 'partnerID' => $partner->id],
+                    ['mealName' => $tpl['name'].' ('.$partner->restaurantName.')', 'partnerID' => $partner->id],
                     [
                         'mealType' => $tpl['type'],
                         'mealIngredient' => $tpl['ingredients'],
-                        'mealImage' => 'https://images.unsplash.com/photo-'. (1546060000 + ($index * 100)) .'?w=800',
+                        'mealImage' => 'https://images.unsplash.com/photo-'.(1546060000 + ($index * 100)).'?w=800',
                         'mealDescription' => 'A masterfully crafted signature dish for the Merry Meals community.',
                         'mealAvailability' => 'available',
                     ]
@@ -128,14 +128,14 @@ class PartnerSuiteSeeder extends Seeder
         }
 
         $allMeals = Meal::all();
-        
+
         // Orders for the Driver
         for ($i = 0; $i < 20; $i++) {
             $partner = collect($partners)->random();
             $meal = $allMeals->where('partnerID', $partner->id)->random();
             $status = collect(['assigned', 'picked_up', 'in_transit'])->random();
             $createdAt = Carbon::now()->subHours(rand(1, 48));
-            
+
             Order::create([
                 'userID' => $members->random()->id,
                 'partnerID' => $partner->id,
@@ -154,7 +154,7 @@ class PartnerSuiteSeeder extends Seeder
             $partner = collect($partners)->random();
             $meal = $allMeals->where('partnerID', $partner->id)->random();
             $createdAt = Carbon::now()->subDays(rand(1, 30));
-            
+
             Order::create([
                 'userID' => $members->random()->id,
                 'partnerID' => $partner->id,

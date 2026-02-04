@@ -33,11 +33,11 @@ class OrderService
     public function getOrderById(int $id, array $relations = []): ?Order
     {
         $order = $this->orderRepository->find($id);
-        
-        if ($order && !empty($relations)) {
+
+        if ($order && ! empty($relations)) {
             $order->load($relations);
         }
-        
+
         return $order;
     }
 
@@ -49,14 +49,14 @@ class OrderService
         return DB::transaction(function () use ($data) {
             $data['status'] = Order::STATUS_PENDING;
             $order = $this->orderRepository->create($data);
-            
+
             // Log order creation
             Log::info('Order placed', [
                 'order_id' => $order->id,
                 'user_id' => $data['userID'] ?? null,
                 'meal_id' => $data['mealID'] ?? null,
             ]);
-            
+
             return $order;
         });
     }
@@ -100,19 +100,19 @@ class OrderService
     public function assignVolunteer(int $orderId, int $volunteerId): bool
     {
         $order = Order::findOrFail($orderId);
-        
-        if (!$order->canTransitionTo(Order::STATUS_ASSIGNED)) {
+
+        if (! $order->canTransitionTo(Order::STATUS_ASSIGNED)) {
             return false;
         }
-        
+
         $result = $order->update([
             'volunteerID' => $volunteerId,
-            'status' => Order::STATUS_ASSIGNED
+            'status' => Order::STATUS_ASSIGNED,
         ]);
-        
+
         // Clear affected caches
         $this->cacheService->clearOrderRelatedCaches($order);
-        
+
         return $result;
     }
 
@@ -122,16 +122,17 @@ class OrderService
     public function updateStatus(int $orderId, string $status): bool
     {
         $order = Order::findOrFail($orderId);
-        
-        if (!$order->transitionTo($status)) {
+
+        if (! $order->transitionTo($status)) {
             Log::warning('Invalid order status transition', [
                 'order_id' => $orderId,
                 'from' => $order->status,
                 'to' => $status,
             ]);
+
             return false;
         }
-        
+
         return true;
     }
 
@@ -171,13 +172,13 @@ class OrderService
     public function cancelOrder(int $orderId): bool
     {
         $order = Order::findOrFail($orderId);
-        
+
         if ($order->isFinalState()) {
             return false;
         }
-        
+
         $order->update(['status' => Order::STATUS_CANCELLED]);
-        
+
         return true;
     }
 }

@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Donation;
 use App\Models\Order;
 use App\Models\User;
-use App\Models\Donation;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Service for caching dashboard statistics
@@ -27,7 +26,7 @@ class DashboardCacheService
         return Cache::remember(
             'admin.stats',
             self::CACHE_TTL,
-            fn() => $this->calculateAdminStats()
+            fn () => $this->calculateAdminStats()
         );
     }
 
@@ -39,7 +38,7 @@ class DashboardCacheService
         return Cache::remember(
             "partner.{$partnerId}.stats",
             self::CACHE_TTL,
-            fn() => $this->calculatePartnerStats($partnerId)
+            fn () => $this->calculatePartnerStats($partnerId)
         );
     }
 
@@ -51,7 +50,7 @@ class DashboardCacheService
         return Cache::remember(
             "driver.{$driverId}.stats",
             self::CACHE_TTL,
-            fn() => $this->calculateDriverStats($driverId)
+            fn () => $this->calculateDriverStats($driverId)
         );
     }
 
@@ -63,7 +62,7 @@ class DashboardCacheService
         return Cache::remember(
             "member.{$userId}.stats",
             self::CACHE_TTL,
-            fn() => $this->calculateMemberStats($userId)
+            fn () => $this->calculateMemberStats($userId)
         );
     }
 
@@ -155,7 +154,7 @@ class DashboardCacheService
         return Cache::remember(
             "partner.{$partnerId}.trends",
             self::CACHE_TTL,
-            fn() => $this->calculatePartnerTrends($partnerId)
+            fn () => $this->calculatePartnerTrends($partnerId)
         );
     }
 
@@ -175,7 +174,7 @@ class DashboardCacheService
             $date = now()->subDays($i);
             $data[] = [
                 'day' => $date->format('D'),
-                'count' => $trends->get($date->format('Y-m-d'), 0)
+                'count' => $trends->get($date->format('Y-m-d'), 0),
             ];
         }
 
@@ -221,7 +220,7 @@ class DashboardCacheService
     public function clearOrderRelatedCaches(Order $order): void
     {
         $this->clearAdminCache();
-        
+
         if ($order->partnerID) {
             $this->clearPartnerCache($order->partnerID);
         }

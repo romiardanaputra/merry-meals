@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function __construct(protected User $model)
-    {
-    }
+    public function __construct(protected User $model) {}
 
     public function all(): Collection
     {
@@ -30,12 +28,14 @@ class UserRepository implements UserRepositoryInterface
     public function update(int $id, array $data): bool
     {
         $user = $this->find($id);
+
         return $user ? $user->update($data) : false;
     }
 
     public function delete(int $id): bool
     {
         $user = $this->find($id);
+
         return $user ? $user->delete() : false;
     }
 

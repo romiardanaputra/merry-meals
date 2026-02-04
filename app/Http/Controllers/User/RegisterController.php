@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\User;
-use App\Models\Geolocation;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\User\UserLocation;
-use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\User\UserCreateRequest;
-
+use App\Http\Requests\User\UserLocation;
+use App\Models\Geolocation;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Stevebauman\Location\Facades\Location;
 
 class RegisterController extends Controller
 {
-
     public function index(Request $request)
     {
-        $data = Location::get('https://' . $request->ip());
+        $data = Location::get('https://'.$request->ip());
+
         return view('components.register', compact('data'), [
             'title_page' => 'Sign Up',
         ]);
@@ -29,13 +28,14 @@ class RegisterController extends Controller
         $users['password'] = Hash::make($users['password']);
         $dataUsers = User::create($users);
         self::userLocation($dataUsers, $request, $reqLoc);
+
         return to_route('login')->with('successRegister', 'successfully registration please login!');
     }
 
     public static function userLocation($dataUsers, $request, $reqLoc)
     {
         $uLoc = $reqLoc->validated();
-        $data = Location::get('https://' . $request->ip());
+        $data = Location::get('https://'.$request->ip());
         $uLoc['ip'] = $data->ip;
         $uLoc['countryName'] = $data->countryName;
         $uLoc['countryCode'] = $data->countryCode;

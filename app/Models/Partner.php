@@ -18,7 +18,8 @@ class Partner extends Model
         return $this->belongsTo(User::class, 'userID', 'id');
     }
 
-    public function geolocation(){
+    public function geolocation()
+    {
         return $this->hasOne(Geolocation::class, 'partnerID', 'id');
     }
 

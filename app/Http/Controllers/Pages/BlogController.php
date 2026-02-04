@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use Artesaos\SEOTools\Facades\SEOTools;
-use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {

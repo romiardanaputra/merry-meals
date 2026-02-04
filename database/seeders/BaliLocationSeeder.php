@@ -7,16 +7,16 @@ use App\Models\Meal;
 use App\Models\Order;
 use App\Models\Partner;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
 
 /**
  * BaliLocationSeeder
- * 
+ *
  * Creates test data with REAL Bali locations within 10km delivery radius.
  * Central point: Denpasar (-8.6705, 115.2126)
- * 
+ *
  * Run with: php artisan db:seed --class=BaliLocationSeeder
  */
 class BaliLocationSeeder extends Seeder
@@ -30,65 +30,65 @@ class BaliLocationSeeder extends Seeder
             'name' => 'Jl. Teuku Umar No.112, Denpasar',
             'lat' => -8.6639,
             'lng' => 115.2126,
-            'area' => 'Denpasar Barat'
+            'area' => 'Denpasar Barat',
         ],
         [
             'name' => 'Jl. Gatot Subroto Timur No.45, Denpasar',
             'lat' => -8.6368,
             'lng' => 115.2367,
-            'area' => 'Denpasar Timur'
+            'area' => 'Denpasar Timur',
         ],
         [
             'name' => 'Jl. Imam Bonjol No.88, Pemecutan Kelod',
             'lat' => -8.6583,
             'lng' => 115.2011,
-            'area' => 'Denpasar Barat'
+            'area' => 'Denpasar Barat',
         ],
         [
             'name' => 'Jl. Hayam Wuruk No.168, Sumerta',
             'lat' => -8.6467,
             'lng' => 115.2369,
-            'area' => 'Denpasar Timur'
+            'area' => 'Denpasar Timur',
         ],
         // Sanur Area (~6km from center)
         [
             'name' => 'Jl. Danau Tamblingan No.88, Sanur',
             'lat' => -8.6931,
             'lng' => 115.2625,
-            'area' => 'Sanur'
+            'area' => 'Sanur',
         ],
         [
             'name' => 'Jl. Bypass Ngurah Rai No.21, Sanur Kauh',
             'lat' => -8.7083,
             'lng' => 115.2531,
-            'area' => 'Sanur'
+            'area' => 'Sanur',
         ],
         // Renon Area (~4km from center)
         [
             'name' => 'Jl. Raya Puputan No.77, Renon',
             'lat' => -8.6722,
             'lng' => 115.2358,
-            'area' => 'Renon'
+            'area' => 'Renon',
         ],
         [
             'name' => 'Jl. Tukad Pakerisan No.12, Panjer',
             'lat' => -8.6839,
             'lng' => 115.2264,
-            'area' => 'Panjer'
+            'area' => 'Panjer',
         ],
         // Sesetan Area (~5km from center)
         [
             'name' => 'Jl. Raya Sesetan No.155, Sesetan',
             'lat' => -8.6994,
             'lng' => 115.2161,
-            'area' => 'Sesetan'
+            'area' => 'Sesetan',
         ],
         // Kerobokan Area (~9km from center)
         [
             'name' => 'Jl. Raya Kerobokan No.88, Kerobokan',
             'lat' => -8.6758,
             'lng' => 115.1633,
-            'area' => 'Kerobokan'
+            'area' => 'Kerobokan',
         ],
     ];
 
@@ -194,10 +194,12 @@ class BaliLocationSeeder extends Seeder
         // ============================================
         $members = [];
         $memberNames = ['Wayan Sudiarta', 'Made Kartika', 'Nyoman Sari', 'Ketut Dharma', 'Wayan Adi'];
-        
+
         foreach ($this->baliLocations as $i => $location) {
-            if ($i >= 5) break; // Create 5 members
-            
+            if ($i >= 5) {
+                break;
+            } // Create 5 members
+
             $member = User::updateOrCreate(
                 ['email' => "member.bali{$i}@merrymeals.com"],
                 [
@@ -286,10 +288,10 @@ class BaliLocationSeeder extends Seeder
         }
 
         $this->command->info('✅ Bali Location Seeder completed!');
-        $this->command->info("   - 1 Partner (pickup point in Denpasar)");
-        $this->command->info("   - 5 Members with real Bali addresses");
-        $this->command->info("   - 1 Driver assigned to orders");
-        $this->command->info("   - 5 Active orders for testing");
+        $this->command->info('   - 1 Partner (pickup point in Denpasar)');
+        $this->command->info('   - 5 Members with real Bali addresses');
+        $this->command->info('   - 1 Driver assigned to orders');
+        $this->command->info('   - 5 Active orders for testing');
         $this->command->info("\n📱 All members use phone: {$defaultPhone}");
     }
 
@@ -299,16 +301,16 @@ class BaliLocationSeeder extends Seeder
     private function calculateDistance($lat1, $lng1, $lat2, $lng2): float
     {
         $earthRadius = 6371; // km
-        
+
         $dLat = deg2rad($lat2 - $lat1);
         $dLng = deg2rad($lng2 - $lng1);
-        
-        $a = sin($dLat/2) * sin($dLat/2) +
+
+        $a = sin($dLat / 2) * sin($dLat / 2) +
              cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-             sin($dLng/2) * sin($dLng/2);
-        
-        $c = 2 * atan2(sqrt($a), sqrt(1-$a));
-        
+             sin($dLng / 2) * sin($dLng / 2);
+
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
         return round($earthRadius * $c, 1);
     }
 }

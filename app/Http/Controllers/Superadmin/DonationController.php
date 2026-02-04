@@ -28,7 +28,7 @@ class DonationController extends Controller
         }
 
         $donations = $query->paginate(15);
-        
+
         // Stats
         $totalDonations = Donation::sum('donationAmount');
         $donationCount = Donation::count();
@@ -55,7 +55,7 @@ class DonationController extends Controller
     {
         $donations = Donation::latest()->get();
 
-        $filename = 'donations_' . date('Y-m-d') . '.csv';
+        $filename = 'donations_'.date('Y-m-d').'.csv';
         $headers = [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => "attachment; filename=\"$filename\"",

@@ -21,7 +21,7 @@ class UserUpdateRequest extends FormRequest
             'age' => ['numeric'],
             'address' => [],
             'password' => ['min:6'],
-            'role' => []
+            'role' => [],
         ];
     }
 }

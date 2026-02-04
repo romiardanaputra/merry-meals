@@ -34,7 +34,7 @@ class SuperadminController extends Controller
                 Order::STATUS_READY,
                 Order::STATUS_ASSIGNED,
                 Order::STATUS_PICKED_UP,
-                Order::STATUS_IN_TRANSIT
+                Order::STATUS_IN_TRANSIT,
             ])->count(),
             'delivered_orders' => Order::where('status', Order::STATUS_DELIVERED)->count(),
         ];

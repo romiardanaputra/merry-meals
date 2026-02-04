@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->paginate(15);
-        
+
         return view('features.superadmin.users.index', compact('users'));
     }
 
@@ -75,13 +75,13 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'username' => 'required|string|max:255|unique:users,username,'.$user->id,
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
             'role' => 'required|in:superadmin,admin,member,partner,driver',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        if (!empty($validated['password'])) {
+        if (! empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
         } else {
             unset($validated['password']);

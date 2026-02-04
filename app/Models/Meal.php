@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -98,7 +98,7 @@ class Meal extends Model
      */
     public function getImageUrlAttribute(): ?string
     {
-        if (!$this->mealImage) {
+        if (! $this->mealImage) {
             return null;
         }
 
@@ -106,6 +106,6 @@ class Meal extends Model
             return $this->mealImage;
         }
 
-        return asset('storage/' . $this->mealImage);
+        return asset('storage/'.$this->mealImage);
     }
 }

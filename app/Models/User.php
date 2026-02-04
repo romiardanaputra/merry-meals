@@ -7,73 +7,77 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $table = 'users';
-  protected $primaryKey = 'id';
-  protected $guarded = ['id'];
+    protected $table = 'users';
 
-  const ROLE_SUPERADMIN = 'superadmin';
-  const ROLE_ADMIN = 'admin';
-  const ROLE_MEMBER = 'member';
-  const ROLE_PARTNER = 'partner';
-  const ROLE_DRIVER = 'driver';
+    protected $primaryKey = 'id';
 
-  protected $fillable = [
-    'name',
-    'username',
-    'email',
-    'phone',
-    'address',
-    'password',
-    'role',
-    'age',
-  ];
+    protected $guarded = ['id'];
 
-  public function isSuperAdmin()
-  {
-    return $this->role === self::ROLE_SUPERADMIN;
-  }
+    const ROLE_SUPERADMIN = 'superadmin';
 
-  public function isAdmin()
-  {
-    return $this->role === self::ROLE_ADMIN;
-  }
+    const ROLE_ADMIN = 'admin';
 
-  public function isMember()
-  {
-    return $this->role === self::ROLE_MEMBER;
-  }
+    const ROLE_MEMBER = 'member';
 
-  public function isPartner()
-  {
-    return $this->role === self::ROLE_PARTNER;
-  }
+    const ROLE_PARTNER = 'partner';
 
-  public function isDriver()
-  {
-    return $this->role === self::ROLE_DRIVER;
-  }
+    const ROLE_DRIVER = 'driver';
 
+    protected $fillable = [
+        'name',
+        'username',
+        'email',
+        'phone',
+        'address',
+        'password',
+        'role',
+        'age',
+    ];
 
-  public function partner()
-  {
-    return $this->hasOne(Partner::class, 'userID', 'id');
-  }
+    public function isSuperAdmin()
+    {
+        return $this->role === self::ROLE_SUPERADMIN;
+    }
 
-  public function order()
-  {
-    return $this->hasMany(Order::class, 'userID', 'id');
-  }
+    public function isAdmin()
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
 
-  public function geolocation()
-  {
-    return $this->hasOne(Geolocation::class, 'userID', 'id');
-  }
+    public function isMember()
+    {
+        return $this->role === self::ROLE_MEMBER;
+    }
 
-  public function survey()
-  {
-    return $this->hasOne(Survey::class, 'userID', 'id');
-  }
+    public function isPartner()
+    {
+        return $this->role === self::ROLE_PARTNER;
+    }
 
+    public function isDriver()
+    {
+        return $this->role === self::ROLE_DRIVER;
+    }
+
+    public function partner()
+    {
+        return $this->hasOne(Partner::class, 'userID', 'id');
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'userID', 'id');
+    }
+
+    public function geolocation()
+    {
+        return $this->hasOne(Geolocation::class, 'userID', 'id');
+    }
+
+    public function survey()
+    {
+        return $this->hasOne(Survey::class, 'userID', 'id');
+    }
 }

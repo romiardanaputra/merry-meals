@@ -10,8 +10,6 @@ class MinifyHtml
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -34,6 +32,7 @@ class MinifyHtml
     protected function isHtmlResponse($response)
     {
         $contentType = $response->headers->get('Content-Type');
+
         return is_string($contentType) && strpos($contentType, 'text/html') !== false;
     }
 
@@ -49,14 +48,14 @@ class MinifyHtml
             '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
             '/[^\S ]+\</s',     // strip whitespaces before tags, except space
             '/(\s)+/s',         // shorten multiple whitespace sequences
-            '/<!--(.|\s)*?-->/' // Remove HTML comments
+            '/<!--(.|\s)*?-->/', // Remove HTML comments
         ];
 
         $replace = [
             '>',
             '<',
             '\\1',
-            ''
+            '',
         ];
 
         return preg_replace($search, $replace, $html);

@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MealRepository implements MealRepositoryInterface
 {
-    public function __construct(protected Meal $model)
-    {
-    }
+    public function __construct(protected Meal $model) {}
 
     public function all(): Collection
     {
@@ -30,12 +28,14 @@ class MealRepository implements MealRepositoryInterface
     public function update(int $id, array $data): bool
     {
         $meal = $this->find($id);
+
         return $meal ? $meal->update($data) : false;
     }
 
     public function delete(int $id): bool
     {
         $meal = $this->find($id);
+
         return $meal ? $meal->delete() : false;
     }
 

@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class OrderRepository implements OrderRepositoryInterface
 {
-    public function __construct(protected Order $model)
-    {
-    }
+    public function __construct(protected Order $model) {}
 
     public function all(): Collection
     {
@@ -30,12 +28,14 @@ class OrderRepository implements OrderRepositoryInterface
     public function update(int $id, array $data): bool
     {
         $order = $this->find($id);
+
         return $order ? $order->update($data) : false;
     }
 
     public function delete(int $id): bool
     {
         $order = $this->find($id);
+
         return $order ? $order->delete() : false;
     }
 
@@ -62,6 +62,7 @@ class OrderRepository implements OrderRepositoryInterface
     public function updateStatus(int $id, string $status): bool
     {
         $order = $this->find($id);
+
         return $order ? $order->update(['status' => $status]) : false;
     }
 }

@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DonationRepository implements DonationRepositoryInterface
 {
-    public function __construct(protected Donation $model)
-    {
-    }
+    public function __construct(protected Donation $model) {}
 
     public function all(): Collection
     {
@@ -30,12 +28,14 @@ class DonationRepository implements DonationRepositoryInterface
     public function update(int $id, array $data): bool
     {
         $donation = $this->find($id);
+
         return $donation ? $donation->update($data) : false;
     }
 
     public function delete(int $id): bool
     {
         $donation = $this->find($id);
+
         return $donation ? $donation->delete() : false;
     }
 

@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Member\MemberManagementController;
 use App\Http\Controllers\Pages\AboutController;
 use App\Http\Controllers\Pages\BlogController;
 use App\Http\Controllers\Pages\ContactController;
+use App\Http\Controllers\Pages\DocsController;
 use App\Http\Controllers\Pages\DonationController;
 use App\Http\Controllers\Pages\IndexController;
-use App\Http\Controllers\Pages\DocsController;
-use App\Http\Controllers\Admin\UserManagementController;
-use App\Http\Controllers\Member\MemberManagementController;
 use App\Http\Controllers\Partner\PartnerMealController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
@@ -25,15 +25,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::middleware(['auth', 'verified'])->group(function () {
     // Shared Dashboard Redirect (if using '/dashboard')
     Route::get('/dashboard', function () {
         $user = auth()->user();
-        if ($user->role === User::ROLE_SUPERADMIN) return redirect('superadmin/dashboard');
-        if ($user->role === User::ROLE_ADMIN) return redirect(RouteServiceProvider::ADMIN_DASHBOARD);
-        if ($user->role === User::ROLE_PARTNER) return redirect(RouteServiceProvider::PARTNER_DASHBOARD);
-        if ($user->role === User::ROLE_DRIVER) return redirect('driver/dashboard');
+        if ($user->role === User::ROLE_SUPERADMIN) {
+            return redirect('superadmin/dashboard');
+        }
+        if ($user->role === User::ROLE_ADMIN) {
+            return redirect(RouteServiceProvider::ADMIN_DASHBOARD);
+        }
+        if ($user->role === User::ROLE_PARTNER) {
+            return redirect(RouteServiceProvider::PARTNER_DASHBOARD);
+        }
+        if ($user->role === User::ROLE_DRIVER) {
+            return redirect('driver/dashboard');
+        }
+
         return redirect(RouteServiceProvider::MEMBER_DASHBOARD);
     })->name('dashboard');
 
@@ -41,10 +49,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('roles:superadmin')->prefix('superadmin')->name('superadmin.')->group(function () {
         // Dashboard
         Route::get('/dashboard', [\App\Http\Controllers\Superadmin\SuperadminController::class, 'index'])->name('dashboard');
-        
+
         // User Management
         Route::resource('users', \App\Http\Controllers\Superadmin\UserController::class);
-        
+
         // Partner Management
         Route::get('/partners', [\App\Http\Controllers\Superadmin\PartnerController::class, 'index'])->name('partners.index');
         Route::get('/partners/{partner}', [\App\Http\Controllers\Superadmin\PartnerController::class, 'show'])->name('partners.show');
@@ -52,32 +60,31 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/partners/{partner}/reject', [\App\Http\Controllers\Superadmin\PartnerController::class, 'reject'])->name('partners.reject');
         Route::post('/partners/{partner}/suspend', [\App\Http\Controllers\Superadmin\PartnerController::class, 'suspend'])->name('partners.suspend');
         Route::delete('/partners/{partner}', [\App\Http\Controllers\Superadmin\PartnerController::class, 'destroy'])->name('partners.destroy');
-        
+
         // Order Management
         Route::get('/orders', [\App\Http\Controllers\Superadmin\OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [\App\Http\Controllers\Superadmin\OrderController::class, 'show'])->name('orders.show');
         Route::post('/orders/{order}/assign', [\App\Http\Controllers\Superadmin\OrderController::class, 'assignDriver'])->name('orders.assign');
         Route::patch('/orders/{order}/status', [\App\Http\Controllers\Superadmin\OrderController::class, 'updateStatus'])->name('orders.status');
         Route::post('/orders/{order}/cancel', [\App\Http\Controllers\Superadmin\OrderController::class, 'cancel'])->name('orders.cancel');
-        
+
         // Donation Management
         Route::get('/donations', [\App\Http\Controllers\Superadmin\DonationController::class, 'index'])->name('donations.index');
         Route::get('/donations/export', [\App\Http\Controllers\Superadmin\DonationController::class, 'export'])->name('donations.export');
         Route::get('/donations/{donation}', [\App\Http\Controllers\Superadmin\DonationController::class, 'show'])->name('donations.show');
-        
+
         // Reports & Analytics
         Route::get('/reports', [\App\Http\Controllers\Superadmin\ReportController::class, 'index'])->name('reports.index');
-        
+
         // Profile Management
         Route::get('/profile', [\App\Http\Controllers\Superadmin\ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [\App\Http\Controllers\Superadmin\ProfileController::class, 'update'])->name('profile.update');
         Route::patch('/profile/password', [\App\Http\Controllers\Superadmin\ProfileController::class, 'updatePassword'])->name('profile.password');
-        
+
         // Settings
         Route::get('/settings', [\App\Http\Controllers\Superadmin\SuperadminController::class, 'settings'])->name('settings');
         Route::put('/settings', [\App\Http\Controllers\Superadmin\SuperadminController::class, 'updateSettings'])->name('settings.update');
     });
-
 
     // Admin Routes (accessible by superadmin and admin)
     Route::middleware('roles:superadmin,admin')->prefix('admin')->group(function () {
@@ -113,14 +120,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [MemberManagementController::class, 'index'])->name('dashboard');
         Route::get('/survey', [MemberManagementController::class, 'surveyShow'])->name('survey');
         Route::post('/survey', [MemberManagementController::class, 'surveyStore'])->name('survey.store');
-        
+
         // Member Meals - Browse & Order
         Route::prefix('meals')->name('meals.')->group(function () {
             Route::get('/', [MemberManagementController::class, 'menuMealShow'])->name('menu');
             Route::get('/{id}', [MemberManagementController::class, 'menuDetailShow'])->name('detail');
             Route::get('/{id}/package', [MemberManagementController::class, 'packageFood'])->name('package');
             Route::post('/order', [MemberManagementController::class, 'store'])->middleware('throttle:orders')->name('order');
-            Route::get('/order/success', function () { return view('features.member.meals.success'); })->name('order.success');
+            Route::get('/order/success', function () {
+                return view('features.member.meals.success');
+            })->name('order.success');
         });
     });
 
@@ -129,13 +138,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [\App\Http\Controllers\Partner\PartnerDashboardController::class, 'index'])->name('index');
         Route::get('/orders', [\App\Http\Controllers\Partner\PartnerOrderController::class, 'index'])->name('orders.index');
         Route::post('/orders/status/{id}', [\App\Http\Controllers\Partner\PartnerOrderController::class, 'update'])->name('orders.update');
-        
+
         // Partner Profile
         Route::get('/partner-profile/create', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'create'])->name('create');
         Route::post('/partner-profile/store', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'store'])->name('store');
         Route::get('/partner-profile', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'edit'])->name('profile.edit');
         Route::put('/partner-profile', [\App\Http\Controllers\Partner\PartnerProfileController::class, 'update'])->name('profile.update');
-        
+
         // Partner Meals - CRUD Management
         Route::prefix('meals')->name('meals.')->group(function () {
             Route::get('/', [PartnerMealController::class, 'index'])->name('index');
@@ -166,7 +175,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
     Route::get('/docs', [DocsController::class, 'index'])->name('docs');
-    Route::get('/term', function() { return view('term'); })->name('term');
+    Route::get('/term', function () {
+        return view('term');
+    })->name('term');
 
     // SEO
     Route::get('/sitemap.xml', [\App\Http\Controllers\SeoController::class, 'sitemap'])->name('sitemap');
@@ -181,4 +192,4 @@ Route::group(['middleware' => 'web'], function () {
     });
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

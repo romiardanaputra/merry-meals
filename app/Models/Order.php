@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Services\DashboardCacheService;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Order Model
@@ -20,12 +20,19 @@ class Order extends Model
      * Based on DELIVERY_FLOW.md specifications
      */
     const STATUS_PENDING = 'pending';
+
     const STATUS_PREPARATION = 'preparation';
+
     const STATUS_READY = 'ready_for_pickup';
+
     const STATUS_ASSIGNED = 'assigned';
+
     const STATUS_PICKED_UP = 'picked_up';
+
     const STATUS_IN_TRANSIT = 'in_transit';
+
     const STATUS_DELIVERED = 'delivered';
+
     const STATUS_CANCELLED = 'cancelled';
 
     /**
@@ -83,54 +90,54 @@ class Order extends Model
      */
     public function getStatusMetaAttribute(): array
     {
-        return match($this->status) {
+        return match ($this->status) {
             self::STATUS_PENDING => [
-                'bg' => 'bg-yellow-500/10', 
-                'text' => 'text-yellow-600', 
+                'bg' => 'bg-yellow-500/10',
+                'text' => 'text-yellow-600',
                 'label' => 'Processing',
-                'description' => 'Awaiting kitchen preparation'
+                'description' => 'Awaiting kitchen preparation',
             ],
             self::STATUS_PREPARATION => [
-                'bg' => 'bg-blue-500/10', 
-                'text' => 'text-blue-600', 
+                'bg' => 'bg-blue-500/10',
+                'text' => 'text-blue-600',
                 'label' => 'Preparing',
-                'description' => 'Chefs are crafting your meal'
+                'description' => 'Chefs are crafting your meal',
             ],
             self::STATUS_READY => [
-                'bg' => 'bg-indigo-500/10', 
-                'text' => 'text-indigo-600', 
+                'bg' => 'bg-indigo-500/10',
+                'text' => 'text-indigo-600',
                 'label' => 'Ready',
-                'description' => 'Waiting for driver pickup'
+                'description' => 'Waiting for driver pickup',
             ],
             self::STATUS_ASSIGNED => [
-                'bg' => 'bg-primary/10', 
-                'text' => 'text-primary', 
+                'bg' => 'bg-primary/10',
+                'text' => 'text-primary',
                 'label' => 'Out for Delivery',
-                'description' => 'Driver has been assigned'
+                'description' => 'Driver has been assigned',
             ],
             self::STATUS_PICKED_UP, self::STATUS_IN_TRANSIT => [
-                'bg' => 'bg-purple-500/10', 
-                'text' => 'text-purple-600', 
+                'bg' => 'bg-purple-500/10',
+                'text' => 'text-purple-600',
                 'label' => 'In Transit',
-                'description' => 'Meal is on the way'
+                'description' => 'Meal is on the way',
             ],
             self::STATUS_DELIVERED => [
-                'bg' => 'bg-green-500/10', 
-                'text' => 'text-green-600', 
+                'bg' => 'bg-green-500/10',
+                'text' => 'text-green-600',
                 'label' => 'Success',
-                'description' => 'Meal safely delivered'
+                'description' => 'Meal safely delivered',
             ],
             self::STATUS_CANCELLED => [
-                'bg' => 'bg-red-500/10', 
-                'text' => 'text-red-600', 
+                'bg' => 'bg-red-500/10',
+                'text' => 'text-red-600',
                 'label' => 'Cancelled',
-                'description' => 'Order could not be fulfilled'
+                'description' => 'Order could not be fulfilled',
             ],
             default => [
-                'bg' => 'bg-dark/5', 
-                'text' => 'text-dark/40', 
+                'bg' => 'bg-dark/5',
+                'text' => 'text-dark/40',
                 'label' => str_replace('_', ' ', $this->status),
-                'description' => 'Status unknown'
+                'description' => 'Status unknown',
             ],
         };
     }
@@ -186,7 +193,7 @@ class Order extends Model
         return $query->whereIn('status', [
             self::STATUS_ASSIGNED,
             self::STATUS_PICKED_UP,
-            self::STATUS_IN_TRANSIT
+            self::STATUS_IN_TRANSIT,
         ]);
     }
 
@@ -274,7 +281,7 @@ class Order extends Model
     {
         $currentStatus = $this->status ?? self::STATUS_PENDING;
         $allowedTransitions = self::$validTransitions[$currentStatus] ?? [];
-        
+
         return in_array($newStatus, $allowedTransitions);
     }
 
@@ -283,12 +290,12 @@ class Order extends Model
      */
     public function transitionTo(string $newStatus): bool
     {
-        if (!$this->canTransitionTo($newStatus)) {
+        if (! $this->canTransitionTo($newStatus)) {
             return false;
         }
 
         $this->status = $newStatus;
-        
+
         // Set timestamps for tracking
         if ($newStatus === self::STATUS_PICKED_UP) {
             $this->pickupTime = now();
@@ -316,7 +323,7 @@ class Order extends Model
      */
     public function getStatusLabelAttribute(): string
     {
-        return match($this->status) {
+        return match ($this->status) {
             self::STATUS_PENDING => 'Pending',
             self::STATUS_PREPARATION => 'In Preparation',
             self::STATUS_READY => 'Ready for Pickup',
@@ -334,7 +341,7 @@ class Order extends Model
      */
     public function getStatusColorAttribute(): string
     {
-        return match($this->status) {
+        return match ($this->status) {
             self::STATUS_PENDING => 'gray',
             self::STATUS_PREPARATION => 'amber',
             self::STATUS_READY => 'blue',

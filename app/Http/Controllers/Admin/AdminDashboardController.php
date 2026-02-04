@@ -7,7 +7,6 @@ use App\Models\Donation;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\DashboardCacheService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -28,7 +27,7 @@ class AdminDashboardController extends Controller
     {
         // Get cached stats to improve performance
         $stats = $this->cacheService->getAdminStats();
-        
+
         // Calculate growth percentages (demo/real logic integration)
         $userGrowth = $this->calculateGrowth(User::class);
         $donationGrowth = $this->calculateGrowth(Donation::class, 'donationAmount');
@@ -43,14 +42,14 @@ class AdminDashboardController extends Controller
                 'users' => $userGrowth,
                 'donations' => $donationGrowth,
                 'orders' => $orderGrowth,
-            ]
+            ],
         ]);
     }
 
     /**
      * Helper to calculate MoM growth
      */
-    private function calculateGrowth(string $model, string $sumField = null): int
+    private function calculateGrowth(string $model, ?string $sumField = null): int
     {
         $currentMonth = now()->startOfMonth();
         $lastMonth = now()->subMonth()->startOfMonth();
@@ -66,9 +65,11 @@ class AdminDashboardController extends Controller
             $last = $lastQuery->count();
         }
 
-        if ($last == 0) return $current > 0 ? 100 : 0;
-        
-        return (int)(($current - $last) / $last * 100);
+        if ($last == 0) {
+            return $current > 0 ? 100 : 0;
+        }
+
+        return (int) (($current - $last) / $last * 100);
     }
 
     /**
@@ -80,17 +81,17 @@ class AdminDashboardController extends Controller
             DB::raw('DATE(created_at) as date'),
             DB::raw('SUM(donationAmount) as total')
         )
-        ->where('created_at', '>=', now()->subDays(6)->startOfDay())
-        ->groupBy('date')
-        ->get()
-        ->pluck('total', 'date');
+            ->where('created_at', '>=', now()->subDays(6)->startOfDay())
+            ->groupBy('date')
+            ->get()
+            ->pluck('total', 'date');
 
         $data = collect();
         for ($i = 6; $i >= 0; $i--) {
             $date = now()->subDays($i)->format('Y-m-d');
             $data->push([
                 'date' => now()->subDays($i)->format('d M'),
-                'total' => $stats->get($date, 0)
+                'total' => $stats->get($date, 0),
             ]);
         }
 

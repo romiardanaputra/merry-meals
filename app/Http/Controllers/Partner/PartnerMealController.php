@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Partner;
 
-use App\Models\Meal;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\MealCreateRequest;
 use App\Http\Requests\Partner\MealUpdateRequest;
+use App\Models\Meal;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class PartnerMealController extends Controller
@@ -26,12 +26,13 @@ class PartnerMealController extends Controller
             'title_page' => 'Meal Management',
         ]);
     }
+
     // display for form partner profile
     public function create()
     {
         return view('features.partner.meals.create', [
             'title_page' => 'Create Meal',
-            'dashboard_info' => 'Create Meal'
+            'dashboard_info' => 'Create Meal',
         ]);
     }
 
@@ -40,14 +41,15 @@ class PartnerMealController extends Controller
     {
         $mealData = $request->validated();
         $mealData['partnerID'] = auth()->user()->partner->id;
-        
+
         if ($request->hasFile('mealImage')) {
             $path = $request->file('mealImage')->store('meal-images', 'public');
-            ImageOptimizer::optimize(storage_path('app/public/' . $path));
+            ImageOptimizer::optimize(storage_path('app/public/'.$path));
             $mealData['mealImage'] = $path;
         }
 
         Meal::create($mealData);
+
         return to_route('partner.meals.index');
     }
 
@@ -59,13 +61,13 @@ class PartnerMealController extends Controller
         ]);
     }
 
-    // show edit form meal based meal id 
+    // show edit form meal based meal id
     public function edit($id)
     {
         return view('features.partner.meals.edit', [
             'meal' => Meal::find($id),
             'title_page' => 'Edit Meal',
-            'dashboard_info' => 'Edit Meal'
+            'dashboard_info' => 'Edit Meal',
         ]);
     }
 
@@ -74,14 +76,15 @@ class PartnerMealController extends Controller
     {
         $mealData = $request->validated();
         $mealData['partnerID'] = auth()->user()->partner->id;
-        
+
         if ($request->hasFile('mealImage')) {
             $path = $request->file('mealImage')->store('meal-images', 'public');
-            ImageOptimizer::optimize(storage_path('app/public/' . $path));
+            ImageOptimizer::optimize(storage_path('app/public/'.$path));
             $mealData['mealImage'] = $path;
         }
 
         Meal::where('id', $id)->update($mealData);
+
         return to_route('partner.meals.index');
     }
 
@@ -89,6 +92,7 @@ class PartnerMealController extends Controller
     public function destroy($id)
     {
         Meal::where('id', $id)->delete();
+
         return back();
     }
 }

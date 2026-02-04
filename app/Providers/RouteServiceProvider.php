@@ -18,11 +18,17 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/';
+
     public const ADMIN_DASHBOARD = 'admin';
+
     public const MEMBER_DASHBOARD = 'member/menu';
+
     public const CAREGIVER_DASHBOARD = 'member/menu';
+
     public const VOLUNTEER_DASHBOARD = 'volunteer';
+
     public const PARTNER_DASHBOARD = 'partner';
+
     public const DONOR_DASHBOARD = 'member/menu';
 
     /**
@@ -55,7 +61,7 @@ class RouteServiceProvider extends ServiceProvider
         // Login rate limiter: 5 attempts per minute (security)
         RateLimiter::for('login', function (Request $request) {
             return Limit::perMinute(5)
-                ->by($request->input('email') . '|' . $request->ip())
+                ->by($request->input('email').'|'.$request->ip())
                 ->response(function () {
                     return redirect()
                         ->back()
