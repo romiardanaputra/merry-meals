@@ -9,6 +9,11 @@ class ContactController extends Controller
 {
     public function index()
     {
+        SEOTools::setTitle('Contact Us');
+        SEOTools::setDescription('Get in touch with Merry Meals for support, partnership inquiries, or to learn more about our services.');
+        SEOTools::opengraph()->setUrl(url('/contact'));
+        SEOTools::setCanonical(url('/contact'));
+
         return view('features.public.contact.index');
     }
 

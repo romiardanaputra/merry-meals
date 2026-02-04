@@ -6,6 +6,7 @@ use App\Models\Meal;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\MealCreateRequest;
 use App\Http\Requests\Partner\MealUpdateRequest;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class PartnerMealController extends Controller
 {
@@ -37,12 +38,16 @@ class PartnerMealController extends Controller
     // store meal created by partner
     public function store(MealCreateRequest $request)
     {
-        $meal = $request->validated();
-        $meal['partnerID'] = auth()->user()->partner->id;
-        $meal['mealImage'] = ($request->hasFile('mealImage'))
-            ?  $request->file('mealImage')->store('meal-images')
-            : back();
-        Meal::create($meal);
+        $mealData = $request->validated();
+        $mealData['partnerID'] = auth()->user()->partner->id;
+        
+        if ($request->hasFile('mealImage')) {
+            $path = $request->file('mealImage')->store('meal-images', 'public');
+            ImageOptimizer::optimize(storage_path('app/public/' . $path));
+            $mealData['mealImage'] = $path;
+        }
+
+        Meal::create($mealData);
         return to_route('partner.meals.index');
     }
 
@@ -67,12 +72,16 @@ class PartnerMealController extends Controller
     // update meal based on meal id
     public function update(MealUpdateRequest $request, $id)
     {
-        $meal = $request->validated();
-        $meal['partnerID'] = auth()->user()->partner->id;
-        $meal['mealImage'] = ($request->hasFile('mealImage'))
-            ?  $request->file('mealImage')->store('meal-images')
-            : back();
-        Meal::where('id', $id)->update($meal);
+        $mealData = $request->validated();
+        $mealData['partnerID'] = auth()->user()->partner->id;
+        
+        if ($request->hasFile('mealImage')) {
+            $path = $request->file('mealImage')->store('meal-images', 'public');
+            ImageOptimizer::optimize(storage_path('app/public/' . $path));
+            $mealData['mealImage'] = $path;
+        }
+
+        Meal::where('id', $id)->update($mealData);
         return to_route('partner.meals.index');
     }
 

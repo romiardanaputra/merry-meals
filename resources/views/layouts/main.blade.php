@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- SEO & Meta Tags --}}
-    <x-layout.seo :title="$title_page ?? null" />
+    {!! SEO::generate() !!}
 
     {{-- Resource Hints --}}
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
